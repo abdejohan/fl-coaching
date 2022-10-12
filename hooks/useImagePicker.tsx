@@ -21,7 +21,7 @@ export const useImagePicker = () => {
 				}
 			} else {
 				Alert.alert(
-					"Saknar tillgång till bibliotek. Ändra inställningar för AL Coaching i mobilen."
+					"Saknar tillgång till bibliotek. Ändra inställningar för FL Coaching i mobilen."
 				);
 			}
 		}
@@ -65,7 +65,7 @@ export const useImagePicker = () => {
 				}
 			} else {
 				Alert.alert(
-					"Saknar tillgång till bibliotek. Ändra inställningar för AL Coaching i mobilen."
+					"Saknar tillgång till bibliotek. Ändra inställningar för FL Coaching i mobilen."
 				);
 			}
 		}
