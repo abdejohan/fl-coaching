@@ -3,9 +3,9 @@ import "dotenv/config";
 export default {
 	expo: {
 		owner: "coach-apps",
-		name: "AL Coaching",
-		slug: "al-coaching",
-		version: "1.6.5",
+		name: "FL Coaching",
+		slug: "fl-coaching",
+		version: "1.0.0",
 		orientation: "portrait",
 		icon: "./assets/images/icon.png",
 		scheme: "myapp",
@@ -26,7 +26,7 @@ export default {
 			usesIcloudStorage: false,
 			buildNumber: "1",
 			googleServicesFile: "./GoogleService-Info.plist",
-			bundleIdentifier: "io.al.coaching",
+			bundleIdentifier: "bebrightr.coach-app.fl-coaching",
 			infoPlist: {
 				NSCameraUsageDescription:
 					"The app needs camera permission in order for you to take images of your fitness progress",
@@ -35,9 +35,9 @@ export default {
 			},
 		},
 		android: {
-			package: "app.al.coaching",
+			package: "bebrightr.coach_app.fl_coaching",
 			googleServicesFile: "./google-services.json",
-			versionCode: 38,
+			versionCode: 1,
 			permissions: ["NOTIFICATIONS"],
 			useNextNotificationsApi: true,
 			// softwareKeyboardLayoutMode: "pan",
@@ -68,7 +68,7 @@ export default {
 		],
 		extra: {
 			eas: {
-				projectId: "d5fb7af7-116d-4936-9e78-2254bb8f4f56",
+				projectId: "3847f580-2213-4c7c-afe0-031e4bfc0227",
 			},
 			apiUrl: process.env.API_URL,
 			coachSiteUrl: process.env.COACH_SITE_URL,
