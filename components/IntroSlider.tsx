@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View, ImageBackground, Alert } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import Button from "./common/Button";
-import slider_background1 from "../assets/images/slider_background1.jpg";
+import intro_background from "../assets/images/intro_background.jpg";
 import slider_background2 from "../assets/images/slider_background2.jpg";
 import slider_background3 from "../assets/images/slider_background3.jpg";
 import { useTheme } from "react-native-paper";
@@ -18,7 +18,7 @@ const slides = [
 		key: 1,
 		title: "Varmt välkommen",
 		text: "Bra där, ditt första steg mot ett hälsosammare liv. Dagen innan du börjar kommer du erhålla dina upplägg.",
-		image: slider_background1,
+		image: intro_background,
 	},
 	{
 		key: 2,

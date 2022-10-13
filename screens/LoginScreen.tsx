@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { StyleSheet, ImageBackground } from "react-native";
 import { useTheme } from "react-native-paper";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import login_background from "../assets/images/login_background.jpg";
+import intro_background from "../assets/images/intro_background.jpg";
 import AuthContext from "../context/Auth";
 import PasswordLogin from "../components/PasswordLogin";
 import { StatusBar } from "expo-status-bar";
@@ -25,7 +25,7 @@ const LoginScreen: React.FC<LoginProps> = ({ navigation }) => {
 	}, [token, isLoggingOut, user]);
 
 	return (
-		<ImageBackground source={login_background} style={{ flex: 1 }}>
+		<ImageBackground source={intro_background} style={{ flex: 1 }}>
 			<StatusBar style='light' />
 			<KeyboardAwareScrollView
 				style={{ backgroundColor: colors.darkestfade }}
