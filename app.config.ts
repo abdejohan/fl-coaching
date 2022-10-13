@@ -1,5 +1,4 @@
 import "dotenv/config";
-// d0a058
 export default {
 	expo: {
 		owner: "coach-apps",
@@ -62,7 +61,7 @@ export default {
 				"expo-notifications",
 				{
 					icon: "./assets/images/icon.png",
-					color: "#1B3E5B",
+					color: "#FAFAFA",
 				},
 			],
 		],
