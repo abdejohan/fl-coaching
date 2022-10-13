@@ -5,6 +5,7 @@ import Button from "./common/Button";
 import intro_background from "../assets/images/intro_background.jpg";
 import slider_background2 from "../assets/images/slider_background2.jpg";
 import slider_background3 from "../assets/images/slider_background3.jpg";
+import slider_background4 from "../assets/images/slider_background4.jpg";
 import { useTheme } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Headline, Subheading } from "../typography";
@@ -16,21 +17,27 @@ interface SliderProps {
 const slides = [
 	{
 		key: 1,
-		title: "Varmt välkommen",
-		text: "Bra där, ditt första steg mot ett hälsosammare liv. Dagen innan du börjar kommer du erhålla dina upplägg.",
+		title: "Välkommen",
+		text: "Inom 5 dagar kommer du att ha tillgång till ditt skräddarsydda program i appen. Allt är personligt och anpassat efter dig och dina mål.",
 		image: intro_background,
 	},
 	{
 		key: 2,
-		title: "Du är viktig",
-		text: "Dina upplägg byggs i samråd med dig och de svar du angivit vid hälsodelegationen.",
+		title: "Kostplan",
+		text: 'Din kostplan kommer du att finna under "fliken..."',
 		image: slider_background2,
 	},
 	{
 		key: 3,
-		title: "En investering för livet",
-		text: "Var smart nu, använd mig. Ställ frågor och bruka din tid väl.",
+		title: "Träningsplan",
+		text: "I din träningsplan kommer du att kunna dokumentera och logga alla dina träningspass så att du alltid kan prestera lite bättre än förra träningspasset.",
 		image: slider_background3,
+	},
+	{
+		key: 4,
+		title: "Filosofi",
+		text: "Vår filosofi är att god kosthållning och fysiskt aktivitet tillsammans med mental träning är nyckeln till en hållbar och hälsosam livsstil.",
+		image: slider_background4,
 	},
 ];
 
