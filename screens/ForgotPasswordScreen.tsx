@@ -100,8 +100,8 @@ const ForgotPasswordScreen: React.FC<ForgotPasswordProps> = ({ navigation }) => 
 						</Subheading>
 						<Paragraph>
 							OBS! Mail kan ibland sorteras som skräppost. Om du inte får något mail,
-							vänta minst 30 minuter innan du försöker igen. Om problem kvarstår,
-							konstakta din coach!
+							vänta minst 30 minuter innan du försöker igen. Om problem kvarstår, kontakta
+							din coach!
 						</Paragraph>
 					</View>
 					<Button
