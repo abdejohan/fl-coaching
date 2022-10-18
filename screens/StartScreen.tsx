@@ -166,7 +166,7 @@ const StartScreen: React.FC<StartProps> = ({ navigation, route }) => {
 				<ProgressBox title='Lår' sizes={sizesData} />
 			</View>
 			<View style={{ marginTop: 30, alignItems: "center" }}>
-				<Caption>AL Coaching</Caption>
+				<Caption>FL Coaching</Caption>
 				<Caption>{`Version ${Constants.manifest!.version}`}</Caption>
 			</View>
 		</ScrollView>

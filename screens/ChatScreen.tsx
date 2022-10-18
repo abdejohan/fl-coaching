@@ -16,7 +16,7 @@ const ChatScreen: React.FC = () => {
 	const isFocused = useIsFocused();
 
 	const me: TalkRn.User = {
-		id: "AL_" + user!.id.toString(),
+		id: "FL_" + user!.id.toString(),
 		photoUrl: user?.avatar,
 		name: user?.name,
 		role: "default",
@@ -34,7 +34,7 @@ const ChatScreen: React.FC = () => {
 		}, 2000);
 	}, []);
 
-	const other: TalkRn.User = { id: "AL_1" };
+	const other: TalkRn.User = { id: "FL_1" };
 	const conversationBuilder = TalkRn.getConversationBuilder(TalkRn.oneOnOneId(me, other));
 	conversationBuilder.setParticipant(me);
 	conversationBuilder.setParticipant(other);
