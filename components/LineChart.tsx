@@ -29,8 +29,8 @@ const LineChart: React.FC<LineChartProps> = (props) => {
 			const weightArray = sizes.filter((sizeSet: Array<object>) => "weight" in sizeSet);
 			const weightValues = weightArray[0].weight.map((sizeArray: any) => sizeArray.value);
 			if (weightValues.length > 1) setDataArray(weightValues.reverse());
-			setDisplayChart(true);
 		}
+		setDisplayChart(true);
 	}, [sizes, user]);
 
 	return (

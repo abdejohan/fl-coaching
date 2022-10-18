@@ -19,17 +19,17 @@ const CircleChart: React.FC<CircleChartProps> = (props) => {
 	const { user } = useContext(AuthContext);
 	const { colors, roundness } = useTheme();
 	const screenWidth = Dimensions.get("window").width;
-	const [goalDifference, setGoalDifference] = useState<number>(0);
+	const [goalDifference, setGoalDifference] = useState<number>(1);
 	const [displayChart, setDisplayChart] = useState<boolean>(false);
 
 	useEffect(() => {
 		setDisplayChart(false);
-		if (user && sizes) {
+		if (user && sizes && !sizes?.error) {
 			setGoalDifference(
 				Math.round(Math.abs(user?.start_weight - user?.goal_weight) * 10) / 10
 			);
-			setDisplayChart(true);
 		}
+		setDisplayChart(true);
 	}, [sizes, user]);
 
 	return (
