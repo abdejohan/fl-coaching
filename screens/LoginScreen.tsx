@@ -1,11 +1,12 @@
 import React, { useContext, useEffect } from "react";
-import { StyleSheet, ImageBackground } from "react-native";
+import { StyleSheet, ImageBackground, Dimensions } from "react-native";
 import { useTheme } from "react-native-paper";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import intro_background from "../assets/images/intro_background.jpg";
 import AuthContext from "../context/Auth";
 import PasswordLogin from "../components/PasswordLogin";
 import { StatusBar } from "expo-status-bar";
+import Constants from "expo-constants";
 
 interface LoginProps {
 	navigation: any;
@@ -25,9 +26,11 @@ const LoginScreen: React.FC<LoginProps> = ({ navigation }) => {
 	}, [token, isLoggingOut, user]);
 
 	return (
-		<ImageBackground source={intro_background} style={{ flex: 1 }}>
+		<ImageBackground source={intro_background} style={styles.backgroundImage}>
 			<StatusBar style='light' />
 			<KeyboardAwareScrollView
+				enableOnAndroid
+				keyboardShouldPersistTaps='handled'
 				style={{ backgroundColor: colors.darkestfade }}
 				contentContainerStyle={styles.scrollContentContainer}>
 				<PasswordLogin navigation={navigation} />
@@ -42,7 +45,8 @@ const styles = StyleSheet.create({
 	scrollContentContainer: {
 		justifyContent: "flex-end",
 		flex: 1,
-		paddingHorizontal: 20,
-		marginBottom: 50,
+	},
+	backgroundImage: {
+		height: Dimensions.get("window").height + Constants.statusBarHeight,
 	},
 });

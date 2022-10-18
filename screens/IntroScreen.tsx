@@ -23,23 +23,12 @@ const IntroScreen: React.FC<IntroProps> = ({ navigation }) => {
 		<ImageBackground source={intro_background} style={{ flex: 1 }}>
 			<StatusBar style='light' />
 			<View style={[styles.innerContainer, { backgroundColor: colors.darkestfade }]}>
-				<Headline
-					style={{
-						color: colors.white,
-						fontSize: 50,
-						lineHeight: 50,
-						textAlign: "center",
-					}}>
-					Vägen mot en hälsosam livsstil
+				<Headline style={{ color: colors.white, fontSize: 50, lineHeight: 50 }}>
+					Alla som har ett mål når ett vägskäl
 				</Headline>
-				<Headline
-					style={{
-						color: colors.white,
-						fontFamily: "ubuntu-light",
-						textAlign: "center",
-						marginBottom: 50,
-					}}>
-					Tillsammans startar vi din resa mot dina mål här.
+				<Headline style={{ color: colors.white, fontFamily: "ubuntu-light" }}>
+					Man kan välja höger och ge upp, eller vänster och ta en omväg men ändå nå målet
+					något senare.
 				</Headline>
 				<Button
 					onPress={() => navigation.navigate("Login")}

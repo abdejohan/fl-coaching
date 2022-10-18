@@ -14,10 +14,9 @@ const ChatScreen: React.FC = () => {
 	const { colors } = useTheme();
 	const { setChatBadgeCount } = useContext(NotificationsContext);
 	const isFocused = useIsFocused();
-	const prefix = "FL_";
 
 	const me: TalkRn.User = {
-		id: prefix + user!.id.toString(),
+		id: "AL_" + user!.id.toString(),
 		photoUrl: user?.avatar,
 		name: user?.name,
 		role: "default",
@@ -35,7 +34,7 @@ const ChatScreen: React.FC = () => {
 		}, 2000);
 	}, []);
 
-	const other: TalkRn.User = { id: prefix + "1" };
+	const other: TalkRn.User = { id: "AL_1" };
 	const conversationBuilder = TalkRn.getConversationBuilder(TalkRn.oneOnOneId(me, other));
 	conversationBuilder.setParticipant(me);
 	conversationBuilder.setParticipant(other);

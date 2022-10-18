@@ -90,7 +90,40 @@ type Product = {
 	video: string;
 };
 
+// START WORKOUT RELATED
+
+type SaveSet = {
+	saved_reps: string;
+	saved_weight: string;
+	set_id: number;
+	comment: string;
+};
+
+type Set = {
+	reps: string;
+	seconds: string;
+	weight: string;
+	set_id: number;
+	comment: string;
+};
+// END WORKOUT RELATED
+
 type ToggleType = "checked" | "unchecked" | undefined;
+
+type ValidationRules =
+	| "name"
+	| "email"
+	| "emailOrNull"
+	| "phone"
+	| "phoneOrNull"
+	| "min5"
+	| "min40"
+	| "min1"
+	| "text"
+	| "onlyDigits"
+	| "weightOrHeight"
+	| "null";
+
 type autoCompleteTypes =
 	| "off"
 	| "username"
@@ -120,4 +153,7 @@ export {
 	Product,
 	User,
 	BlobProps,
+	ValidationRules,
+	SaveSet,
+	Set,
 };
