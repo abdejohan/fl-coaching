@@ -56,7 +56,7 @@ const DietPlansScreen: React.FC<DietProps> = ({ navigation }) => {
 					/>
 				))}
 			{/** DISPLAYS "NO DIET PLANS" MESSAGE. */}
-			{!dietPlans && !dietLoading && (
+			{dietPlans?.length === 0 && !dietLoading && (
 				<View style={{ paddingTop: 50 }}>
 					<Subheading style={{ textAlign: "center", fontSize: 16, marginBottom: 5 }}>
 						Hittade inget!
