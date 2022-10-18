@@ -6,22 +6,16 @@ import { Text } from "../typography";
 
 const deals = [
 	{
-		title: "15% hos Enough",
+		title: "15% rabatt hos Fantastic Line",
 		description:
-			"Jag har nu möjlighet att erbjuda er en rabatt  hos Enough! 15% om ni uppger kod: anders15",
-		url: "https://www.enough-store.se/kosttillskott/",
+			"Som klient hos oss har du 15% rabatt på hela sortimentet hos Fantastic Line med koden: FLcoaching",
+		url: "https://www.fantasticline.se/sv/",
 	},
 	{
-		title: "30% hos BB och GASP",
+		title: "15% rabatt på massage Motala Fitness Center",
 		description:
-			"Ni får nu 30% rabatt på kläder och tillbehör genom att använda koden ALCOACHING30#. Denna kod är inte bara för ett köp utan ni kan använda den året ut vid köp hos både BB och GASP.",
-		url: "https://www.betterbodies.com/",
-	},
-	{
-		title: "10% hos Gripstars",
-		description:
-			"Nu har ni alla möjlighet till ett magiskt grepp till ett grymt pris genom mig. 10% rabatt hos gripstars med koden: Anders10",
-		url: "https://www.gripstars.com/",
+			"Som klient hos oss har du 20% rabatt på alla våra massagebehandlingar på Motala Fitness Center. Rabatten dras av när du betalar på plats, uppvisa bara ditt inlogg i vår app i kassan.",
+		url: "https://motalafitnesscenter.se/",
 	},
 ];
 
