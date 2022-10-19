@@ -10,6 +10,7 @@ interface ListItemProps {
 	onPress?: () => void;
 	rightIcon?: ReactElement;
 	right?: any;
+	icon?: any;
 }
 
 const ListItem: React.FC<ListItemProps> = (props) => {
