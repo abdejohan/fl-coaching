@@ -59,7 +59,7 @@ const MealsScreen: React.FC<DietProps> = ({ navigation, route }) => {
 					style={{ backgroundColor: colors.surface, borderRadius: roundness }}>
 					{!meal.products[0].description
 						? meal.products.map((dish: any, dishIndex: number) => (
-								<>
+								<View key={dishIndex}>
 									<ListItemBasic
 										style={{ padding: 10, marginRight: 10 }}
 										title={dish.name}
@@ -69,7 +69,7 @@ const MealsScreen: React.FC<DietProps> = ({ navigation, route }) => {
 									{meal?.products?.length !== dishIndex + 1 && (
 										<Divider style={{ width: "93%", alignSelf: "center" }} />
 									)}
-								</>
+								</View>
 						  ))
 						: null}
 				</View>
