@@ -7,7 +7,6 @@ import WorkoutOverviewScreen from "../screens/WorkoutOverviewScreen";
 import WorkoutSession from "../screens/WorkoutSession";
 import CheckInScreen from "../screens/CheckInScreen";
 import DietPlansScreen from "../screens/DietPlansScreen";
-import IngredientsScreen from "../screens/IngredientsScreen";
 import ChatScreen from "../screens/ChatScreen";
 import { IconButton, TouchableRipple, useTheme } from "react-native-paper";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -73,14 +72,6 @@ export default function LoggedInNavigator() {
 				name='IntroSlider'
 				component={IntroSlider}
 				options={{ headerShown: false }}
-			/>
-			<LoggedInStack.Screen
-				name='Ingredients'
-				component={IngredientsScreen}
-				options={({ route }: any) => ({
-					headerLeft: () => backIcon(),
-					title: route?.params?.name,
-				})}
 			/>
 			<LoggedInStack.Screen
 				name='Meals'
