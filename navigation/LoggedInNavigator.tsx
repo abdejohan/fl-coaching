@@ -32,6 +32,7 @@ import MealsScreen from "../screens/MealsScreen";
 import DealsScreen from "../screens/DealsScreen";
 import WorkoutSchemaScreen from "../screens/WorkoutSchemaScreen";
 import AlternateWorkoutSession from "../screens/AlternateWorkoutSession";
+import RecipeScreen from "../screens/RecipeScreen";
 
 const LoggedInStack = createNativeStackNavigator<LoggedInStackParmList>();
 export default function LoggedInNavigator() {
@@ -88,6 +89,14 @@ export default function LoggedInNavigator() {
 					headerLeft: () => backIcon(),
 					title: route?.params?.name,
 				})}
+			/>
+			<LoggedInStack.Screen
+				name='Recipe'
+				component={RecipeScreen}
+				options={{
+					headerBackVisible: false,
+					headerShown: false,
+				}}
 			/>
 			<LoggedInStack.Screen
 				name='DietPlan'

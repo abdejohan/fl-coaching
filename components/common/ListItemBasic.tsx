@@ -7,7 +7,8 @@ interface ListItemBasicProps {
 	title: string;
 	sets?: string;
 	disabled?: boolean;
-	titleZtyle: TextStyle;
+	titleZtyle?: TextStyle;
+	style?: TextStyle;
 	onPress?: () => void;
 	description?: string | (() => ReactElement);
 	descriptionLeft?: string | (() => ReactElement);
