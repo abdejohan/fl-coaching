@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StyleSheet, View, useWindowDimensions } from "react-native";
+import { Dimensions, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { TabView, TabBar, TabBarItem, SceneRendererProps } from "react-native-tab-view";
 import { Paragraph } from "../../typography";
@@ -16,9 +16,7 @@ interface TabBarProps {
 const TabBarView: React.FC<TabBarProps> = (props) => {
 	const { routes } = props;
 	const { colors, roundness } = useTheme();
-	const layout = useWindowDimensions();
 	const [index, setIndex] = useState(0);
-	const [tabBarItemWidth, setTabBarItemWidth] = useState<number>(100);
 
 	const renderTabBar = (props: any) => (
 		<TabBar
@@ -32,12 +30,15 @@ const TabBarView: React.FC<TabBarProps> = (props) => {
 				marginBottom: 20,
 			}}
 			renderTabBarItem={(props) => (
-				<View
-					key={Math.random()}
-					style={{ flexGrow: 1, margin: 5 }}
-					onLayout={(event) => setTabBarItemWidth(event.nativeEvent.layout.width)}>
-					<TabBarItem {...props} style={{ padding: 0, justifyContent: "center" }} />
-				</View>
+				<TabBarItem
+					{...props}
+					style={{
+						padding: 0,
+						justifyContent: "center",
+						height: 60,
+						borderRadius: roundness,
+					}}
+				/>
 			)}
 			renderLabel={({ focused, route }) => (
 				<View
@@ -45,8 +46,9 @@ const TabBarView: React.FC<TabBarProps> = (props) => {
 					style={{
 						alignItems: "center",
 						justifyContent: "center",
-						width: tabBarItemWidth,
-						flexGrow: 10,
+						marginVertical: 5,
+						width: Dimensions.get("window").width / 2 - 30,
+						flexGrow: 1,
 						backgroundColor: focused ? colors.primary : colors.surface,
 						borderRadius: roundness,
 					}}>
@@ -62,7 +64,6 @@ const TabBarView: React.FC<TabBarProps> = (props) => {
 		<TabView
 			navigationState={{ index, routes }}
 			onIndexChange={setIndex}
-			initialLayout={{ width: layout.width }}
 			style={{ borderRadius: roundness }}
 			renderTabBar={renderTabBar}
 			{...props}
@@ -71,11 +72,3 @@ const TabBarView: React.FC<TabBarProps> = (props) => {
 };
 
 export default TabBarView;
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		padding: 20,
-		paddingBottom: 0,
-	},
-});
