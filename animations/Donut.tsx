@@ -42,20 +42,22 @@ const Donut: React.FC<DonutProps> = (props) => {
 	};
 
 	useEffect(() => {
-		animation(percentage);
-		animated.addListener((v) => {
-			const maxPerc = (100 * v.value) / max;
-			const strokeDashoffset = circumference - (circumference * maxPerc) / 100;
-			if (circleRef?.current) {
-				circleRef.current.setNativeProps({
-					strokeDashoffset,
-				});
-			}
-		});
+		if (max > 0) {
+			animation(percentage);
+			animated.addListener((v) => {
+				const maxPerc = (100 * v.value) / max;
+				const strokeDashoffset = circumference - (circumference * maxPerc) / 100;
+				if (circleRef?.current) {
+					circleRef.current.setNativeProps({
+						strokeDashoffset,
+					});
+				}
+			});
 
-		return () => {
-			animated.removeAllListeners();
-		};
+			return () => {
+				animated.removeAllListeners();
+			};
+		}
 	}, [max, percentage]);
 
 	return (
