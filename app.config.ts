@@ -14,7 +14,7 @@ export default {
 		splash: {
 			image: "./assets/images/splash.png",
 			resizeMode: "contain",
-			backgroundColor: "#FAFAFA",
+			backgroundColor: "#FFFFFF",
 		},
 		updates: {
 			fallbackToCacheTimeout: 0,
@@ -41,8 +41,8 @@ export default {
 			useNextNotificationsApi: true,
 			// softwareKeyboardLayoutMode: "pan",
 			adaptiveIcon: {
-				foregroundImage: "./assets/images/icon.png",
-				backgroundColor: "#FAFAFA",
+				foregroundImage: "./assets/images/adaptive-icon.png",
+				backgroundColor: "#FFFFFF",
 			},
 		},
 		web: {
