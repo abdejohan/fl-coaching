@@ -1,12 +1,12 @@
 import { View, Image, TouchableOpacity, Platform } from "react-native";
 import { Divider, TextInput, useTheme } from "react-native-paper";
 import InputValidation from "../InputValidation";
-import { useImagePicker } from "../../hooks/useImagePicker";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useContext, useState } from "react";
 import WeeklyReport from "../../context/WeeklyReport";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Headline, Subheading } from "../../typography";
+import { pickAvatarDocument, pickAvatarIOS } from "../../functions";
 
 const Measures: React.FC = () => {
 	const [uploadImageWidth, setUploadImageWidth] = useState<number>(0);
@@ -31,7 +31,6 @@ const Measures: React.FC = () => {
 		setSideImage,
 	} = useContext(WeeklyReport);
 	const { colors } = useTheme();
-	const { pickImage } = useImagePicker();
 
 	return (
 		<KeyboardAwareScrollView
@@ -187,37 +186,49 @@ const Measures: React.FC = () => {
 							borderColor: colors.highlightText,
 							borderRadius: 5,
 						}}
-						onPress={() => pickImage().then((base64Img) => setFrontImage(base64Img))}>
-						{!frontImage && <Headline>Framsida</Headline>}
+						onPress={() => {
+							if (Platform.OS === "android") {
+								pickAvatarDocument()
+									.then((base64Img) => setFrontImage(base64Img))
+									.catch(() => null);
+							}
+							if (Platform.OS === "ios") {
+								pickAvatarIOS()
+									.then((base64Img) => setFrontImage(base64Img))
+									.catch(() => null);
+							}
+						}}>
 						{!frontImage && (
-							<Subheading style={{ textAlign: "center", padding: 10 }}>
-								Tryck för att ladda upp bild
-							</Subheading>
+							<View style={{ alignItems: "center" }}>
+								<Headline>Framsida</Headline>
+								<Subheading style={{ padding: 10 }}>
+									Tryck för att ladda upp bild
+								</Subheading>
+							</View>
 						)}
 						{frontImage && (
-							<>
-								<View
+							<View>
+								<Image
+									source={{ uri: `data:image/png;base64,${frontImage}` }}
 									style={{
-										backgroundColor: "rgba(0,0,0,1)",
+										width: uploadImageWidth,
+										height: uploadImageWidth,
+										marginTop: 0,
 										borderRadius: 5,
-									}}>
-									<Image
-										source={{ uri: `data:image/jpeg;base64,${frontImage.base64}` }}
-										style={{
-											width: uploadImageWidth,
-											height: uploadImageWidth,
-											marginTop: 0,
-											borderRadius: 5,
-											opacity: 0.7,
-										}}
-									/>
-								</View>
+									}}
+								/>
 								<TouchableOpacity
 									onPress={() => setFrontImage(undefined)}
-									style={{ position: "absolute", top: 3, right: 5 }}>
-									<FontAwesome5 name='times-circle' size={20} color='#CBD2D0' />
+									style={{
+										position: "absolute",
+										top: 3,
+										right: 5,
+										paddingLeft: 10,
+										paddingBottom: 10,
+									}}>
+									<FontAwesome5 name='times-circle' size={40} color={colors.error} />
 								</TouchableOpacity>
-							</>
+							</View>
 						)}
 					</TouchableOpacity>
 				</View>
@@ -232,39 +243,49 @@ const Measures: React.FC = () => {
 							borderColor: colors.highlightText,
 							borderRadius: 5,
 						}}
-						onPress={() => pickImage().then((base64Img) => setSideImage(base64Img))}>
-						{!sideImage && <Headline>Profil</Headline>}
+						onPress={() => {
+							if (Platform.OS === "android") {
+								pickAvatarDocument()
+									.then((base64Img) => setSideImage(base64Img))
+									.catch(() => null);
+							}
+							if (Platform.OS === "ios") {
+								pickAvatarIOS()
+									.then((base64Img) => setSideImage(base64Img))
+									.catch(() => null);
+							}
+						}}>
 						{!sideImage && (
-							<Subheading
-								onPress={() => pickImage().then((base64Img) => setSideImage(base64Img))}
-								style={{ textAlign: "center", padding: 10 }}>
-								Tryck för att ladda upp bild
-							</Subheading>
+							<View style={{ alignItems: "center" }}>
+								<Headline>Profil</Headline>
+								<Subheading style={{ padding: 10 }}>
+									Tryck för att ladda upp bild
+								</Subheading>
+							</View>
 						)}
 						{sideImage && (
-							<>
-								<View
+							<View>
+								<Image
+									source={{ uri: `data:image/png;base64,${sideImage}` }}
 									style={{
-										backgroundColor: "rgba(0,0,0,1)",
+										width: uploadImageWidth,
+										height: uploadImageWidth,
+										marginTop: 0,
 										borderRadius: 5,
-									}}>
-									<Image
-										source={{ uri: `data:image/jpeg;base64,${sideImage.base64}` }}
-										style={{
-											width: uploadImageWidth,
-											height: uploadImageWidth,
-											marginTop: 0,
-											borderRadius: 5,
-											opacity: 0.7,
-										}}
-									/>
-								</View>
+									}}
+								/>
 								<TouchableOpacity
 									onPress={() => setSideImage(undefined)}
-									style={{ position: "absolute", top: 3, right: 5 }}>
-									<FontAwesome5 name='times-circle' size={20} color='#CBD2D0' />
+									style={{
+										position: "absolute",
+										top: 3,
+										right: 5,
+										paddingLeft: 10,
+										paddingBottom: 10,
+									}}>
+									<FontAwesome5 name='times-circle' size={40} color={colors.error} />
 								</TouchableOpacity>
-							</>
+							</View>
 						)}
 					</TouchableOpacity>
 				</View>
@@ -279,39 +300,49 @@ const Measures: React.FC = () => {
 							borderColor: colors.highlightText,
 							borderRadius: 5,
 						}}
-						onPress={() => pickImage().then((base64Img) => setBackImage(base64Img))}>
-						{!backImage && <Headline>Baksida</Headline>}
+						onPress={() => {
+							if (Platform.OS === "android") {
+								pickAvatarDocument()
+									.then((base64Img) => setBackImage(base64Img))
+									.catch(() => null);
+							}
+							if (Platform.OS === "ios") {
+								pickAvatarIOS()
+									.then((base64Img) => setBackImage(base64Img))
+									.catch(() => null);
+							}
+						}}>
 						{!backImage && (
-							<Subheading
-								onPress={() => pickImage().then((base64Img) => setBackImage(base64Img))}
-								style={{ textAlign: "center", padding: 10 }}>
-								Tryck för att ladda upp bild
-							</Subheading>
+							<View style={{ alignItems: "center" }}>
+								<Headline>Baksida</Headline>
+								<Subheading style={{ padding: 10 }}>
+									Tryck för att ladda upp bild
+								</Subheading>
+							</View>
 						)}
 						{backImage && (
-							<>
-								<View
+							<View>
+								<Image
+									source={{ uri: `data:image/png;base64,${backImage}` }}
 									style={{
-										backgroundColor: "rgba(0,0,0,1)",
+										width: uploadImageWidth,
+										height: uploadImageWidth,
+										marginTop: 0,
 										borderRadius: 5,
-									}}>
-									<Image
-										source={{ uri: `data:image/jpeg;base64,${backImage.base64}` }}
-										style={{
-											width: uploadImageWidth,
-											height: uploadImageWidth,
-											marginTop: 0,
-											borderRadius: 5,
-											opacity: 0.7,
-										}}
-									/>
-								</View>
+									}}
+								/>
 								<TouchableOpacity
 									onPress={() => setBackImage(undefined)}
-									style={{ position: "absolute", top: 3, right: 5 }}>
-									<FontAwesome5 name='times-circle' size={20} color='#CBD2D0' />
+									style={{
+										position: "absolute",
+										top: 3,
+										right: 5,
+										paddingLeft: 10,
+										paddingBottom: 10,
+									}}>
+									<FontAwesome5 name='times-circle' size={40} color={colors.error} />
 								</TouchableOpacity>
-							</>
+							</View>
 						)}
 					</TouchableOpacity>
 				</View>
