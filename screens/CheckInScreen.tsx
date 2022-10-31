@@ -14,12 +14,14 @@ import Measures from "../components/checkIn/Measures";
 import UpcomingWeek from "../components/checkIn/UpcomingWeek";
 import WeeklyEvaluation from "../components/checkIn/WeeklyEvaluation";
 import GymStrength from "../components/checkIn/GymStrength";
+import SleepStatus from "../components/checkIn/SleepStatus";
 
 const checkInSlider = [
 	{ key: 1, component: <Measures /> },
 	{ key: 2, component: <WeeklyEvaluation /> },
 	{ key: 3, component: <UpcomingWeek /> },
 	{ key: 4, component: <GymStrength /> },
+	{ key: 5, component: <SleepStatus /> },
 ];
 
 const CheckInScreen: React.FC<SliderProps> = ({ navigation }) => {
