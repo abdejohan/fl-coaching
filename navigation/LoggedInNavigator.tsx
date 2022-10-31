@@ -163,7 +163,7 @@ export default function LoggedInNavigator() {
 				component={CheckInScreen}
 				options={{
 					headerLeft: () => backIcon(),
-					title: "Veckouppdatering",
+					title: "Check in",
 				}}
 			/>
 			<LoggedInStack.Screen

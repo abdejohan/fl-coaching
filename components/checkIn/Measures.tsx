@@ -19,7 +19,8 @@ const Measures: React.FC = () => {
 		weeklySteps,
 		frontImage,
 		backImage,
-		sideImage,
+		leftImage,
+		rightImage,
 		setWeight,
 		setBiceps,
 		setGlutes,
@@ -28,7 +29,8 @@ const Measures: React.FC = () => {
 		setWeeklySteps,
 		setFrontImage,
 		setBackImage,
-		setSideImage,
+		setLeftImage,
+		setRightImage,
 	} = useContext(WeeklyReport);
 	const { colors } = useTheme();
 
@@ -38,17 +40,28 @@ const Measures: React.FC = () => {
 			enableOnAndroid
 			keyboardShouldPersistTaps='handled'
 			contentContainerStyle={{ paddingHorizontal: 25 }}>
-			<Headline style={{ marginBottom: 20, color: colors.highlightText }}>
-				Veckans framsteg
+			<Headline
+				style={{ marginBottom: 20, color: colors.highlightText, textAlign: "center" }}>
+				Veckans mått och bilder
 			</Headline>
 			<Divider style={{ backgroundColor: colors.primary, marginBottom: 20 }} />
+			<Subheading style={{ marginBottom: 20 }}>Fyll i fälten nedan</Subheading>
 			<View
 				style={{
 					flexDirection: "row",
 					justifyContent: "space-between",
 					alignItems: "center",
 				}}>
-				<Subheading style={{ marginBottom: 30 }}>Vikt *</Subheading>
+				<Headline
+					style={{
+						marginBottom: 15,
+						fontWeight: "bold",
+						letterSpacing: 1,
+						lineHeight: 20,
+						fontSize: 18,
+					}}>
+					Vikt *
+				</Headline>
 				<InputValidation
 					value={weight?.text}
 					onValidation={(valid: boolean, text) => setWeight({ valid, text })}
@@ -68,7 +81,16 @@ const Measures: React.FC = () => {
 					justifyContent: "space-between",
 					alignItems: "center",
 				}}>
-				<Subheading style={{ marginBottom: 30 }}>Biceps *</Subheading>
+				<Headline
+					style={{
+						marginBottom: 15,
+						fontWeight: "bold",
+						letterSpacing: 1,
+						lineHeight: 20,
+						fontSize: 18,
+					}}>
+					Biceps *
+				</Headline>
 				<InputValidation
 					value={biceps?.text}
 					onValidation={(valid: boolean, text) => setBiceps({ valid, text })}
@@ -88,7 +110,16 @@ const Measures: React.FC = () => {
 					justifyContent: "space-between",
 					alignItems: "center",
 				}}>
-				<Subheading style={{ marginBottom: 30 }}>Rumpa *</Subheading>
+				<Headline
+					style={{
+						marginBottom: 15,
+						fontWeight: "bold",
+						letterSpacing: 1,
+						lineHeight: 20,
+						fontSize: 18,
+					}}>
+					Rumpa *
+				</Headline>
 				<InputValidation
 					value={glutes?.text}
 					onValidation={(valid: boolean, text) => setGlutes({ valid, text })}
@@ -108,7 +139,16 @@ const Measures: React.FC = () => {
 					justifyContent: "space-between",
 					alignItems: "center",
 				}}>
-				<Subheading style={{ marginBottom: 30 }}>Midja *</Subheading>
+				<Headline
+					style={{
+						marginBottom: 15,
+						fontWeight: "bold",
+						letterSpacing: 1,
+						lineHeight: 20,
+						fontSize: 18,
+					}}>
+					Midja *
+				</Headline>
 				<InputValidation
 					value={waist?.text}
 					onValidation={(valid: boolean, text) => setWaist({ valid, text })}
@@ -128,7 +168,16 @@ const Measures: React.FC = () => {
 					justifyContent: "space-between",
 					alignItems: "center",
 				}}>
-				<Subheading style={{ marginBottom: 30 }}>Lår *</Subheading>
+				<Headline
+					style={{
+						marginBottom: 15,
+						fontWeight: "bold",
+						letterSpacing: 1,
+						lineHeight: 20,
+						fontSize: 18,
+					}}>
+					Lår *
+				</Headline>
 				<InputValidation
 					value={thighs?.text}
 					onValidation={(valid: boolean, text) => setThighs({ valid, text })}
@@ -148,9 +197,28 @@ const Measures: React.FC = () => {
 					justifyContent: "space-between",
 					alignItems: "center",
 				}}>
-				<Subheading style={{ maxWidth: "50%", marginBottom: 30 }}>
-					Antal steg i snitt senaste veckan *
-				</Subheading>
+				<View>
+					<Headline
+						style={{
+							marginBottom: 4,
+							fontWeight: "bold",
+							letterSpacing: 1,
+							lineHeight: 20,
+							fontSize: 18,
+						}}>
+						Antal steg i snitt
+					</Headline>
+					<Headline
+						style={{
+							marginBottom: 6,
+							fontWeight: "bold",
+							letterSpacing: 1,
+							lineHeight: 20,
+							fontSize: 18,
+						}}>
+						senaste veckan *
+					</Headline>
+				</View>
 				<InputValidation
 					value={weeklySteps?.text}
 					onValidation={(valid: boolean, text) => setWeeklySteps({ valid, text })}
@@ -166,24 +234,31 @@ const Measures: React.FC = () => {
 			</View>
 			{/* BELOW HERE IS THE UPLOAD IMAGES ELEMENTS */}
 			<Divider style={{ backgroundColor: colors.primary, marginTop: 5 }} />
-			<View style={{ marginVertical: 20 }}>
-				<Subheading style={{ marginBottom: 20 }}>
-					Bilder (Frivilligt, men fördelaktigt)
-				</Subheading>
+			<Subheading style={{ marginVertical: 20 }}>
+				Bilder (Frivilligt, men fördelaktigt)
+			</Subheading>
+			<View
+				style={{
+					marginBottom: 5,
+					flexDirection: "row",
+					justifyContent: "space-between",
+				}}
+				onLayout={(event) => {
+					const { width } = event.nativeEvent.layout;
+					setUploadImageWidth(width);
+				}}>
 				<View
-					onLayout={(event) => {
-						const { width } = event.nativeEvent.layout;
-						setUploadImageWidth(width);
-					}}
-					style={{ flex: 1, marginBottom: 10 }}>
+					style={{
+						borderWidth: 1,
+						borderColor: colors.highlightText,
+						borderRadius: 5,
+					}}>
 					<TouchableOpacity
 						style={{
 							justifyContent: "center",
 							alignItems: "center",
-							width: "100%",
-							height: uploadImageWidth,
-							borderWidth: 1,
-							borderColor: colors.highlightText,
+							width: uploadImageWidth / 2 - 5,
+							height: uploadImageWidth / 2 - 5,
 							borderRadius: 5,
 						}}
 						onPress={() => {
@@ -201,7 +276,7 @@ const Measures: React.FC = () => {
 						{!frontImage && (
 							<View style={{ alignItems: "center" }}>
 								<Headline>Framsida</Headline>
-								<Subheading style={{ padding: 10 }}>
+								<Subheading style={{ padding: 10, textAlign: "center" }}>
 									Tryck för att ladda upp bild
 								</Subheading>
 							</View>
@@ -211,8 +286,8 @@ const Measures: React.FC = () => {
 								<Image
 									source={{ uri: `data:image/png;base64,${frontImage}` }}
 									style={{
-										width: uploadImageWidth,
-										height: uploadImageWidth,
+										width: uploadImageWidth / 2 - 5,
+										height: uploadImageWidth / 2 - 5,
 										marginTop: 0,
 										borderRadius: 5,
 									}}
@@ -226,78 +301,24 @@ const Measures: React.FC = () => {
 										paddingLeft: 10,
 										paddingBottom: 10,
 									}}>
-									<FontAwesome5 name='times-circle' size={40} color={colors.error} />
+									<FontAwesome5 name='times-circle' size={30} color={colors.error} />
 								</TouchableOpacity>
 							</View>
 						)}
 					</TouchableOpacity>
 				</View>
-				<View style={{ flex: 1, marginBottom: 10 }}>
+				<View
+					style={{
+						borderWidth: 1,
+						borderColor: colors.highlightText,
+						borderRadius: 5,
+					}}>
 					<TouchableOpacity
 						style={{
 							justifyContent: "center",
 							alignItems: "center",
-							width: "100%",
-							height: uploadImageWidth,
-							borderWidth: 1,
-							borderColor: colors.highlightText,
-							borderRadius: 5,
-						}}
-						onPress={() => {
-							if (Platform.OS === "android") {
-								pickAvatarDocument()
-									.then((base64Img) => setSideImage(base64Img))
-									.catch(() => null);
-							}
-							if (Platform.OS === "ios") {
-								pickAvatarIOS()
-									.then((base64Img) => setSideImage(base64Img))
-									.catch(() => null);
-							}
-						}}>
-						{!sideImage && (
-							<View style={{ alignItems: "center" }}>
-								<Headline>Profil</Headline>
-								<Subheading style={{ padding: 10 }}>
-									Tryck för att ladda upp bild
-								</Subheading>
-							</View>
-						)}
-						{sideImage && (
-							<View>
-								<Image
-									source={{ uri: `data:image/png;base64,${sideImage}` }}
-									style={{
-										width: uploadImageWidth,
-										height: uploadImageWidth,
-										marginTop: 0,
-										borderRadius: 5,
-									}}
-								/>
-								<TouchableOpacity
-									onPress={() => setSideImage(undefined)}
-									style={{
-										position: "absolute",
-										top: 3,
-										right: 5,
-										paddingLeft: 10,
-										paddingBottom: 10,
-									}}>
-									<FontAwesome5 name='times-circle' size={40} color={colors.error} />
-								</TouchableOpacity>
-							</View>
-						)}
-					</TouchableOpacity>
-				</View>
-				<View style={{ flex: 1, marginBottom: 10 }}>
-					<TouchableOpacity
-						style={{
-							justifyContent: "center",
-							alignItems: "center",
-							width: "100%",
-							height: uploadImageWidth,
-							borderWidth: 1,
-							borderColor: colors.highlightText,
+							width: uploadImageWidth / 2 - 5,
+							height: uploadImageWidth / 2 - 5,
 							borderRadius: 5,
 						}}
 						onPress={() => {
@@ -315,7 +336,7 @@ const Measures: React.FC = () => {
 						{!backImage && (
 							<View style={{ alignItems: "center" }}>
 								<Headline>Baksida</Headline>
-								<Subheading style={{ padding: 10 }}>
+								<Subheading style={{ padding: 10, textAlign: "center" }}>
 									Tryck för att ladda upp bild
 								</Subheading>
 							</View>
@@ -325,8 +346,8 @@ const Measures: React.FC = () => {
 								<Image
 									source={{ uri: `data:image/png;base64,${backImage}` }}
 									style={{
-										width: uploadImageWidth,
-										height: uploadImageWidth,
+										width: uploadImageWidth / 2 - 5,
+										height: uploadImageWidth / 2 - 5,
 										marginTop: 0,
 										borderRadius: 5,
 									}}
@@ -340,7 +361,139 @@ const Measures: React.FC = () => {
 										paddingLeft: 10,
 										paddingBottom: 10,
 									}}>
-									<FontAwesome5 name='times-circle' size={40} color={colors.error} />
+									<FontAwesome5 name='times-circle' size={30} color={colors.error} />
+								</TouchableOpacity>
+							</View>
+						)}
+					</TouchableOpacity>
+				</View>
+			</View>
+			{/** ------------------------------------ */}
+			{/** ------------------------------------ */}
+			{/** ------------------------------------ */}
+			{/** ------------------------------------ */}
+			{/** ------------------------------------ */}
+			<View
+				style={{
+					marginBottom: 20,
+					flexDirection: "row",
+					justifyContent: "space-between",
+				}}>
+				<View
+					style={{
+						borderWidth: 1,
+						borderColor: colors.highlightText,
+						borderRadius: 5,
+					}}>
+					<TouchableOpacity
+						style={{
+							justifyContent: "center",
+							alignItems: "center",
+							width: uploadImageWidth / 2 - 5,
+							height: uploadImageWidth / 2 - 5,
+							borderRadius: 5,
+						}}
+						onPress={() => {
+							if (Platform.OS === "android") {
+								pickAvatarDocument()
+									.then((base64Img) => setLeftImage(base64Img))
+									.catch(() => null);
+							}
+							if (Platform.OS === "ios") {
+								pickAvatarIOS()
+									.then((base64Img) => setLeftImage(base64Img))
+									.catch(() => null);
+							}
+						}}>
+						{!leftImage && (
+							<View style={{ alignItems: "center" }}>
+								<Headline>Vänster</Headline>
+								<Subheading style={{ padding: 10, textAlign: "center" }}>
+									Tryck för att ladda upp bild
+								</Subheading>
+							</View>
+						)}
+						{leftImage && (
+							<View>
+								<Image
+									source={{ uri: `data:image/png;base64,${leftImage}` }}
+									style={{
+										width: uploadImageWidth / 2 - 5,
+										height: uploadImageWidth / 2 - 5,
+										marginTop: 0,
+										borderRadius: 5,
+									}}
+								/>
+								<TouchableOpacity
+									onPress={() => setLeftImage(undefined)}
+									style={{
+										position: "absolute",
+										top: 3,
+										right: 5,
+										paddingLeft: 10,
+										paddingBottom: 10,
+									}}>
+									<FontAwesome5 name='times-circle' size={30} color={colors.error} />
+								</TouchableOpacity>
+							</View>
+						)}
+					</TouchableOpacity>
+				</View>
+				<View
+					style={{
+						borderWidth: 1,
+						borderColor: colors.highlightText,
+						borderRadius: 5,
+					}}>
+					<TouchableOpacity
+						style={{
+							justifyContent: "center",
+							alignItems: "center",
+							width: uploadImageWidth / 2 - 5,
+							height: uploadImageWidth / 2 - 5,
+							borderRadius: 5,
+						}}
+						onPress={() => {
+							if (Platform.OS === "android") {
+								pickAvatarDocument()
+									.then((base64Img) => setRightImage(base64Img))
+									.catch(() => null);
+							}
+							if (Platform.OS === "ios") {
+								pickAvatarIOS()
+									.then((base64Img) => setRightImage(base64Img))
+									.catch(() => null);
+							}
+						}}>
+						{!rightImage && (
+							<View style={{ alignItems: "center" }}>
+								<Headline>Höger</Headline>
+								<Subheading style={{ padding: 10, textAlign: "center" }}>
+									Tryck för att ladda upp bild
+								</Subheading>
+							</View>
+						)}
+						{rightImage && (
+							<View>
+								<Image
+									source={{ uri: `data:image/png;base64,${rightImage}` }}
+									style={{
+										width: uploadImageWidth / 2 - 5,
+										height: uploadImageWidth / 2 - 5,
+										marginTop: 0,
+										borderRadius: 5,
+									}}
+								/>
+								<TouchableOpacity
+									onPress={() => setRightImage(undefined)}
+									style={{
+										position: "absolute",
+										top: 3,
+										right: 5,
+										paddingLeft: 10,
+										paddingBottom: 10,
+									}}>
+									<FontAwesome5 name='times-circle' size={30} color={colors.error} />
 								</TouchableOpacity>
 							</View>
 						)}

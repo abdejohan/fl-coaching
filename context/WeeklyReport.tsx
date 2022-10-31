@@ -5,7 +5,6 @@ import React, {
 	useEffect,
 	useContext,
 } from "react";
-import { Alert } from "react-native";
 import { useAxiosAuthenticated } from "../hooks/useAxiosAuthenticated";
 import { ValidInput } from "../types/types";
 import AuthContext from "./Auth";
@@ -23,7 +22,8 @@ type ContextType = {
 	weeklySteps: ValidInput | null;
 	frontImage: string | undefined;
 	backImage: string | undefined;
-	sideImage: string | undefined;
+	leftImage: string | undefined;
+	rightImage: string | undefined;
 	setWeight: (weight: ValidInput) => void;
 	setBiceps: (biceps: ValidInput) => void;
 	setGlutes: (glutes: ValidInput) => void;
@@ -32,7 +32,8 @@ type ContextType = {
 	setWeeklySteps: (weeklySteps: ValidInput) => void;
 	setFrontImage: (frontImage: string | undefined) => void;
 	setBackImage: (backImage: string | undefined) => void;
-	setSideImage: (sideImage: string | undefined) => void;
+	setLeftImage: (leftImage: string | undefined) => void;
+	setRightImage: (rightImage: string | undefined) => void;
 	/* START OF CHECK-IN PAGE 2 */
 	howHasTheWeekBeen: string;
 	completedChallenges: ValidInput | null;
@@ -62,7 +63,8 @@ const WeeklyReport = React.createContext<ContextType>({
 	weeklySteps: { valid: false, text: "" },
 	frontImage: undefined,
 	backImage: undefined,
-	sideImage: undefined,
+	leftImage: undefined,
+	rightImage: undefined,
 	setWeight: () => {},
 	setBiceps: () => {},
 	setGlutes: () => {},
@@ -71,7 +73,8 @@ const WeeklyReport = React.createContext<ContextType>({
 	setWeeklySteps: () => {},
 	setFrontImage: () => {},
 	setBackImage: () => {},
-	setSideImage: () => {},
+	setLeftImage: () => {},
+	setRightImage: () => {},
 	/* START OF CHECK-IN PAGE 2 */
 	howHasTheWeekBeen: "Jättebra",
 	completedChallenges: { valid: false, text: "" },
@@ -123,7 +126,8 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 	const [weeklySteps, setWeeklySteps] = useState<ValidInput | null>(null);
 	const [frontImage, setFrontImage] = useState<string | undefined>();
 	const [backImage, setBackImage] = useState<string | undefined>();
-	const [sideImage, setSideImage] = useState<string | undefined>();
+	const [leftImage, setLeftImage] = useState<string | undefined>();
+	const [rightImage, setRightImage] = useState<string | undefined>();
 	// START OF CHECK-IN PAGE 2
 	const [howHasTheWeekBeen, setHowHasTheWeekBeen] = useState("Jättebra");
 	const [completedChallenges, setCompletedChallenges] = useState<ValidInput | null>(null);
@@ -149,7 +153,8 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 				weeklySteps: weeklySteps?.text,
 				frontImage: frontImage ? `data:image/png;base64,${frontImage}` : undefined,
 				backImage: backImage ? `data:image/png;base64,${backImage}` : undefined,
-				sideImage: sideImage ? `data:image/png;base64,${sideImage}` : undefined,
+				leftImage: leftImage ? `data:image/png;base64,${leftImage}` : undefined,
+				rightImage: rightImage ? `data:image/png;base64,${rightImage}` : undefined,
 				/* START OF CHECK-IN PAGE 2 */
 				howHasTheWeekBeen: howHasTheWeekBeen,
 				completedChallenges: completedChallenges?.text,
@@ -235,7 +240,8 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 			weeklySteps,
 			frontImage,
 			backImage,
-			sideImage,
+			leftImage,
+			rightImage,
 			setWeight,
 			setBiceps,
 			setGlutes,
@@ -244,7 +250,8 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 			setWeeklySteps,
 			setFrontImage,
 			setBackImage,
-			setSideImage,
+			setLeftImage,
+			setRightImage,
 			/* START OF CHECK-IN PAGE 2 */
 			howHasTheWeekBeen,
 			completedChallenges,
@@ -273,7 +280,8 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 			weeklySteps,
 			frontImage,
 			backImage,
-			sideImage,
+			leftImage,
+			rightImage,
 			setWeight,
 			setBiceps,
 			setGlutes,
@@ -282,7 +290,8 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 			setWeeklySteps,
 			setFrontImage,
 			setBackImage,
-			setSideImage,
+			setLeftImage,
+			setRightImage,
 			/* START OF CHECK-IN PAGE 2 */
 			howHasTheWeekBeen,
 			completedChallenges,
