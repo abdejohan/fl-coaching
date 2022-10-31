@@ -56,6 +56,13 @@ type ContextType = {
 	howHasYourSleepBeenComment: ValidInput | null;
 	setHowHasYourSleepBeen: (howHasYourGymStrenthBeen: string) => void;
 	setHowHasYourSleepBeenComment: (howHasYourGymStrenthBeenComment: ValidInput) => void;
+	/* START OF CHECK-IN PAGE 6 */
+	haveYouStickedToThePlan: string;
+	haveYouStickedToThePlanComment: ValidInput | null;
+	setHaveYouStickedToThePlan: (howHasYourGymStrenthBeen: string) => void;
+	setHaveYouStickedToThePlanComment: (
+		howHasYourGymStrenthBeenComment: ValidInput
+	) => void;
 };
 
 const WeeklyReport = React.createContext<ContextType>({
@@ -103,6 +110,11 @@ const WeeklyReport = React.createContext<ContextType>({
 	howHasYourSleepBeenComment: { valid: false, text: "" },
 	setHowHasYourSleepBeen: () => {},
 	setHowHasYourSleepBeenComment: () => {},
+	/* START OF CHECK-IN PAGE 6 */
+	haveYouStickedToThePlan: "",
+	haveYouStickedToThePlanComment: { valid: false, text: "" },
+	setHaveYouStickedToThePlan: () => {},
+	setHaveYouStickedToThePlanComment: () => {},
 });
 
 interface WeeklyReportProps {
@@ -158,6 +170,10 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 	const [howHasYourSleepBeen, setHowHasYourSleepBeen] = useState<string>("");
 	const [howHasYourSleepBeenComment, setHowHasYourSleepBeenComment] =
 		useState<ValidInput | null>(null);
+	// START OF CHECK-IN PAGE 6
+	const [haveYouStickedToThePlan, setHaveYouStickedToThePlan] = useState<string>("");
+	const [haveYouStickedToThePlanComment, setHaveYouStickedToThePlanComment] =
+		useState<ValidInput | null>(null);
 
 	const submitWeeklyReport = async (): Promise<string> => {
 		try {
@@ -185,6 +201,9 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 				/* START OF CHECK-IN PAGE 5 */
 				howHasYourSleepBeen: howHasYourSleepBeen,
 				howHasYourSleepBeenComment: howHasYourSleepBeenComment?.text,
+				/* START OF CHECK-IN PAGE 6 */
+				haveYouStickedToThePlan: howHasYourSleepBeen,
+				haveYouStickedToThePlanComment: howHasYourSleepBeenComment?.text,
 			};
 
 			const responseStatus = await postWeeklyCheckIn({ data: fields })
@@ -290,6 +309,11 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 			howHasYourSleepBeenComment,
 			setHowHasYourSleepBeen,
 			setHowHasYourSleepBeenComment,
+			/* START OF CHECK-IN PAGE 6 */
+			haveYouStickedToThePlan,
+			haveYouStickedToThePlanComment,
+			setHaveYouStickedToThePlan,
+			setHaveYouStickedToThePlanComment,
 		}),
 		[
 			notAllFieldsAreValid,
@@ -336,6 +360,11 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 			howHasYourSleepBeenComment,
 			setHowHasYourSleepBeen,
 			setHowHasYourSleepBeenComment,
+			/* START OF CHECK-IN PAGE 6 */
+			haveYouStickedToThePlan,
+			haveYouStickedToThePlanComment,
+			setHaveYouStickedToThePlan,
+			setHaveYouStickedToThePlanComment,
 		]
 	);
 
