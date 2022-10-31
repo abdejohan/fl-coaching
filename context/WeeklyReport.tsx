@@ -42,12 +42,12 @@ type ContextType = {
 	setCompletedChallenges: (completedChallenges: ValidInput) => void;
 	setHowHasYourWeekBeenComment: (howHasYourWeekBeenComment: ValidInput) => void;
 	/* START OF CHECK-IN PAGE 3 */
-	havePlansForNextWeek: string;
+	howHasYourHungerBeen: string;
 	nextWeeksWorkoutDays: Array<string>;
-	challengesForNextWeek: ValidInput | null;
-	setHavePlansForNextWeek: (havePlansForNextWeek: string) => void;
+	howHasYourHungerBeenComment: ValidInput | null;
+	setHowHasYourHungerBeen: (howHasYourHungerBeen: string) => void;
 	setNextWeeksWorkoutDays: (nextWeeksWorkoutDays: any) => void;
-	setChallengesForNextWeek: (challengesForNextWeek: ValidInput) => void;
+	setHowHasYourHungerBeenComment: (howHasYourHungerBeenComment: ValidInput) => void;
 };
 
 const WeeklyReport = React.createContext<ContextType>({
@@ -83,12 +83,12 @@ const WeeklyReport = React.createContext<ContextType>({
 	setCompletedChallenges: () => {},
 	setHowHasYourWeekBeenComment: () => {},
 	/* START OF CHECK-IN PAGE 3 */
-	havePlansForNextWeek: "Ja, det har jag.",
+	howHasYourHungerBeen: "Ja, det har jag.",
 	nextWeeksWorkoutDays: [],
-	challengesForNextWeek: { valid: false, text: "" },
-	setHavePlansForNextWeek: () => {},
+	howHasYourHungerBeenComment: { valid: false, text: "" },
+	setHowHasYourHungerBeen: () => {},
 	setNextWeeksWorkoutDays: () => {},
-	setChallengesForNextWeek: () => {},
+	setHowHasYourHungerBeenComment: () => {},
 });
 
 interface WeeklyReportProps {
@@ -133,14 +133,12 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 	const [howHasYourWeekBeenComment, setHowHasYourWeekBeenComment] =
 		useState<ValidInput | null>(null);
 	// START OF CHECK-IN PAGE 3
-	const [completedChallenges, setCompletedChallenges] = useState<ValidInput | null>(null);
-
-	// START OF CHECK-IN PAGE 3
-	const [havePlansForNextWeek, setHavePlansForNextWeek] = useState("Ja, det har jag.");
+	const [howHasYourHungerBeen, setHowHasYourHungerBeen] = useState("Ja, det har jag."); // USE THIS
+	const [howHasYourHungerBeenComment, setHowHasYourHungerBeenComment] =
+		useState<ValidInput | null>(null);
+	// START OF CHECK-IN PAGE 4
+	const [completedChallenges, setCompletedChallenges] = useState<ValidInput | null>(null); // USE THIS
 	const [nextWeeksWorkoutDays, setNextWeeksWorkoutDays] = useState<Array<string>>([]);
-	const [challengesForNextWeek, setChallengesForNextWeek] = useState<ValidInput | null>(
-		null
-	);
 
 	const submitWeeklyReport = async (): Promise<string> => {
 		try {
@@ -162,9 +160,9 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 				/* START OF CHECK-IN PAGE 3 */
 				completedChallenges: completedChallenges?.text,
 				/* START OF CHECK-IN PAGE 4 */
-				havePlansForNextWeek: havePlansForNextWeek,
+				howHasYourHungerBeen: howHasYourHungerBeen,
 				nextWeeksWorkoutDays: nextWeeksWorkoutDays.toString(),
-				challengesForNextWeek: challengesForNextWeek?.text,
+				howHasYourHungerBeenComment: howHasYourHungerBeenComment?.text,
 			};
 
 			const responseStatus = await postWeeklyCheckIn({ data: fields })
@@ -201,7 +199,7 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 			weeklySteps,
 			completedChallenges,
 			howHasYourWeekBeenComment,
-			challengesForNextWeek,
+			howHasYourHungerBeenComment,
 		];
 		const validationRule = (currentField: { valid: boolean }) =>
 			currentField?.valid === true;
@@ -224,7 +222,7 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 		weeklySteps,
 		completedChallenges,
 		howHasYourWeekBeenComment,
-		challengesForNextWeek,
+		howHasYourHungerBeenComment,
 		nextWeeksWorkoutDays,
 	]);
 
@@ -262,12 +260,12 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 			setCompletedChallenges,
 			setHowHasYourWeekBeenComment,
 			/* START OF CHECK-IN PAGE 3 */
-			havePlansForNextWeek,
+			howHasYourHungerBeen,
 			nextWeeksWorkoutDays,
-			challengesForNextWeek,
-			setHavePlansForNextWeek,
+			howHasYourHungerBeenComment,
+			setHowHasYourHungerBeen,
 			setNextWeeksWorkoutDays,
-			setChallengesForNextWeek,
+			setHowHasYourHungerBeenComment,
 		}),
 		[
 			notAllFieldsAreValid,
@@ -302,12 +300,12 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 			setCompletedChallenges,
 			setHowHasYourWeekBeenComment,
 			/* START OF CHECK-IN PAGE 3 */
-			havePlansForNextWeek,
+			howHasYourHungerBeen,
 			nextWeeksWorkoutDays,
-			challengesForNextWeek,
-			setHavePlansForNextWeek,
+			howHasYourHungerBeenComment,
+			setHowHasYourHungerBeen,
 			setNextWeeksWorkoutDays,
-			setChallengesForNextWeek,
+			setHowHasYourHungerBeenComment,
 		]
 	);
 
