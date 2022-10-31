@@ -13,11 +13,13 @@ interface SliderProps {
 import Measures from "../components/checkIn/Measures";
 import UpcomingWeek from "../components/checkIn/UpcomingWeek";
 import WeeklyEvaluation from "../components/checkIn/WeeklyEvaluation";
+import GymStrength from "../components/checkIn/GymStrength";
 
 const checkInSlider = [
 	{ key: 1, component: <Measures /> },
 	{ key: 2, component: <WeeklyEvaluation /> },
 	{ key: 3, component: <UpcomingWeek /> },
+	{ key: 4, component: <GymStrength /> },
 ];
 
 const CheckInScreen: React.FC<SliderProps> = ({ navigation }) => {
@@ -31,7 +33,7 @@ const CheckInScreen: React.FC<SliderProps> = ({ navigation }) => {
 
 	// slider.current.goToSlide(1, true)
 	useEffect(() => {
-		setProgress(slideIndex / 2);
+		setProgress(slideIndex / (checkInSlider.length - 1));
 	}, [slideIndex]);
 
 	const renderItem = ({ item, index }: any) => {

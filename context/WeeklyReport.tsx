@@ -36,18 +36,22 @@ type ContextType = {
 	setRightImage: (rightImage: string | undefined) => void;
 	/* START OF CHECK-IN PAGE 2 */
 	howHasYourWeekBeen: string;
-	completedChallenges: ValidInput | null;
 	howHasYourWeekBeenComment: ValidInput | null;
 	setHowHasYourWeekBeen: (howHasTheWeekBeen: string) => void;
-	setCompletedChallenges: (completedChallenges: ValidInput) => void;
 	setHowHasYourWeekBeenComment: (howHasYourWeekBeenComment: ValidInput) => void;
 	/* START OF CHECK-IN PAGE 3 */
 	howHasYourHungerBeen: string;
-	nextWeeksWorkoutDays: Array<string>;
 	howHasYourHungerBeenComment: ValidInput | null;
 	setHowHasYourHungerBeen: (howHasYourHungerBeen: string) => void;
-	setNextWeeksWorkoutDays: (nextWeeksWorkoutDays: any) => void;
 	setHowHasYourHungerBeenComment: (howHasYourHungerBeenComment: ValidInput) => void;
+	/* START OF CHECK-IN PAGE 4 */
+	howHasYourGymStrenthBeen: string;
+	howHasYourGymStrenthBeenComment: ValidInput | null;
+	setHowHasYourGymStrenthBeen: (howHasYourGymStrenthBeen: string) => void;
+	setHowHasYourGymStrenthBeenComment: (
+		howHasYourGymStrenthBeenComment: ValidInput
+	) => void;
+	/* START OF CHECK-IN PAGE 4 */
 };
 
 const WeeklyReport = React.createContext<ContextType>({
@@ -76,19 +80,20 @@ const WeeklyReport = React.createContext<ContextType>({
 	setLeftImage: () => {},
 	setRightImage: () => {},
 	/* START OF CHECK-IN PAGE 2 */
-	howHasYourWeekBeen: "Jättebra",
-	completedChallenges: { valid: false, text: "" },
+	howHasYourWeekBeen: "",
 	howHasYourWeekBeenComment: { valid: false, text: "" },
 	setHowHasYourWeekBeen: () => {},
-	setCompletedChallenges: () => {},
 	setHowHasYourWeekBeenComment: () => {},
 	/* START OF CHECK-IN PAGE 3 */
-	howHasYourHungerBeen: "Ja, det har jag.",
-	nextWeeksWorkoutDays: [],
+	howHasYourHungerBeen: "",
 	howHasYourHungerBeenComment: { valid: false, text: "" },
 	setHowHasYourHungerBeen: () => {},
-	setNextWeeksWorkoutDays: () => {},
 	setHowHasYourHungerBeenComment: () => {},
+	/* START OF CHECK-IN PAGE 4 */
+	howHasYourGymStrenthBeen: "",
+	setHowHasYourGymStrenthBeen: () => {},
+	howHasYourGymStrenthBeenComment: { valid: false, text: "" },
+	setHowHasYourGymStrenthBeenComment: () => {},
 });
 
 interface WeeklyReportProps {
@@ -129,16 +134,17 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 	const [leftImage, setLeftImage] = useState<string | undefined>();
 	const [rightImage, setRightImage] = useState<string | undefined>();
 	// START OF CHECK-IN PAGE 2
-	const [howHasYourWeekBeen, setHowHasYourWeekBeen] = useState("Jättebra");
+	const [howHasYourWeekBeen, setHowHasYourWeekBeen] = useState("");
 	const [howHasYourWeekBeenComment, setHowHasYourWeekBeenComment] =
 		useState<ValidInput | null>(null);
 	// START OF CHECK-IN PAGE 3
-	const [howHasYourHungerBeen, setHowHasYourHungerBeen] = useState("Ja, det har jag."); // USE THIS
+	const [howHasYourHungerBeen, setHowHasYourHungerBeen] = useState("");
 	const [howHasYourHungerBeenComment, setHowHasYourHungerBeenComment] =
 		useState<ValidInput | null>(null);
 	// START OF CHECK-IN PAGE 4
-	const [completedChallenges, setCompletedChallenges] = useState<ValidInput | null>(null); // USE THIS
-	const [nextWeeksWorkoutDays, setNextWeeksWorkoutDays] = useState<Array<string>>([]);
+	const [howHasYourGymStrenthBeen, setHowHasYourGymStrenthBeen] = useState<string>("");
+	const [howHasYourGymStrenthBeenComment, setHowHasYourGymStrenthBeenComment] =
+		useState<ValidInput | null>(null);
 
 	const submitWeeklyReport = async (): Promise<string> => {
 		try {
@@ -158,10 +164,9 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 				howHasYourWeekBeen: howHasYourWeekBeen,
 				howHasYourWeekBeenComment: howHasYourWeekBeenComment?.text,
 				/* START OF CHECK-IN PAGE 3 */
-				completedChallenges: completedChallenges?.text,
+				howHasYourGymStrenthBeenComment: howHasYourGymStrenthBeenComment?.text,
 				/* START OF CHECK-IN PAGE 4 */
 				howHasYourHungerBeen: howHasYourHungerBeen,
-				nextWeeksWorkoutDays: nextWeeksWorkoutDays.toString(),
 				howHasYourHungerBeenComment: howHasYourHungerBeenComment?.text,
 			};
 
@@ -197,21 +202,17 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 			waist,
 			thighs,
 			weeklySteps,
-			completedChallenges,
+			howHasYourGymStrenthBeenComment,
 			howHasYourWeekBeenComment,
 			howHasYourHungerBeenComment,
 		];
 		const validationRule = (currentField: { valid: boolean }) =>
 			currentField?.valid === true;
 		const allFieldsAreValidated = fieldsToValidate.every(validationRule);
-		if (nextWeeksWorkoutDays.length > 0) {
-			if (allFieldsAreValidated === false) {
-				setNotAllFieldAreValid(true);
-			} else {
-				setNotAllFieldAreValid(false);
-			}
-		} else {
+		if (allFieldsAreValidated === false) {
 			setNotAllFieldAreValid(true);
+		} else {
+			setNotAllFieldAreValid(false);
 		}
 	}, [
 		weight,
@@ -220,10 +221,10 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 		waist,
 		thighs,
 		weeklySteps,
-		completedChallenges,
+		howHasYourGymStrenthBeen,
+		howHasYourGymStrenthBeenComment,
 		howHasYourWeekBeenComment,
 		howHasYourHungerBeenComment,
-		nextWeeksWorkoutDays,
 	]);
 
 	const state = useMemo(
@@ -254,18 +255,19 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 			setRightImage,
 			/* START OF CHECK-IN PAGE 2 */
 			howHasYourWeekBeen,
-			completedChallenges,
 			howHasYourWeekBeenComment,
 			setHowHasYourWeekBeen,
-			setCompletedChallenges,
 			setHowHasYourWeekBeenComment,
 			/* START OF CHECK-IN PAGE 3 */
 			howHasYourHungerBeen,
-			nextWeeksWorkoutDays,
 			howHasYourHungerBeenComment,
 			setHowHasYourHungerBeen,
-			setNextWeeksWorkoutDays,
 			setHowHasYourHungerBeenComment,
+			/* START OF CHECK-IN PAGE 4 */
+			howHasYourGymStrenthBeen,
+			howHasYourGymStrenthBeenComment,
+			setHowHasYourGymStrenthBeenComment,
+			setHowHasYourGymStrenthBeen,
 		}),
 		[
 			notAllFieldsAreValid,
@@ -294,18 +296,19 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 			setRightImage,
 			/* START OF CHECK-IN PAGE 2 */
 			howHasYourWeekBeen,
-			completedChallenges,
 			howHasYourWeekBeenComment,
 			setHowHasYourWeekBeen,
-			setCompletedChallenges,
 			setHowHasYourWeekBeenComment,
 			/* START OF CHECK-IN PAGE 3 */
 			howHasYourHungerBeen,
-			nextWeeksWorkoutDays,
 			howHasYourHungerBeenComment,
 			setHowHasYourHungerBeen,
-			setNextWeeksWorkoutDays,
 			setHowHasYourHungerBeenComment,
+			/* START OF CHECK-IN PAGE 4 */
+			howHasYourGymStrenthBeen,
+			howHasYourGymStrenthBeenComment,
+			setHowHasYourGymStrenthBeenComment,
+			setHowHasYourGymStrenthBeen,
 		]
 	);
 
