@@ -9,12 +9,10 @@ import { Headline, Subheading } from "../../typography";
 
 const WeeklyEvaluation: React.FC = () => {
 	const {
-		howHasTheWeekBeen,
-		completedChallenges,
-		didThingsGoAsPlanned,
-		setHowHasTheWeekBeen,
-		setCompletedChallenges,
-		setDidThingsGoAsPlanned,
+		howHasYourWeekBeen,
+		setHowHasYourWeekBeen,
+		howHasYourWeekBeenComment,
+		setHowHasYourWeekBeenComment,
 	} = useContext(WeeklyReport);
 	const { colors } = useTheme();
 	return (
@@ -27,55 +25,45 @@ const WeeklyEvaluation: React.FC = () => {
 				style={{
 					flexDirection: "column",
 				}}>
-				<Headline style={{ color: colors.highlightText, marginBottom: 20 }}>
-					Föregående vecka
+				<Headline style={{ color: colors.highlightText, textAlign: "center" }}>
+					Hur upplever du att din
 				</Headline>
+				<Headline
+					style={{ color: colors.highlightText, marginBottom: 20, textAlign: "center" }}>
+					vecka varit? *
+				</Headline>
+
 				<Divider style={{ backgroundColor: colors.primary, marginBottom: 20 }} />
 				<Subheading style={{ color: colors.highlightText, marginBottom: 5 }}>
-					Hur har veckan gått? *
+					Välj ett svar
 				</Subheading>
 				<RadioButton
-					value='Jättebra'
-					status={howHasTheWeekBeen}
-					onPress={() => setHowHasTheWeekBeen("Jättebra")}
+					value='Exemplarisk!'
+					status={howHasYourWeekBeen}
+					onPress={() => setHowHasYourWeekBeen("Exemplarisk!")}
 				/>
 				<RadioButton
 					value='Bra'
-					status={howHasTheWeekBeen}
-					onPress={() => setHowHasTheWeekBeen("Bra")}
-				/>
-				<RadioButton
-					value='Okej'
-					status={howHasTheWeekBeen}
-					onPress={() => setHowHasTheWeekBeen("Okej")}
+					status={howHasYourWeekBeen}
+					onPress={() => setHowHasYourWeekBeen("Bra")}
 				/>
 				<RadioButton
 					value='Mindre bra'
-					status={howHasTheWeekBeen}
-					onPress={() => setHowHasTheWeekBeen("Mindre bra")}
+					status={howHasYourWeekBeen}
+					onPress={() => setHowHasYourWeekBeen("Mindre bra")}
+				/>
+				<RadioButton
+					value='Dålig'
+					status={howHasYourWeekBeen}
+					onPress={() => setHowHasYourWeekBeen("Dålig")}
 				/>
 				<Subheading style={{ color: colors.highlightText, marginTop: 20 }}>
-					Utmaningar du klarat av? *
+					Frivillig kommentar
 				</Subheading>
 				<InputValidation
-					errorMessage='Ange ett svar.'
-					validationRule='text'
-					value={completedChallenges?.text}
-					onValidation={(valid: boolean, text) => setCompletedChallenges({ valid, text })}
-					maxLength={255}
-					returnKeyType='done'
-					multiline
-					numberOfLines={6}
-				/>
-				<Subheading style={{ color: colors.highlightText, marginTop: 20 }}>
-					Följde du din plan? Om inte, vad hände? *
-				</Subheading>
-				<InputValidation
-					errorMessage='Ange ett svar.'
-					validationRule='text'
-					value={didThingsGoAsPlanned?.text}
+					value={howHasYourWeekBeenComment?.text}
 					onValidation={(valid: boolean, text) =>
-						setDidThingsGoAsPlanned({ valid, text })
+						setHowHasYourWeekBeenComment({ valid, text })
 					}
 					maxLength={255}
 					returnKeyType='done'

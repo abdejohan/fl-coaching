@@ -35,12 +35,12 @@ type ContextType = {
 	setLeftImage: (leftImage: string | undefined) => void;
 	setRightImage: (rightImage: string | undefined) => void;
 	/* START OF CHECK-IN PAGE 2 */
-	howHasTheWeekBeen: string;
+	howHasYourWeekBeen: string;
 	completedChallenges: ValidInput | null;
-	didThingsGoAsPlanned: ValidInput | null;
-	setHowHasTheWeekBeen: (howHasTheWeekBeen: string) => void;
+	howHasYourWeekBeenComment: ValidInput | null;
+	setHowHasYourWeekBeen: (howHasTheWeekBeen: string) => void;
 	setCompletedChallenges: (completedChallenges: ValidInput) => void;
-	setDidThingsGoAsPlanned: (didThingsGoAsPlanned: ValidInput) => void;
+	setHowHasYourWeekBeenComment: (howHasYourWeekBeenComment: ValidInput) => void;
 	/* START OF CHECK-IN PAGE 3 */
 	havePlansForNextWeek: string;
 	nextWeeksWorkoutDays: Array<string>;
@@ -76,12 +76,12 @@ const WeeklyReport = React.createContext<ContextType>({
 	setLeftImage: () => {},
 	setRightImage: () => {},
 	/* START OF CHECK-IN PAGE 2 */
-	howHasTheWeekBeen: "Jättebra",
+	howHasYourWeekBeen: "Jättebra",
 	completedChallenges: { valid: false, text: "" },
-	didThingsGoAsPlanned: { valid: false, text: "" },
-	setHowHasTheWeekBeen: () => {},
+	howHasYourWeekBeenComment: { valid: false, text: "" },
+	setHowHasYourWeekBeen: () => {},
 	setCompletedChallenges: () => {},
-	setDidThingsGoAsPlanned: () => {},
+	setHowHasYourWeekBeenComment: () => {},
 	/* START OF CHECK-IN PAGE 3 */
 	havePlansForNextWeek: "Ja, det har jag.",
 	nextWeeksWorkoutDays: [],
@@ -129,11 +129,12 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 	const [leftImage, setLeftImage] = useState<string | undefined>();
 	const [rightImage, setRightImage] = useState<string | undefined>();
 	// START OF CHECK-IN PAGE 2
-	const [howHasTheWeekBeen, setHowHasTheWeekBeen] = useState("Jättebra");
+	const [howHasYourWeekBeen, setHowHasYourWeekBeen] = useState("Jättebra");
+	const [howHasYourWeekBeenComment, setHowHasYourWeekBeenComment] =
+		useState<ValidInput | null>(null);
+	// START OF CHECK-IN PAGE 3
 	const [completedChallenges, setCompletedChallenges] = useState<ValidInput | null>(null);
-	const [didThingsGoAsPlanned, setDidThingsGoAsPlanned] = useState<ValidInput | null>(
-		null
-	);
+
 	// START OF CHECK-IN PAGE 3
 	const [havePlansForNextWeek, setHavePlansForNextWeek] = useState("Ja, det har jag.");
 	const [nextWeeksWorkoutDays, setNextWeeksWorkoutDays] = useState<Array<string>>([]);
@@ -156,10 +157,11 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 				leftImage: leftImage ? `data:image/png;base64,${leftImage}` : undefined,
 				rightImage: rightImage ? `data:image/png;base64,${rightImage}` : undefined,
 				/* START OF CHECK-IN PAGE 2 */
-				howHasTheWeekBeen: howHasTheWeekBeen,
-				completedChallenges: completedChallenges?.text,
-				didThingsGoAsPlanned: didThingsGoAsPlanned?.text,
+				howHasYourWeekBeen: howHasYourWeekBeen,
+				howHasYourWeekBeenComment: howHasYourWeekBeenComment?.text,
 				/* START OF CHECK-IN PAGE 3 */
+				completedChallenges: completedChallenges?.text,
+				/* START OF CHECK-IN PAGE 4 */
 				havePlansForNextWeek: havePlansForNextWeek,
 				nextWeeksWorkoutDays: nextWeeksWorkoutDays.toString(),
 				challengesForNextWeek: challengesForNextWeek?.text,
@@ -198,7 +200,7 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 			thighs,
 			weeklySteps,
 			completedChallenges,
-			didThingsGoAsPlanned,
+			howHasYourWeekBeenComment,
 			challengesForNextWeek,
 		];
 		const validationRule = (currentField: { valid: boolean }) =>
@@ -221,7 +223,7 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 		thighs,
 		weeklySteps,
 		completedChallenges,
-		didThingsGoAsPlanned,
+		howHasYourWeekBeenComment,
 		challengesForNextWeek,
 		nextWeeksWorkoutDays,
 	]);
@@ -253,12 +255,12 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 			setLeftImage,
 			setRightImage,
 			/* START OF CHECK-IN PAGE 2 */
-			howHasTheWeekBeen,
+			howHasYourWeekBeen,
 			completedChallenges,
-			didThingsGoAsPlanned,
-			setHowHasTheWeekBeen,
+			howHasYourWeekBeenComment,
+			setHowHasYourWeekBeen,
 			setCompletedChallenges,
-			setDidThingsGoAsPlanned,
+			setHowHasYourWeekBeenComment,
 			/* START OF CHECK-IN PAGE 3 */
 			havePlansForNextWeek,
 			nextWeeksWorkoutDays,
@@ -293,12 +295,12 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 			setLeftImage,
 			setRightImage,
 			/* START OF CHECK-IN PAGE 2 */
-			howHasTheWeekBeen,
+			howHasYourWeekBeen,
 			completedChallenges,
-			didThingsGoAsPlanned,
-			setHowHasTheWeekBeen,
+			howHasYourWeekBeenComment,
+			setHowHasYourWeekBeen,
 			setCompletedChallenges,
-			setDidThingsGoAsPlanned,
+			setHowHasYourWeekBeenComment,
 			/* START OF CHECK-IN PAGE 3 */
 			havePlansForNextWeek,
 			nextWeeksWorkoutDays,
