@@ -22,14 +22,6 @@ const GymStrength: React.FC = () => {
 			keyboardShouldPersistTaps='handled'
 			style={{ marginBottom: 30 }}
 			contentContainerStyle={{ paddingHorizontal: 25 }}>
-			<Headline style={{ color: colors.highlightText, textAlign: "center" }}>
-				Hur har styrkan på
-			</Headline>
-			<Headline
-				style={{ color: colors.highlightText, marginBottom: 20, textAlign: "center" }}>
-				gymmet varit? *
-			</Headline>
-			<Divider style={{ backgroundColor: colors.primary, marginBottom: 20 }} />
 			<Subheading style={{ color: colors.highlightText, marginBottom: 5 }}>
 				Välj ett svar
 			</Subheading>

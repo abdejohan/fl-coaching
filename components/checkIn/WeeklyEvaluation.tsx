@@ -25,15 +25,6 @@ const WeeklyEvaluation: React.FC = () => {
 				style={{
 					flexDirection: "column",
 				}}>
-				<Headline style={{ color: colors.highlightText, textAlign: "center" }}>
-					Hur upplever du att din
-				</Headline>
-				<Headline
-					style={{ color: colors.highlightText, marginBottom: 20, textAlign: "center" }}>
-					vecka varit? *
-				</Headline>
-
-				<Divider style={{ backgroundColor: colors.primary, marginBottom: 20 }} />
 				<Subheading style={{ color: colors.highlightText, marginBottom: 5 }}>
 					Välj ett svar
 				</Subheading>

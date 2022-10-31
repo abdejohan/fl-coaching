@@ -4,7 +4,7 @@ import Button from "../components/common/Button";
 import { useTheme, ProgressBar } from "react-native-paper";
 import { useContext, useEffect, useRef, useState } from "react";
 import WeeklyReport from "../context/WeeklyReport";
-import { Paragraph } from "../typography";
+import { Headline, Paragraph } from "../typography";
 
 interface SliderProps {
 	navigation?: any;
@@ -19,13 +19,21 @@ import WeekSchedule from "../components/checkIn/WeekSchedule";
 import Feedback from "../components/checkIn/Feedback";
 
 const checkInSlider = [
-	{ key: 1, component: <Measures /> },
-	{ key: 2, component: <WeeklyEvaluation /> },
-	{ key: 3, component: <UpcomingWeek /> },
-	{ key: 4, component: <GymStrength /> },
-	{ key: 5, component: <SleepStatus /> },
-	{ key: 6, component: <WeekSchedule /> },
-	{ key: 7, component: <Feedback /> },
+	{ key: 1, title: "Veckans mått och bilder *", component: <Measures /> },
+	{
+		key: 2,
+		title: "Hur upplever du att din vecka varit? *",
+		component: <WeeklyEvaluation />,
+	},
+	{
+		key: 3,
+		title: "Hur upplever du att hungern har varit? *",
+		component: <UpcomingWeek />,
+	},
+	{ key: 4, title: "Hur har styrkan på gymmet varit? *", component: <GymStrength /> },
+	{ key: 5, title: "Hur har din sömn varit? *", component: <SleepStatus /> },
+	{ key: 6, title: "Hur mycket har du följt planen? *", component: <WeekSchedule /> },
+	{ key: 7, title: "Övriga saker du vill ta upp", component: <Feedback /> },
 ];
 
 const CheckInScreen: React.FC<SliderProps> = ({ navigation }) => {
@@ -63,6 +71,16 @@ const CheckInScreen: React.FC<SliderProps> = ({ navigation }) => {
 
 	return (
 		<View style={{ flex: 1, backgroundColor: colors.background }}>
+			<Headline
+				style={{
+					alignSelf: "center",
+					color: colors.highlightText,
+					marginBottom: 20,
+					textAlign: "center",
+					width: "70%",
+				}}>
+				{checkInSlider[slideIndex].title}
+			</Headline>
 			<View style={styles.progress}>
 				<ProgressBar
 					progress={progress}
@@ -74,8 +92,12 @@ const CheckInScreen: React.FC<SliderProps> = ({ navigation }) => {
 				ref={(ref) => (slider.current = ref)}
 				onDone={introDone}
 				bottomButton
-				dotStyle={{ backgroundColor: colors.surface, marginTop: 20 }}
-				activeDotStyle={{ backgroundColor: colors.primary, marginTop: 20 }}
+				dotStyle={{ backgroundColor: colors.surface, marginTop: 20, marginBottom: 20 }}
+				activeDotStyle={{
+					backgroundColor: colors.primary,
+					marginTop: 20,
+					marginBottom: 20,
+				}}
 				onSlideChange={(index) => {
 					Keyboard.dismiss();
 					setSlideIndex(index);

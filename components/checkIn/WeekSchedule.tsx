@@ -22,14 +22,6 @@ const WeekSchedule: React.FC = () => {
 			keyboardShouldPersistTaps='handled'
 			style={{ marginBottom: 30 }}
 			contentContainerStyle={{ paddingHorizontal: 25 }}>
-			<Headline style={{ color: colors.highlightText, textAlign: "center" }}>
-				Hur mycket har du följt
-			</Headline>
-			<Headline
-				style={{ color: colors.highlightText, textAlign: "center", marginBottom: 20 }}>
-				Planen? *
-			</Headline>
-			<Divider style={{ backgroundColor: colors.primary, marginBottom: 20 }} />
 			<Subheading style={{ color: colors.highlightText, marginBottom: 5 }}>
 				Välj ett svar
 			</Subheading>

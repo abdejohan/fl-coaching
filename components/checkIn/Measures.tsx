@@ -40,11 +40,6 @@ const Measures: React.FC = () => {
 			enableOnAndroid
 			keyboardShouldPersistTaps='handled'
 			contentContainerStyle={{ paddingHorizontal: 25 }}>
-			<Headline
-				style={{ marginBottom: 20, color: colors.highlightText, textAlign: "center" }}>
-				Veckans mått och bilder
-			</Headline>
-			<Divider style={{ backgroundColor: colors.primary, marginBottom: 20 }} />
 			<Subheading style={{ marginBottom: 20 }}>Fyll i fälten nedan</Subheading>
 			<View
 				style={{

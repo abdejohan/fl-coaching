@@ -8,7 +8,7 @@ import { Headline, Subheading } from "../../typography";
 
 const Feedback: React.FC = () => {
 	const { colors } = useTheme();
-	const { feedBackComment, setFeedbackComment } = useContext(WeeklyReport);
+	const { feedbackComment, setFeedbackComment } = useContext(WeeklyReport);
 
 	return (
 		<KeyboardAwareScrollView
@@ -16,15 +16,11 @@ const Feedback: React.FC = () => {
 			keyboardShouldPersistTaps='handled'
 			style={{ marginBottom: 30 }}
 			contentContainerStyle={{ paddingHorizontal: 25 }}>
-			<Headline
-				style={{ color: colors.highlightText, textAlign: "center", marginBottom: 20 }}>
-				Övriga saker du vill ta upp
-			</Headline>
 			<Subheading style={{ color: colors.highlightText, marginTop: 20 }}>
 				Frivillig kommentar
 			</Subheading>
 			<InputValidation
-				value={feedBackComment?.text}
+				value={feedbackComment?.text}
 				onValidation={(valid: boolean, text) => setFeedbackComment({ valid, text })}
 				placeholder='Fritext'
 				maxLength={255}

@@ -65,7 +65,7 @@ type ContextType = {
 		howHasYourGymStrenthBeenComment: ValidInput
 	) => void;
 	/* CHECK-IN SCREEN 7 */
-	feedBackComment: ValidInput | null;
+	feedbackComment: ValidInput | null;
 	setFeedbackComment: (howHasYourGymStrenthBeenComment: ValidInput) => void;
 };
 
@@ -120,7 +120,7 @@ const WeeklyReport = React.createContext<ContextType>({
 	setHaveYouStickedToThePlan: () => {},
 	setHaveYouStickedToThePlanComment: () => {},
 	/* CHECK-IN SCREEN 6 */
-	feedBackComment: { valid: false, text: "" },
+	feedbackComment: { valid: false, text: "" },
 	setFeedbackComment: () => {},
 });
 
@@ -185,7 +185,7 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 	const [haveYouStickedToThePlanComment, setHaveYouStickedToThePlanComment] =
 		useState<ValidInput | null>(null);
 	// CHECK-IN SCREEN 7
-	const [feedBackComment, setFeedbackComment] = useState<ValidInput | null>(null);
+	const [feedbackComment, setFeedbackComment] = useState<ValidInput | null>(null);
 
 	const submitWeeklyReport = async (): Promise<string> => {
 		try {
@@ -217,7 +217,7 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 				haveYouStickedToThePlan: howHasYourSleepBeen,
 				haveYouStickedToThePlanComment: howHasYourSleepBeenComment?.text,
 				/* CHECK-IN SCREEN 7 */
-				feedBackComment: feedBackComment?.text,
+				feedbackComment: feedbackComment?.text,
 			};
 
 			const responseStatus = await postWeeklyCheckIn({ data: fields })
@@ -319,7 +319,7 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 			setHaveYouStickedToThePlan,
 			setHaveYouStickedToThePlanComment,
 			/* CHECK-IN SCREEN 7 */
-			feedBackComment,
+			feedbackComment,
 			setFeedbackComment,
 		}),
 		[
@@ -373,7 +373,7 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 			setHaveYouStickedToThePlan,
 			setHaveYouStickedToThePlanComment,
 			/* CHECK-IN SCREEN 7 */
-			feedBackComment,
+			feedbackComment,
 			setFeedbackComment,
 		]
 	);
