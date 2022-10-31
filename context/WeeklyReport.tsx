@@ -5,6 +5,7 @@ import React, {
 	useEffect,
 	useContext,
 } from "react";
+import Feedback from "../components/checkIn/Feedback";
 import { useAxiosAuthenticated } from "../hooks/useAxiosAuthenticated";
 import { ValidInput } from "../types/types";
 import AuthContext from "./Auth";
@@ -13,7 +14,7 @@ type ContextType = {
 	notAllFieldsAreValid: boolean;
 	setNotAllFieldAreValid: (value: boolean) => void;
 	submitWeeklyReport: () => Promise<string>;
-	/* START OF CHECK-IN PAGE 1 */
+	/* CHECK-IN SCREEN 1 */
 	weight: ValidInput | null;
 	biceps: ValidInput | null;
 	glutes: ValidInput | null;
@@ -34,42 +35,45 @@ type ContextType = {
 	setBackImage: (backImage: string | undefined) => void;
 	setLeftImage: (leftImage: string | undefined) => void;
 	setRightImage: (rightImage: string | undefined) => void;
-	/* START OF CHECK-IN PAGE 2 */
+	/* CHECK-IN SCREEN 2 */
 	howHasYourWeekBeen: string;
 	howHasYourWeekBeenComment: ValidInput | null;
 	setHowHasYourWeekBeen: (howHasTheWeekBeen: string) => void;
 	setHowHasYourWeekBeenComment: (howHasYourWeekBeenComment: ValidInput) => void;
-	/* START OF CHECK-IN PAGE 3 */
+	/* CHECK-IN SCREEN 3 */
 	howHasYourHungerBeen: string;
 	howHasYourHungerBeenComment: ValidInput | null;
 	setHowHasYourHungerBeen: (howHasYourHungerBeen: string) => void;
 	setHowHasYourHungerBeenComment: (howHasYourHungerBeenComment: ValidInput) => void;
-	/* START OF CHECK-IN PAGE 4 */
+	/* CHECK-IN SCREEN 4 */
 	howHasYourGymStrenthBeen: string;
 	howHasYourGymStrenthBeenComment: ValidInput | null;
 	setHowHasYourGymStrenthBeen: (howHasYourGymStrenthBeen: string) => void;
 	setHowHasYourGymStrenthBeenComment: (
 		howHasYourGymStrenthBeenComment: ValidInput
 	) => void;
-	/* START OF CHECK-IN PAGE 5 */
+	/* CHECK-IN SCREEN 5 */
 	howHasYourSleepBeen: string;
 	howHasYourSleepBeenComment: ValidInput | null;
 	setHowHasYourSleepBeen: (howHasYourGymStrenthBeen: string) => void;
 	setHowHasYourSleepBeenComment: (howHasYourGymStrenthBeenComment: ValidInput) => void;
-	/* START OF CHECK-IN PAGE 6 */
+	/* CHECK-IN SCREEN 6 */
 	haveYouStickedToThePlan: string;
 	haveYouStickedToThePlanComment: ValidInput | null;
 	setHaveYouStickedToThePlan: (howHasYourGymStrenthBeen: string) => void;
 	setHaveYouStickedToThePlanComment: (
 		howHasYourGymStrenthBeenComment: ValidInput
 	) => void;
+	/* CHECK-IN SCREEN 7 */
+	feedBackComment: ValidInput | null;
+	setFeedbackComment: (howHasYourGymStrenthBeenComment: ValidInput) => void;
 };
 
 const WeeklyReport = React.createContext<ContextType>({
 	notAllFieldsAreValid: true,
 	setNotAllFieldAreValid: () => {},
 	submitWeeklyReport: async () => "",
-	/* START OF CHECK-IN PAGE 1 */
+	/* CHECK-IN SCREEN 1 */
 	weight: { valid: false, text: "" },
 	biceps: { valid: false, text: "" },
 	glutes: { valid: false, text: "" },
@@ -90,31 +94,34 @@ const WeeklyReport = React.createContext<ContextType>({
 	setBackImage: () => {},
 	setLeftImage: () => {},
 	setRightImage: () => {},
-	/* START OF CHECK-IN PAGE 2 */
+	/* CHECK-IN SCREEN 2 */
 	howHasYourWeekBeen: "",
 	howHasYourWeekBeenComment: { valid: false, text: "" },
 	setHowHasYourWeekBeen: () => {},
 	setHowHasYourWeekBeenComment: () => {},
-	/* START OF CHECK-IN PAGE 3 */
+	/* CHECK-IN SCREEN 3 */
 	howHasYourHungerBeen: "",
 	howHasYourHungerBeenComment: { valid: false, text: "" },
 	setHowHasYourHungerBeen: () => {},
 	setHowHasYourHungerBeenComment: () => {},
-	/* START OF CHECK-IN PAGE 4 */
+	/* CHECK-IN SCREEN 4 */
 	howHasYourGymStrenthBeen: "",
 	howHasYourGymStrenthBeenComment: { valid: false, text: "" },
 	setHowHasYourGymStrenthBeen: () => {},
 	setHowHasYourGymStrenthBeenComment: () => {},
-	/* START OF CHECK-IN PAGE 5 */
+	/* CHECK-IN SCREEN 5 */
 	howHasYourSleepBeen: "",
 	howHasYourSleepBeenComment: { valid: false, text: "" },
 	setHowHasYourSleepBeen: () => {},
 	setHowHasYourSleepBeenComment: () => {},
-	/* START OF CHECK-IN PAGE 6 */
+	/* CHECK-IN SCREEN 6 */
 	haveYouStickedToThePlan: "",
 	haveYouStickedToThePlanComment: { valid: false, text: "" },
 	setHaveYouStickedToThePlan: () => {},
 	setHaveYouStickedToThePlanComment: () => {},
+	/* CHECK-IN SCREEN 6 */
+	feedBackComment: { valid: false, text: "" },
+	setFeedbackComment: () => {},
 });
 
 interface WeeklyReportProps {
@@ -143,7 +150,7 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 		{ manual: true }
 	);
 	const [notAllFieldsAreValid, setNotAllFieldAreValid] = useState<boolean>(true);
-	// START OF CHECK-IN PAGE 1 { text: "50", valid: true }
+	// CHECK-IN SCREEN 1 { text: "50", valid: true }
 	const [weight, setWeight] = useState<ValidInput | null>(null);
 	const [biceps, setBiceps] = useState<ValidInput | null>(null);
 	const [glutes, setGlutes] = useState<ValidInput | null>(null);
@@ -154,31 +161,36 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 	const [backImage, setBackImage] = useState<string | undefined>();
 	const [leftImage, setLeftImage] = useState<string | undefined>();
 	const [rightImage, setRightImage] = useState<string | undefined>();
-	// START OF CHECK-IN PAGE 2
-	const [howHasYourWeekBeen, setHowHasYourWeekBeen] = useState("");
+	// CHECK-IN SCREEN 2
+	const [howHasYourWeekBeen, setHowHasYourWeekBeen] = useState<string>("Exemplarisk!");
 	const [howHasYourWeekBeenComment, setHowHasYourWeekBeenComment] =
 		useState<ValidInput | null>(null);
-	// START OF CHECK-IN PAGE 3
-	const [howHasYourHungerBeen, setHowHasYourHungerBeen] = useState("");
+	// CHECK-IN SCREEN 3
+	const [howHasYourHungerBeen, setHowHasYourHungerBeen] =
+		useState<string>("Exemplarisk!");
 	const [howHasYourHungerBeenComment, setHowHasYourHungerBeenComment] =
 		useState<ValidInput | null>(null);
-	// START OF CHECK-IN PAGE 4
-	const [howHasYourGymStrenthBeen, setHowHasYourGymStrenthBeen] = useState<string>("");
+	// CHECK-IN SCREEN 4
+	const [howHasYourGymStrenthBeen, setHowHasYourGymStrenthBeen] =
+		useState<string>("Exemplarisk!");
 	const [howHasYourGymStrenthBeenComment, setHowHasYourGymStrenthBeenComment] =
 		useState<ValidInput | null>(null);
-	// START OF CHECK-IN PAGE 5
-	const [howHasYourSleepBeen, setHowHasYourSleepBeen] = useState<string>("");
+	// CHECK-IN SCREEN 5
+	const [howHasYourSleepBeen, setHowHasYourSleepBeen] = useState<string>("Exemplarisk!");
 	const [howHasYourSleepBeenComment, setHowHasYourSleepBeenComment] =
 		useState<ValidInput | null>(null);
-	// START OF CHECK-IN PAGE 6
-	const [haveYouStickedToThePlan, setHaveYouStickedToThePlan] = useState<string>("");
+	// CHECK-IN SCREEN 6
+	const [haveYouStickedToThePlan, setHaveYouStickedToThePlan] =
+		useState<string>("Exemplarisk!");
 	const [haveYouStickedToThePlanComment, setHaveYouStickedToThePlanComment] =
 		useState<ValidInput | null>(null);
+	// CHECK-IN SCREEN 7
+	const [feedBackComment, setFeedbackComment] = useState<ValidInput | null>(null);
 
 	const submitWeeklyReport = async (): Promise<string> => {
 		try {
 			const fields = {
-				/* START OF CHECK-IN PAGE 1 */
+				/* CHECK-IN SCREEN 1 */
 				weight: weight?.text,
 				biceps: biceps?.text,
 				glutes: glutes?.text,
@@ -189,21 +201,23 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 				backImage: backImage ? `data:image/png;base64,${backImage}` : undefined,
 				leftImage: leftImage ? `data:image/png;base64,${leftImage}` : undefined,
 				rightImage: rightImage ? `data:image/png;base64,${rightImage}` : undefined,
-				/* START OF CHECK-IN PAGE 2 */
+				/* CHECK-IN SCREEN 2 */
 				howHasYourWeekBeen: howHasYourWeekBeen,
 				howHasYourWeekBeenComment: howHasYourWeekBeenComment?.text,
-				/* START OF CHECK-IN PAGE 3 */
+				/* CHECK-IN SCREEN 3 */
 				howHasYourGymStrenthBeen: howHasYourGymStrenthBeen,
 				howHasYourGymStrenthBeenComment: howHasYourGymStrenthBeenComment?.text,
-				/* START OF CHECK-IN PAGE 4 */
+				/* CHECK-IN SCREEN 4 */
 				howHasYourHungerBeen: howHasYourHungerBeen,
 				howHasYourHungerBeenComment: howHasYourHungerBeenComment?.text,
-				/* START OF CHECK-IN PAGE 5 */
+				/* CHECK-IN SCREEN 5 */
 				howHasYourSleepBeen: howHasYourSleepBeen,
 				howHasYourSleepBeenComment: howHasYourSleepBeenComment?.text,
-				/* START OF CHECK-IN PAGE 6 */
+				/* CHECK-IN SCREEN 6 */
 				haveYouStickedToThePlan: howHasYourSleepBeen,
 				haveYouStickedToThePlanComment: howHasYourSleepBeenComment?.text,
+				/* CHECK-IN SCREEN 7 */
+				feedBackComment: feedBackComment?.text,
 			};
 
 			const responseStatus = await postWeeklyCheckIn({ data: fields })
@@ -231,17 +245,7 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 	// 2. Check if all values are valid
 	// 3. Toggle notAllFieldsAreValid to disable "send" button in CheckInScreen.tsx
 	useEffect(() => {
-		const fieldsToValidate = [
-			weight,
-			biceps,
-			glutes,
-			waist,
-			thighs,
-			weeklySteps,
-			howHasYourGymStrenthBeenComment,
-			howHasYourWeekBeenComment,
-			howHasYourHungerBeenComment,
-		];
+		const fieldsToValidate = [weight, biceps, glutes, waist, thighs, weeklySteps];
 		const validationRule = (currentField: { valid: boolean }) =>
 			currentField?.valid === true;
 		const allFieldsAreValidated = fieldsToValidate.every(validationRule);
@@ -268,7 +272,7 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 			notAllFieldsAreValid,
 			setNotAllFieldAreValid,
 			submitWeeklyReport,
-			/* START OF CHECK-IN PAGE 1 */
+			/* CHECK-IN SCREEN 1 */
 			weight,
 			biceps,
 			glutes,
@@ -289,37 +293,40 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 			setBackImage,
 			setLeftImage,
 			setRightImage,
-			/* START OF CHECK-IN PAGE 2 */
+			/* CHECK-IN SCREEN 2 */
 			howHasYourWeekBeen,
 			howHasYourWeekBeenComment,
 			setHowHasYourWeekBeen,
 			setHowHasYourWeekBeenComment,
-			/* START OF CHECK-IN PAGE 3 */
+			/* CHECK-IN SCREEN 3 */
 			howHasYourHungerBeen,
 			howHasYourHungerBeenComment,
 			setHowHasYourHungerBeen,
 			setHowHasYourHungerBeenComment,
-			/* START OF CHECK-IN PAGE 4 */
+			/* CHECK-IN SCREEN 4 */
 			howHasYourGymStrenthBeen,
 			howHasYourGymStrenthBeenComment,
 			setHowHasYourGymStrenthBeenComment,
 			setHowHasYourGymStrenthBeen,
-			/* START OF CHECK-IN PAGE 5 */
+			/* CHECK-IN SCREEN 5 */
 			howHasYourSleepBeen,
 			howHasYourSleepBeenComment,
 			setHowHasYourSleepBeen,
 			setHowHasYourSleepBeenComment,
-			/* START OF CHECK-IN PAGE 6 */
+			/* CHECK-IN SCREEN 6 */
 			haveYouStickedToThePlan,
 			haveYouStickedToThePlanComment,
 			setHaveYouStickedToThePlan,
 			setHaveYouStickedToThePlanComment,
+			/* CHECK-IN SCREEN 7 */
+			feedBackComment,
+			setFeedbackComment,
 		}),
 		[
 			notAllFieldsAreValid,
 			setNotAllFieldAreValid,
 			submitWeeklyReport,
-			/* START OF CHECK-IN PAGE 1 */
+			/* CHECK-IN SCREEN 1 */
 			weight,
 			biceps,
 			glutes,
@@ -340,31 +347,34 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 			setBackImage,
 			setLeftImage,
 			setRightImage,
-			/* START OF CHECK-IN PAGE 2 */
+			/* CHECK-IN SCREEN 2 */
 			howHasYourWeekBeen,
 			howHasYourWeekBeenComment,
 			setHowHasYourWeekBeen,
 			setHowHasYourWeekBeenComment,
-			/* START OF CHECK-IN PAGE 3 */
+			/* CHECK-IN SCREEN 3 */
 			howHasYourHungerBeen,
 			howHasYourHungerBeenComment,
 			setHowHasYourHungerBeen,
 			setHowHasYourHungerBeenComment,
-			/* START OF CHECK-IN PAGE 4 */
+			/* CHECK-IN SCREEN 4 */
 			howHasYourGymStrenthBeen,
 			howHasYourGymStrenthBeenComment,
 			setHowHasYourGymStrenthBeenComment,
 			setHowHasYourGymStrenthBeen,
-			/* START OF CHECK-IN PAGE 5 */
+			/* CHECK-IN SCREEN 5 */
 			howHasYourSleepBeen,
 			howHasYourSleepBeenComment,
 			setHowHasYourSleepBeen,
 			setHowHasYourSleepBeenComment,
-			/* START OF CHECK-IN PAGE 6 */
+			/* CHECK-IN SCREEN 6 */
 			haveYouStickedToThePlan,
 			haveYouStickedToThePlanComment,
 			setHaveYouStickedToThePlan,
 			setHaveYouStickedToThePlanComment,
+			/* CHECK-IN SCREEN 7 */
+			feedBackComment,
+			setFeedbackComment,
 		]
 	);
 

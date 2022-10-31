@@ -16,6 +16,7 @@ import WeeklyEvaluation from "../components/checkIn/WeeklyEvaluation";
 import GymStrength from "../components/checkIn/GymStrength";
 import SleepStatus from "../components/checkIn/SleepStatus";
 import WeekSchedule from "../components/checkIn/WeekSchedule";
+import Feedback from "../components/checkIn/Feedback";
 
 const checkInSlider = [
 	{ key: 1, component: <Measures /> },
@@ -24,6 +25,7 @@ const checkInSlider = [
 	{ key: 4, component: <GymStrength /> },
 	{ key: 5, component: <SleepStatus /> },
 	{ key: 6, component: <WeekSchedule /> },
+	{ key: 7, component: <Feedback /> },
 ];
 
 const CheckInScreen: React.FC<SliderProps> = ({ navigation }) => {
