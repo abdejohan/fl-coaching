@@ -1,13 +1,12 @@
 import { StyleSheet, ScrollView, View, RefreshControl } from "react-native";
-import { useTheme } from "react-native-paper";
+import { useTheme, Card, IconButton, TouchableRipple } from "react-native-paper";
 import ListItem from "../components/common/ListItem";
 import { useAxiosAuthenticated } from "../hooks/useAxiosAuthenticated";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Meal } from "../types/types";
-import { Paragraph } from "../typography";
-import AuthContext from "../context/Auth";
+import { Paragraph, Title } from "../typography";
 import { Ionicons } from "@expo/vector-icons";
-
+import diet_workout_day from "../assets/images/diet_workout_day.jpg";
 interface DietProps {
 	navigation: any;
 	route: any;
@@ -19,12 +18,22 @@ type DietPlan = {
 	meals: Array<Meal>;
 };
 
+const calculateTotalNutrientValue = (ingredients: Array<any>, unit: string) => {
+	const sumOfNutrient = ingredients.reduce((accumulator, ingredient) => {
+		if (typeof ingredient[unit] === "number") {
+			return accumulator + (ingredient[unit] / 100) * ingredient.gram;
+		}
+	}, 0);
+	return Math.round(sumOfNutrient);
+};
+
 const DietPlanScreen: React.FC<DietProps> = ({ navigation, route }) => {
 	const [refreshing, setRefreshing] = useState(false);
 	const { useAxios } = useAxiosAuthenticated();
 	const [dietPlanDays, setDietPlanDays] = useState<any>();
-	const { colors } = useTheme();
-	const { user } = useContext(AuthContext);
+	const [allProducts, setAllProducts] = useState<Array<any>>([]);
+	const { colors, roundness } = useTheme();
+
 	// Fetches all diet plans
 	const [{ data: dietPlansData, loading: dietPlansLoading, error: dietPlansError }] =
 		useAxios({
@@ -65,6 +74,20 @@ const DietPlanScreen: React.FC<DietProps> = ({ navigation, route }) => {
 			.catch(() => {});
 	}, [dietPlansData]);
 
+	useEffect(() => {
+		if (dietPlanDays) {
+			const allDays: Array<any> = [];
+			dietPlanDays.map((day: any) => {
+				const allProducts: Array<any> = [];
+				day.meals.map((meal: Meal) => {
+					meal.products.map((product) => allProducts.push(product));
+				});
+				allDays.push(allProducts);
+			});
+			setAllProducts(allDays);
+		}
+	}, [dietPlanDays]);
+
 	return (
 		<ScrollView
 			style={[styles.container, { backgroundColor: colors.background }]}
@@ -80,15 +103,68 @@ const DietPlanScreen: React.FC<DietProps> = ({ navigation, route }) => {
 			}>
 			{dietPlanData &&
 				!dietPlanLoading &&
-				dietPlanDays?.map((day: DietPlan, index: string) => (
-					<ListItem
-						key={index}
-						title={day?.name}
-						icon='fire'
-						onPress={() =>
-							navigation.navigate("Meals", { meals: day.meals, name: day.name })
-						}
-					/>
+				dietPlanDays?.map((day: DietPlan, index: number) => (
+					<Card
+						elevation={0}
+						style={{ marginBottom: 40, borderRadius: roundness, overflow: "hidden" }}
+						key={index}>
+						<View style={{ borderRadius: roundness }}>
+							<TouchableRipple
+								style={{ borderRadius: roundness }}
+								onPress={() =>
+									navigation.navigate("Meals", { meals: day.meals, name: day.name })
+								}>
+								<View>
+									<Card.Cover
+										source={diet_workout_day}
+										style={{
+											borderTopEndRadius: roundness,
+											borderTopStartRadius: roundness,
+										}}
+									/>
+									<Card.Content style={{ padding: 20 }}>
+										<View
+											style={{ flexDirection: "row", justifyContent: "space-between" }}>
+											<View>
+												<Title>{day?.name}</Title>
+												{allProducts.length > 0 && (
+													<Paragraph>
+														P:{" "}
+														{calculateTotalNutrientValue(allProducts[index], "protein")}g
+														| K:
+														{calculateTotalNutrientValue(allProducts[index], "carbs")}g |
+														F:
+														{calculateTotalNutrientValue(allProducts[index], "fat")}g |
+														<Paragraph style={{ color: colors.primary }}>
+															{" "}
+															K: {calculateTotalNutrientValue(allProducts[index], "kcal")}
+														</Paragraph>
+													</Paragraph>
+												)}
+											</View>
+											<View style={{ justifyContent: "center" }}>
+												<View
+													style={{
+														backgroundColor: colors.onSurface,
+														width: 40,
+														height: 40,
+														justifyContent: "center",
+														alignItems: "center",
+														borderRadius: roundness,
+													}}>
+													<IconButton
+														icon='arrow-right'
+														size={18}
+														color={colors.primary}
+													/>
+												</View>
+											</View>
+										</View>
+									</Card.Content>
+								</View>
+							</TouchableRipple>
+						</View>
+					</Card>
 				))}
 			{!dietPlanData && !dietPlanLoading && (
 				<View>
