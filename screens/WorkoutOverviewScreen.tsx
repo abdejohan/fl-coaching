@@ -1,10 +1,9 @@
-import { StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import placeholder_image from "../assets/images/placeholder_image.jpg";
-import { Divider, useTheme } from "react-native-paper";
+import { Divider, useTheme, List, IconButton } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import Button from "../components/common/Button";
-import ListItemBasic from "../components/common/ListItemBasic";
-import { Headline, Paragraph } from "../typography";
+import { Headline, Paragraph, Subheading, Text } from "../typography";
 import ParallaxScrollView from "../animations/ParallaxScrollView";
 import { StatusBar } from "expo-status-bar";
 // import { useAxiosAuthenticated } from "../hooks/useAxiosAuthenticated";
@@ -16,7 +15,7 @@ interface WorkoutOverviewProps {
 }
 
 const WorkoutOverviewScreen: React.FC<WorkoutOverviewProps> = ({ navigation, route }) => {
-	const { colors } = useTheme();
+	const { colors, roundness } = useTheme();
 	const { workoutDay } = route.params;
 
 	/** find all category ids
@@ -58,6 +57,7 @@ const WorkoutOverviewScreen: React.FC<WorkoutOverviewProps> = ({ navigation, rou
 			<StatusBar style='light' />
 			<View style={{ flex: 1 }}>
 				<Headline style={{ color: colors.highlightText }}>Dagens träningspass</Headline>
+				<Subheading>{workoutDay.name}</Subheading>
 				<View style={styles.count}>
 					<Ionicons
 						name='barbell-outline'
@@ -69,10 +69,26 @@ const WorkoutOverviewScreen: React.FC<WorkoutOverviewProps> = ({ navigation, rou
 				</View>
 				{workoutDay.workouts.map((workout: any, index: number) => (
 					<View key={index}>
-						<ListItemBasic
-							titleZtyle={{ marginLeft: -7 }}
+						<List.Item
 							key={index}
+							borderless
+							style={{
+								height: 76,
+								justifyContent: "center",
+								backgroundColor: colors.surface,
+								padding: 0,
+							}}
 							title={workout.name}
+							titleStyle={{
+								fontSize: 16,
+								color: colors.highlightText,
+								fontFamily: "ubuntu-medium",
+							}}
+							descriptionStyle={{
+								color: colors.text,
+								fontSize: 16,
+								fontFamily: "ubuntu-light",
+							}}
 							onPress={() => {
 								navigation.navigate("WorkoutSession", {
 									workouts: workoutDay.workouts,
@@ -80,6 +96,33 @@ const WorkoutOverviewScreen: React.FC<WorkoutOverviewProps> = ({ navigation, rou
 									workoutIndex: index,
 								});
 							}}
+							description={() => (
+								<Text style={{ fontFamily: "ubuntu-light", marginTop: 5 }}>
+									{workout.sets.length} set
+								</Text>
+							)}
+							left={() => (
+								<Image
+									source={placeholder_image}
+									style={{ height: 60, width: 60, borderRadius: roundness }}
+								/>
+							)}
+							right={() => (
+								<View style={{ justifyContent: "center" }}>
+									<View
+										style={{
+											backgroundColor: colors.onSurface,
+											width: 40,
+											height: 40,
+											justifyContent: "center",
+											alignItems: "center",
+											borderRadius: roundness,
+											marginRight: 10,
+										}}>
+										<IconButton icon='arrow-right' size={20} color={colors.primary} />
+									</View>
+								</View>
+							)}
 						/>
 						{index + 1 !== workoutDay.workouts.length && <Divider />}
 					</View>
@@ -109,6 +152,6 @@ const styles = StyleSheet.create({
 	count: {
 		flexDirection: "row",
 		alignItems: "center",
-		marginBottom: 20,
+		marginVertical: 20,
 	},
 });
