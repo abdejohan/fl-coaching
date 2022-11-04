@@ -82,8 +82,8 @@ const MealScreen: React.FC<DietProps> = ({ navigation, route }) => {
 
 	const FirstRoute = () => (
 		<View style={{ backgroundColor: colors.surface, borderRadius: roundness }}>
-			{meal?.products?.map((product: any, index: number) =>
-				product?.description ? (
+			{meal?.products?.map((dish: any, index: number) =>
+				dish?.description ? (
 					<View key={index}>
 						<List.Item
 							borderless
@@ -100,7 +100,7 @@ const MealScreen: React.FC<DietProps> = ({ navigation, route }) => {
 								justifyContent: "center",
 								padding: 0,
 							}}
-							title={product.name}
+							title={dish.name}
 							titleStyle={{
 								fontSize: 16,
 								color: colors.highlightText,
@@ -113,7 +113,7 @@ const MealScreen: React.FC<DietProps> = ({ navigation, route }) => {
 							}}
 							onPress={() =>
 								navigation.navigate("Recipe", {
-									dish: meal,
+									recipe: dish,
 								})
 							}
 							description={() => (
@@ -125,7 +125,7 @@ const MealScreen: React.FC<DietProps> = ({ navigation, route }) => {
 										style={{ transform: [{ rotate: "135deg" }], marginRight: 9 }}
 									/>
 									<Text style={{ fontFamily: "ubuntu-light", marginTop: 5 }}>
-										{typeof product.kcal === "number" && Math.round(product.kcal)} kcal
+										{typeof dish.kcal === "number" && Math.round(dish.kcal)} kcal
 									</Text>
 								</View>
 							)}

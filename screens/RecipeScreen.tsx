@@ -1,10 +1,10 @@
 import { Dimensions, StyleSheet, View } from "react-native";
 import recipeImg from "../assets/images/recipe-image.jpg";
-import { useTheme, IconButton } from "react-native-paper";
+import { useTheme, IconButton, Divider } from "react-native-paper";
 import HeroScrollView from "../components/common/HeroScrollView";
 import Button from "../components/common/Button";
 import ListItemBasic from "../components/common/ListItemBasic";
-import { Caption, Paragraph, Subheading, Text } from "../typography";
+import { Caption, Paragraph, Text, Title } from "../typography";
 import Donut from "../animations/Donut";
 import Count from "../animations/Count";
 
@@ -13,17 +13,25 @@ interface RecipeProps {
 	route: any;
 }
 
+const calculateCookingTime = (preparation_time: string, make_time: string) => {
+	const prepTime = parseInt(preparation_time);
+	const makeTime = parseInt(make_time);
+	const totalCookingTime = prepTime + makeTime;
+	if (!isNaN(totalCookingTime)) return totalCookingTime;
+	return;
+};
+
 const RecipeScreen: React.FC<RecipeProps> = ({ navigation, route }) => {
 	const { colors, roundness } = useTheme();
 	const screenWidth = Dimensions.get("window").width;
-	const { dish: dishItem } = route.params;
-	const dish = dishItem.products[0];
-	const ingredients = JSON.parse(dish.product_ids);
+	const { recipe } = route.params;
+	const ingredients = JSON.parse(recipe.product_ids);
 
 	return (
 		<HeroScrollView
-			title={dish?.name}
+			title={recipe?.name}
 			image={recipeImg}
+			straightLine
 			modal='information'
 			faded
 			button={<Button onPress={() => navigation.goBack()}>Tillbaka</Button>}>
@@ -31,19 +39,21 @@ const RecipeScreen: React.FC<RecipeProps> = ({ navigation, route }) => {
 				<IconButton
 					style={{ padding: 0, margin: 0 }}
 					icon='fire'
-					color={colors.text}
-					size={14}
+					color={colors.primary}
+					size={15}
 				/>
-				<Paragraph>{dish?.kcal} kcal</Paragraph>
+				<Paragraph>{recipe?.kcal} kcal</Paragraph>
 				<IconButton
 					style={{ padding: 0, margin: 0, marginLeft: 10 }}
-					icon='watch'
-					color={colors.text}
-					size={14}
+					icon='clock-outline'
+					color={colors.primary}
+					size={15}
 				/>
-				<Paragraph>{dish?.make_time}</Paragraph>
+				<Paragraph>
+					{calculateCookingTime(recipe.preparation_time, recipe?.make_time)} min
+				</Paragraph>
 			</View>
-			<Paragraph>{dish?.description}</Paragraph>
+			<Paragraph>{recipe?.description}</Paragraph>
 			<View
 				style={{
 					flexDirection: "row",
@@ -53,7 +63,7 @@ const RecipeScreen: React.FC<RecipeProps> = ({ navigation, route }) => {
 				{/** -------- PROTEIN -------- */}
 				<View
 					style={{
-						paddingVertical: 5,
+						paddingVertical: 15,
 						backgroundColor: colors.background,
 						alignItems: "center",
 						borderRadius: roundness,
@@ -61,9 +71,10 @@ const RecipeScreen: React.FC<RecipeProps> = ({ navigation, route }) => {
 						marginRight: 10,
 					}}>
 					<Donut
+						strokeWidth={6}
 						color={colors.primary}
 						delay={200}
-						percentage={dish?.protein}
+						percentage={recipe?.protein}
 						radius={screenWidth / 10}>
 						<View
 							style={[
@@ -72,7 +83,7 @@ const RecipeScreen: React.FC<RecipeProps> = ({ navigation, route }) => {
 							]}>
 							<Count
 								delay={200}
-								stop={dish.protein}
+								stop={recipe.protein}
 								style={{
 									color: colors.highlightText,
 									fontSize: screenWidth / 22,
@@ -90,12 +101,12 @@ const RecipeScreen: React.FC<RecipeProps> = ({ navigation, route }) => {
 						</View>
 					</Donut>
 
-					<Caption>Protein</Caption>
+					<Caption style={{ marginTop: 5 }}>Protein</Caption>
 				</View>
 				{/** -------- CARBS -------- */}
 				<View
 					style={{
-						paddingVertical: 5,
+						paddingVertical: 15,
 						backgroundColor: colors.background,
 						alignItems: "center",
 						borderRadius: roundness,
@@ -103,9 +114,10 @@ const RecipeScreen: React.FC<RecipeProps> = ({ navigation, route }) => {
 						marginRight: 10,
 					}}>
 					<Donut
+						strokeWidth={6}
 						color={colors.primary}
 						delay={200}
-						percentage={dish?.carbs}
+						percentage={recipe?.carbs}
 						radius={screenWidth / 10}>
 						<View
 							style={[
@@ -118,7 +130,7 @@ const RecipeScreen: React.FC<RecipeProps> = ({ navigation, route }) => {
 							]}>
 							<Count
 								delay={200}
-								stop={dish?.carbs}
+								stop={recipe?.carbs}
 								style={{
 									color: colors.highlightText,
 									fontSize: screenWidth / 22,
@@ -135,21 +147,22 @@ const RecipeScreen: React.FC<RecipeProps> = ({ navigation, route }) => {
 							</Text>
 						</View>
 					</Donut>
-					<Caption>Kolhydrater</Caption>
+					<Caption style={{ marginTop: 5 }}>Kolhydrater</Caption>
 				</View>
 				{/** -------- FAT -------- */}
 				<View
 					style={{
-						paddingVertical: 5,
+						paddingVertical: 15,
 						backgroundColor: colors.background,
 						alignItems: "center",
 						borderRadius: roundness,
 						flexGrow: 2,
 					}}>
 					<Donut
+						strokeWidth={6}
 						color={colors.primary}
 						delay={200}
-						percentage={dish?.fat}
+						percentage={recipe?.fat}
 						radius={screenWidth / 10}>
 						<View
 							style={[
@@ -158,7 +171,7 @@ const RecipeScreen: React.FC<RecipeProps> = ({ navigation, route }) => {
 							]}>
 							<Count
 								delay={200}
-								stop={dish?.fat}
+								stop={recipe?.fat}
 								style={{
 									color: colors.highlightText,
 									fontSize: screenWidth / 22,
@@ -175,35 +188,37 @@ const RecipeScreen: React.FC<RecipeProps> = ({ navigation, route }) => {
 							</Text>
 						</View>
 					</Donut>
-					<Caption>Fett</Caption>
+					<Caption style={{ marginTop: 5 }}>Fett</Caption>
 				</View>
 			</View>
 			{ingredients &&
 				ingredients.map((ingredient: any, index: number) => (
-					<ListItemBasic
-						key={index}
-						title={ingredient?.name}
-						descriptionLeft={`${ingredient?.protein}g${
-							ingredient?.unit ? " \u00B7 " + ingredient?.unit : " "
-						}`}
-						descriptionRight={`${ingredient?.kcal} kcal`}
-					/>
+					<View key={index}>
+						<ListItemBasic
+							title={ingredient?.name}
+							descriptionLeft={`${ingredient?.protein}g${
+								ingredient?.unit ? " \u00B7 " + ingredient?.unit : " "
+							}`}
+							descriptionRight={`${ingredient?.kcal} kcal`}
+						/>
+						{ingredients.length !== index + 1 && <Divider style={{ marginLeft: 7 }} />}
+					</View>
 				))}
 
-			<Subheading
+			<Title
 				style={{
 					color: colors.highlightText,
 					fontFamily: "ubuntu-medium",
-					marginTop: 10,
+					marginTop: 30,
 					marginLeft: 7,
 				}}>
 				Gör såhär:
-			</Subheading>
+			</Title>
 			<Paragraph
 				style={{
 					marginLeft: 10,
 				}}>
-				{dish?.comment}
+				{recipe?.comment}
 			</Paragraph>
 		</HeroScrollView>
 	);
