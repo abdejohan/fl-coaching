@@ -21,7 +21,6 @@ const calculateTotalNutrientValue = (ingredients: Array<any>, unit: string) => {
 const MealsScreen: React.FC<MealProps> = ({ navigation, route }) => {
 	const { colors, roundness } = useTheme();
 	const { meals } = route.params;
-	console.log(JSON.stringify(meals[0], null, 2));
 
 	return (
 		<ScrollView
