@@ -46,27 +46,27 @@ type ContextType = {
 	setHowHasYourHungerBeen: (howHasYourHungerBeen: string) => void;
 	setHowHasYourHungerBeenComment: (howHasYourHungerBeenComment: ValidInput) => void;
 	/* CHECK-IN SCREEN 4 */
-	howHasYourGymStrenthBeen: string;
-	howHasYourGymStrenthBeenComment: ValidInput | null;
-	setHowHasYourGymStrenthBeen: (howHasYourGymStrenthBeen: string) => void;
-	setHowHasYourGymStrenthBeenComment: (
-		howHasYourGymStrenthBeenComment: ValidInput
+	howHasYourGymStrengthBeen: string;
+	howHasYourGymStrengthBeenComment: ValidInput | null;
+	setHowHasYourGymStrengthBeen: (howHasYourGymStrengthBeen: string) => void;
+	setHowHasYourGymStrengthBeenComment: (
+		howHasYourGymStrengthBeenComment: ValidInput
 	) => void;
 	/* CHECK-IN SCREEN 5 */
 	howHasYourSleepBeen: string;
 	howHasYourSleepBeenComment: ValidInput | null;
-	setHowHasYourSleepBeen: (howHasYourGymStrenthBeen: string) => void;
-	setHowHasYourSleepBeenComment: (howHasYourGymStrenthBeenComment: ValidInput) => void;
+	setHowHasYourSleepBeen: (howHasYourGymStrengthBeen: string) => void;
+	setHowHasYourSleepBeenComment: (howHasYourGymStrengthBeenComment: ValidInput) => void;
 	/* CHECK-IN SCREEN 6 */
 	haveYouStickedToThePlan: string;
 	haveYouStickedToThePlanComment: ValidInput | null;
-	setHaveYouStickedToThePlan: (howHasYourGymStrenthBeen: string) => void;
+	setHaveYouStickedToThePlan: (howHasYourGymStrengthBeen: string) => void;
 	setHaveYouStickedToThePlanComment: (
-		howHasYourGymStrenthBeenComment: ValidInput
+		howHasYourGymStrengthBeenComment: ValidInput
 	) => void;
 	/* CHECK-IN SCREEN 7 */
 	feedbackComment: ValidInput | null;
-	setFeedbackComment: (howHasYourGymStrenthBeenComment: ValidInput) => void;
+	setFeedbackComment: (howHasYourGymStrengthBeenComment: ValidInput) => void;
 };
 
 const WeeklyReport = React.createContext<ContextType>({
@@ -105,10 +105,10 @@ const WeeklyReport = React.createContext<ContextType>({
 	setHowHasYourHungerBeen: () => {},
 	setHowHasYourHungerBeenComment: () => {},
 	/* CHECK-IN SCREEN 4 */
-	howHasYourGymStrenthBeen: "",
-	howHasYourGymStrenthBeenComment: { valid: false, text: "" },
-	setHowHasYourGymStrenthBeen: () => {},
-	setHowHasYourGymStrenthBeenComment: () => {},
+	howHasYourGymStrengthBeen: "",
+	howHasYourGymStrengthBeenComment: { valid: false, text: "" },
+	setHowHasYourGymStrengthBeen: () => {},
+	setHowHasYourGymStrengthBeenComment: () => {},
 	/* CHECK-IN SCREEN 5 */
 	howHasYourSleepBeen: "",
 	howHasYourSleepBeenComment: { valid: false, text: "" },
@@ -171,9 +171,9 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 	const [howHasYourHungerBeenComment, setHowHasYourHungerBeenComment] =
 		useState<ValidInput | null>(null);
 	// CHECK-IN SCREEN 4
-	const [howHasYourGymStrenthBeen, setHowHasYourGymStrenthBeen] =
+	const [howHasYourGymStrengthBeen, setHowHasYourGymStrengthBeen] =
 		useState<string>("Exemplarisk!");
-	const [howHasYourGymStrenthBeenComment, setHowHasYourGymStrenthBeenComment] =
+	const [howHasYourGymStrengthBeenComment, setHowHasYourGymStrengthBeenComment] =
 		useState<ValidInput | null>(null);
 	// CHECK-IN SCREEN 5
 	const [howHasYourSleepBeen, setHowHasYourSleepBeen] = useState<string>("Exemplarisk!");
@@ -205,8 +205,8 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 				howHasYourWeekBeen: howHasYourWeekBeen,
 				howHasYourWeekBeenComment: howHasYourWeekBeenComment?.text,
 				/* CHECK-IN SCREEN 3 */
-				howHasYourGymStrenthBeen: howHasYourGymStrenthBeen,
-				howHasYourGymStrenthBeenComment: howHasYourGymStrenthBeenComment?.text,
+				howHasYourGymStrengthBeen: howHasYourGymStrengthBeen,
+				howHasYourGymStrengthBeenComment: howHasYourGymStrengthBeenComment?.text,
 				/* CHECK-IN SCREEN 4 */
 				howHasYourHungerBeen: howHasYourHungerBeen,
 				howHasYourHungerBeenComment: howHasYourHungerBeenComment?.text,
@@ -261,8 +261,8 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 		waist,
 		thighs,
 		weeklySteps,
-		howHasYourGymStrenthBeen,
-		howHasYourGymStrenthBeenComment,
+		howHasYourGymStrengthBeen,
+		howHasYourGymStrengthBeenComment,
 		howHasYourWeekBeenComment,
 		howHasYourHungerBeenComment,
 	]);
@@ -304,10 +304,10 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 			setHowHasYourHungerBeen,
 			setHowHasYourHungerBeenComment,
 			/* CHECK-IN SCREEN 4 */
-			howHasYourGymStrenthBeen,
-			howHasYourGymStrenthBeenComment,
-			setHowHasYourGymStrenthBeenComment,
-			setHowHasYourGymStrenthBeen,
+			howHasYourGymStrengthBeen,
+			howHasYourGymStrengthBeenComment,
+			setHowHasYourGymStrengthBeenComment,
+			setHowHasYourGymStrengthBeen,
 			/* CHECK-IN SCREEN 5 */
 			howHasYourSleepBeen,
 			howHasYourSleepBeenComment,
@@ -358,10 +358,10 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 			setHowHasYourHungerBeen,
 			setHowHasYourHungerBeenComment,
 			/* CHECK-IN SCREEN 4 */
-			howHasYourGymStrenthBeen,
-			howHasYourGymStrenthBeenComment,
-			setHowHasYourGymStrenthBeenComment,
-			setHowHasYourGymStrenthBeen,
+			howHasYourGymStrengthBeen,
+			howHasYourGymStrengthBeenComment,
+			setHowHasYourGymStrengthBeenComment,
+			setHowHasYourGymStrengthBeen,
 			/* CHECK-IN SCREEN 5 */
 			howHasYourSleepBeen,
 			howHasYourSleepBeenComment,

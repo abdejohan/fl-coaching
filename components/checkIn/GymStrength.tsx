@@ -10,10 +10,10 @@ import { Headline, Subheading } from "../../typography";
 const GymStrength: React.FC = () => {
 	const { colors } = useTheme();
 	const {
-		howHasYourGymStrenthBeen,
-		setHowHasYourGymStrenthBeen,
-		howHasYourGymStrenthBeenComment,
-		setHowHasYourGymStrenthBeenComment,
+		howHasYourGymStrengthBeen,
+		setHowHasYourGymStrengthBeen,
+		howHasYourGymStrengthBeenComment,
+		setHowHasYourGymStrengthBeenComment,
 	} = useContext(WeeklyReport);
 
 	return (
@@ -27,31 +27,31 @@ const GymStrength: React.FC = () => {
 			</Subheading>
 			<RadioButton
 				value='Exemplarisk!'
-				status={howHasYourGymStrenthBeen}
-				onPress={() => setHowHasYourGymStrenthBeen("Exemplarisk!")}
+				status={howHasYourGymStrengthBeen}
+				onPress={() => setHowHasYourGymStrengthBeen("Exemplarisk!")}
 			/>
 			<RadioButton
 				value='Bra'
-				status={howHasYourGymStrenthBeen}
-				onPress={() => setHowHasYourGymStrenthBeen("Bra")}
+				status={howHasYourGymStrengthBeen}
+				onPress={() => setHowHasYourGymStrengthBeen("Bra")}
 			/>
 			<RadioButton
 				value='Mindre bra'
-				status={howHasYourGymStrenthBeen}
-				onPress={() => setHowHasYourGymStrenthBeen("Mindre bra")}
+				status={howHasYourGymStrengthBeen}
+				onPress={() => setHowHasYourGymStrengthBeen("Mindre bra")}
 			/>
 			<RadioButton
 				value='Dålig'
-				status={howHasYourGymStrenthBeen}
-				onPress={() => setHowHasYourGymStrenthBeen("Dålig")}
+				status={howHasYourGymStrengthBeen}
+				onPress={() => setHowHasYourGymStrengthBeen("Dålig")}
 			/>
 			<Subheading style={{ color: colors.highlightText, marginTop: 20 }}>
 				Frivillig kommentar
 			</Subheading>
 			<InputValidation
-				value={howHasYourGymStrenthBeenComment?.text}
+				value={howHasYourGymStrengthBeenComment?.text}
 				onValidation={(valid: boolean, text) =>
-					setHowHasYourGymStrenthBeenComment({ valid, text })
+					setHowHasYourGymStrengthBeenComment({ valid, text })
 				}
 				placeholder='Fritext'
 				maxLength={255}
