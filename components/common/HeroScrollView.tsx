@@ -21,13 +21,23 @@ interface HeroScrollProps {
 	image?: ImageSourcePropType;
 	video?: string;
 	modal?: string;
+	straightLine?: boolean;
 	faded?: boolean;
 	children?: any;
 	refreshControl?: RefreshControl;
 }
 
 const HeroScrollView: React.FC<HeroScrollProps> = (props) => {
-	const { children, title, description, image, video, button, faded } = props;
+	const {
+		children,
+		title,
+		description,
+		image,
+		video,
+		button,
+		faded,
+		straightLine = false,
+	} = props;
 	const { colors } = useTheme();
 	const isFocused = useIsFocused();
 
@@ -56,8 +66,8 @@ const HeroScrollView: React.FC<HeroScrollProps> = (props) => {
 			<View
 				style={{
 					bottom: 35,
-					borderTopStartRadius: video ? 0 : 35,
-					borderTopEndRadius: video ? 0 : 35,
+					borderTopStartRadius: video || straightLine ? 0 : 35,
+					borderTopEndRadius: video || straightLine ? 0 : 35,
 					padding: 25,
 					paddingTop: video ? 0 : 25,
 					paddingBottom: 0,
