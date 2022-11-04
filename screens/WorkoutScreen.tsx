@@ -45,7 +45,7 @@ const WorkoutScreen: React.FC<WorkoutSchemaProps> = ({ navigation, route }) => {
 				{workoutData &&
 					!workoutLoading &&
 					workoutData[0]?.workout_days?.map((day: any, index: number) => (
-						<>
+						<View key={index}>
 							<List.Item
 								key={index}
 								borderless
@@ -116,7 +116,7 @@ const WorkoutScreen: React.FC<WorkoutSchemaProps> = ({ navigation, route }) => {
 								}}
 							/>
 							{workoutData[0]?.workout_days?.length !== index + 1 && <Divider />}
-						</>
+						</View>
 					))}
 			</View>
 			{workoutData?.length === 0 && !workoutLoading && (
