@@ -52,11 +52,11 @@ const WorkoutOverviewScreen: React.FC<WorkoutOverviewProps> = ({ navigation, rou
 	*/
 
 	return (
-		<View style={{ backgroundColor: colors.onSurface, flex: 1 }}>
+		<ParallaxScrollView
+			contentContainerStyle={{ padding: 20 }}
+			imageSource={placeholder_image}>
 			<StatusBar hidden />
-			<ParallaxScrollView
-				contentContainerStyle={{ padding: 20 }}
-				imageSource={placeholder_image}>
+			<View style={{ flex: 1 }}>
 				<Headline style={{ color: colors.highlightText }}>Dagens träningspass</Headline>
 				<View style={styles.count}>
 					<Ionicons
@@ -84,27 +84,22 @@ const WorkoutOverviewScreen: React.FC<WorkoutOverviewProps> = ({ navigation, rou
 						{index + 1 !== workoutDay.workouts.length && <Divider />}
 					</View>
 				))}
-				<View
-					style={{
-						marginTop: 50,
-						marginBottom: 20,
-						flex: 1,
-					}}>
-					<Button
-						onPress={() =>
-							navigation.navigate("WorkoutSession", {
-								workouts: workoutDay.workouts,
-								workoutDayID: workoutDay.id,
-							})
-						}>
-						Påbörja träningspass
-					</Button>
-					<Button backgroundColor='grey' onPress={() => navigation.goBack()}>
-						Tillbaka
-					</Button>
-				</View>
-			</ParallaxScrollView>
-		</View>
+			</View>
+			<View>
+				<Button
+					onPress={() =>
+						navigation.navigate("WorkoutSession", {
+							workouts: workoutDay.workouts,
+							workoutDayID: workoutDay.id,
+						})
+					}>
+					Påbörja träningspass
+				</Button>
+				<Button backgroundColor='grey' onPress={() => navigation.goBack()}>
+					Tillbaka
+				</Button>
+			</View>
+		</ParallaxScrollView>
 	);
 };
 

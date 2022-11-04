@@ -19,7 +19,7 @@ const ParallaxScrollView: React.FC<ParallaxScrollViewProps> = (props) => {
 		children,
 		style,
 		contentContainerStyle,
-		imageHeight = windowHeight / 3,
+		imageHeight = windowHeight / 4,
 		imageSource,
 	} = props;
 
@@ -63,17 +63,13 @@ const ParallaxScrollView: React.FC<ParallaxScrollViewProps> = (props) => {
 				style={style}
 				contentContainerStyle={{
 					marginTop: imageHeight,
-					borderTopEndRadius: 30,
-					borderTopStartRadius: 30,
-					bottom: 30,
-					paddingBottom: imageHeight,
-					minHeight: (windowHeight / 3) * 2,
+					minHeight: (windowHeight / 4) * 3,
 					backgroundColor: colors.onSurface,
 					...contentContainerStyle,
 				}}
 				scrollEventThrottle={8} // target 120fps
 			>
-				<View style={{ minHeight: (windowHeight / 3) * 2 }}>{children}</View>
+				{children}
 			</Animated.ScrollView>
 		</>
 	);
