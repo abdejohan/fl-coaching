@@ -1,11 +1,11 @@
 import { ScrollView, View } from "react-native";
-import { Divider, useTheme } from "react-native-paper";
-import ListItem from "../components/common/ListItem";
+import { Divider, useTheme, List, IconButton } from "react-native-paper";
 import ListItemBasic from "../components/common/ListItemBasic";
 import TabBarView from "../components/common/TabBarView";
 import { SceneMap } from "react-native-tab-view";
 import { useEffect, useState } from "react";
-import { Subheading } from "../typography";
+import { Subheading, Text } from "../typography";
+import { Ionicons } from "@expo/vector-icons";
 
 interface DietProps {
 	navigation: any;
@@ -43,6 +43,7 @@ const MealScreen: React.FC<DietProps> = ({ navigation, route }) => {
 	const { colors, roundness } = useTheme();
 	const { meal } = route.params;
 	const [ingredients, setIngredients] = useState<Array<Ingredient> | undefined>();
+	const [numberOfRecipes, setNumberOfRecipes] = useState<number>(0);
 	const [sumOfRecipeNutrients, setSumOfRecipeNutrients] = useState<Nutrients>({
 		carbs: 0,
 		protein: 0,
@@ -61,8 +62,10 @@ const MealScreen: React.FC<DietProps> = ({ navigation, route }) => {
 
 	useEffect(() => {
 		const arrayOfIngredients: Array<Ingredient> = [];
+		let recipeCount = 0;
 		meal.products.forEach((product: any) => {
 			if (product.description) {
+				recipeCount += 1;
 				setSumOfRecipeNutrients({
 					carbs: sumOfRecipeNutrients.carbs + product.carbs,
 					protein: sumOfRecipeNutrients.protein + product.protein,
@@ -72,23 +75,81 @@ const MealScreen: React.FC<DietProps> = ({ navigation, route }) => {
 				arrayOfIngredients.push(product);
 			}
 		});
+
 		setIngredients(arrayOfIngredients);
+		setNumberOfRecipes(recipeCount);
 	}, []);
 
 	const FirstRoute = () => (
-		<View style={{ flex: 1 }}>
-			{meal?.products?.map((product: any, index: string) =>
+		<View style={{ backgroundColor: colors.surface, borderRadius: roundness }}>
+			{meal?.products?.map((product: any, index: number) =>
 				product?.description ? (
-					<ListItem
-						key={index}
-						title={product.name}
-						icon='fire'
-						onPress={() =>
-							navigation.navigate("Recipe", {
-								dish: meal,
-							})
-						}
-					/>
+					<View key={index}>
+						<List.Item
+							borderless
+							style={{
+								backgroundColor: colors.surface,
+								borderTopRightRadius: index === 0 ? roundness : undefined,
+								borderTopLeftRadius: index === 0 ? roundness : undefined,
+								borderBottomRightRadius:
+									numberOfRecipes === index + 1 ? roundness : undefined,
+								borderBottomLeftRadius:
+									numberOfRecipes === index + 1 ? roundness : undefined,
+								paddingHorizontal: 5,
+								height: 76,
+								justifyContent: "center",
+								padding: 0,
+							}}
+							title={product.name}
+							titleStyle={{
+								fontSize: 16,
+								color: colors.highlightText,
+								fontFamily: "ubuntu-medium",
+							}}
+							descriptionStyle={{
+								color: colors.text,
+								fontSize: 16,
+								fontFamily: "ubuntu-light",
+							}}
+							onPress={() =>
+								navigation.navigate("Recipe", {
+									dish: meal,
+								})
+							}
+							description={() => (
+								<View style={{ flexDirection: "row", marginLeft: -3 }}>
+									<Ionicons
+										size={13}
+										name='barbell-outline'
+										color={colors.primary}
+										style={{ transform: [{ rotate: "135deg" }], marginRight: 9 }}
+									/>
+									<Text style={{ fontFamily: "ubuntu-light", marginTop: 5 }}>
+										{typeof product.kcal === "number" && Math.round(product.kcal)} kcal
+									</Text>
+								</View>
+							)}
+							right={() => {
+								return (
+									<View style={{ justifyContent: "center" }}>
+										<View
+											style={{
+												backgroundColor: colors.onSurface,
+												width: 40,
+												height: 40,
+												justifyContent: "center",
+												alignItems: "center",
+												borderRadius: roundness,
+												marginRight: 10,
+											}}>
+											<IconButton icon='arrow-right' size={18} color={colors.primary} />
+										</View>
+									</View>
+								);
+							}}
+						/>
+						{numberOfRecipes !== index + 1 && <Divider />}
+					</View>
 				) : null
 			)}
 		</View>
