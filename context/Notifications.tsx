@@ -73,8 +73,18 @@ export const NotificationsContextProvider: FunctionComponent = ({ children }) =>
 	useEffect(() => {
 		if (notification) {
 			const { type } = notification.request.content.data;
-			if (type === "CHAT" && currentRoute !== "Chat")
+			// THIS IS FOR THE CHAT NOTIFICATION
+			if (type === "CHAT" && currentRoute !== "Chat") {
 				setChatBadgeCount(chatBadgeCount + 1);
+			}
+			// THIS IS FOR THE CHECK-IN NOTIFICATION
+			if (
+				type === "CHECK_IN" &&
+				currentRoute !== "CheckIn" &&
+				user?.weekly_update_sent === 0
+			) {
+				RootNavigation.navigate("CheckIn");
+			}
 		}
 	}, [notification]);
 
@@ -84,6 +94,7 @@ export const NotificationsContextProvider: FunctionComponent = ({ children }) =>
 	const handleTappedNotifications = useCallback((notification: NotificationResponse) => {
 		if (notification) {
 			const { type } = notification.notification.request.content.data;
+			// THIS IS FOR THE CHAT NOTIFICATION
 			if (type === "CHAT" && currentRoute !== "Chat") {
 				RootNavigation.navigate("Chat");
 				setChatBadgeCount(0);
