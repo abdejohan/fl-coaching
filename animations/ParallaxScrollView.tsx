@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Animated, TextStyle, Dimensions, View } from "react-native";
 import { useTheme } from "react-native-paper";
@@ -27,33 +26,51 @@ const ParallaxScrollView: React.FC<ParallaxScrollViewProps> = (props) => {
 		<>
 			<Animated.Image
 				source={imageSource}
-				style={[
-					{
-						...StyleSheet.absoluteFillObject,
-						height: imageHeight,
-						width: "100%",
-						resizeMode: "cover",
-						alignSelf: "center",
-					},
-					{
-						transform: [
-							{
-								translateY: scrollAnimatedValue.interpolate({
-									inputRange: [-imageHeight, 0, imageHeight],
-									outputRange: [imageHeight / 2, 0, -imageHeight / 2],
-									extrapolateRight: "clamp",
-								}),
-							},
-							{
-								scale: scrollAnimatedValue.interpolate({
-									inputRange: [-imageHeight, 0],
-									outputRange: [2, 1],
-									extrapolateRight: "clamp",
-								}),
-							},
-						],
-					},
-				]}
+				style={{
+					...StyleSheet.absoluteFillObject,
+					height: imageHeight,
+					width: "100%",
+					resizeMode: "cover",
+					alignSelf: "center",
+					transform: [
+						{
+							translateY: scrollAnimatedValue.interpolate({
+								inputRange: [-imageHeight, 0, imageHeight],
+								outputRange: [imageHeight / 2, 0, -imageHeight / 2],
+								extrapolateRight: "clamp",
+							}),
+						},
+						{
+							scale: scrollAnimatedValue.interpolate({
+								inputRange: [-imageHeight, 0],
+								outputRange: [2, 1],
+								extrapolateRight: "clamp",
+							}),
+						},
+					],
+				}}
+			/>
+			<Animated.View
+				style={{
+					...StyleSheet.absoluteFillObject,
+					backgroundColor: colors.darkfade,
+					transform: [
+						{
+							translateY: scrollAnimatedValue.interpolate({
+								inputRange: [-imageHeight, 0, imageHeight],
+								outputRange: [imageHeight / 2, 0, -imageHeight / 2],
+								extrapolateRight: "clamp",
+							}),
+						},
+						{
+							scale: scrollAnimatedValue.interpolate({
+								inputRange: [-imageHeight, 0],
+								outputRange: [2, 1],
+								extrapolateRight: "clamp",
+							}),
+						},
+					],
+				}}
 			/>
 			<Animated.ScrollView
 				onScroll={Animated.event(
@@ -64,7 +81,6 @@ const ParallaxScrollView: React.FC<ParallaxScrollViewProps> = (props) => {
 				contentContainerStyle={{
 					marginTop: imageHeight,
 					minHeight: (windowHeight / 4) * 3,
-					backgroundColor: colors.onSurface,
 					...contentContainerStyle,
 				}}
 				scrollEventThrottle={8} // target 120fps

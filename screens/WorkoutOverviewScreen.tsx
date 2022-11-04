@@ -53,9 +53,9 @@ const WorkoutOverviewScreen: React.FC<WorkoutOverviewProps> = ({ navigation, rou
 
 	return (
 		<ParallaxScrollView
-			contentContainerStyle={{ padding: 20 }}
+			contentContainerStyle={{ padding: 20, flex: 1, backgroundColor: colors.surface }}
 			imageSource={placeholder_image}>
-			<StatusBar hidden />
+			<StatusBar style='light' />
 			<View style={{ flex: 1 }}>
 				<Headline style={{ color: colors.highlightText }}>Dagens träningspass</Headline>
 				<View style={styles.count}>
