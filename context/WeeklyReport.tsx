@@ -214,8 +214,8 @@ export const WeeklyReportContextProvider: FunctionComponent<WeeklyReportProps> =
 				howHasYourSleepBeen: howHasYourSleepBeen,
 				howHasYourSleepBeenComment: howHasYourSleepBeenComment?.text,
 				/* CHECK-IN SCREEN 6 */
-				haveYouStickedToThePlan: howHasYourSleepBeen,
-				haveYouStickedToThePlanComment: howHasYourSleepBeenComment?.text,
+				haveYouStickedToThePlan: haveYouStickedToThePlan,
+				haveYouStickedToThePlanComment: haveYouStickedToThePlanComment?.text,
 				/* CHECK-IN SCREEN 7 */
 				feedbackComment: feedbackComment?.text,
 			};
