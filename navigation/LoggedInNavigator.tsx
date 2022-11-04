@@ -6,7 +6,6 @@ import WorkoutScreen from "../screens/WorkoutScreen";
 import WorkoutOverviewScreen from "../screens/WorkoutOverviewScreen";
 import WorkoutSession from "../screens/WorkoutSession";
 import CheckInScreen from "../screens/CheckInScreen";
-import DietPlansScreen from "../screens/DietPlansScreen";
 import ChatScreen from "../screens/ChatScreen";
 import { IconButton, TouchableRipple, useTheme } from "react-native-paper";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -31,6 +30,7 @@ import MealsScreen from "../screens/MealsScreen";
 import DealsScreen from "../screens/DealsScreen";
 import AlternateWorkoutSession from "../screens/AlternateWorkoutSession";
 import RecipeScreen from "../screens/RecipeScreen";
+import MealScreen from "../screens/MealScreen";
 
 const LoggedInStack = createNativeStackNavigator<LoggedInStackParmList>();
 export default function LoggedInNavigator() {
@@ -81,20 +81,20 @@ export default function LoggedInNavigator() {
 				})}
 			/>
 			<LoggedInStack.Screen
+				name='Meal'
+				component={MealScreen}
+				options={({ route }: any) => ({
+					headerLeft: () => backIcon(),
+					title: route?.params?.name,
+				})}
+			/>
+			<LoggedInStack.Screen
 				name='Recipe'
 				component={RecipeScreen}
 				options={{
 					headerBackVisible: false,
 					headerShown: false,
 				}}
-			/>
-			<LoggedInStack.Screen
-				name='DietPlan'
-				component={DietPlanScreen}
-				options={({ route }: any) => ({
-					headerLeft: () => backIcon(),
-					title: route?.params?.name,
-				})}
 			/>
 			<LoggedInStack.Screen
 				name='WorkoutOverview'
@@ -366,11 +366,11 @@ function DietTabNavigator() {
 				headerTitleAlign: "center",
 				headerStyle: { backgroundColor: colors.background },
 			}}>
-			<DietTabStack.Screen
-				name='DietPlans'
-				component={DietPlansScreen}
+			<LoggedInStack.Screen
+				name='DietPlan'
+				component={DietPlanScreen}
 				options={{
-					title: "Kostscheman",
+					title: "Kostschema",
 				}}
 			/>
 		</DietTabStack.Navigator>

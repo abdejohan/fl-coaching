@@ -1,13 +1,10 @@
 import { ScrollView, View } from "react-native";
-import { Divider, useTheme } from "react-native-paper";
-import ListItem from "../components/common/ListItem";
-import ListItemBasic from "../components/common/ListItemBasic";
-import TabBarView from "../components/common/TabBarView";
-import { SceneMap } from "react-native-tab-view";
-import { useEffect, useState } from "react";
-import { Subheading } from "../typography";
+import { Divider, useTheme, List, IconButton } from "react-native-paper";
+import { Text } from "../typography";
+import { Ionicons } from "@expo/vector-icons";
+import { Meal } from "../types/types";
 
-interface DietProps {
+interface MealProps {
 	navigation: any;
 	route: any;
 }
@@ -21,88 +18,86 @@ const calculateTotalNutrientValue = (ingredients: Array<any>, unit: string) => {
 	return Math.round(sumOfNutrient);
 };
 
-const MealsScreen: React.FC<DietProps> = ({ navigation, route }) => {
+const MealsScreen: React.FC<MealProps> = ({ navigation, route }) => {
 	const { colors, roundness } = useTheme();
 	const { meals } = route.params;
-	const [ingredients, setIngredients] = useState<Array<{}>>([]);
-
-	useEffect(() => {
-		meals.map((meal: any) => {
-			!meal.products[0].description && setIngredients(meal.products);
-		});
-	}, [meals]);
-
-	const FirstRoute = () => (
-		<View style={{ flex: 1 }}>
-			{meals?.map((meal: any, index: string) =>
-				meal.products[0].description ? (
-					<ListItem
-						key={index}
-						title={meal?.name}
-						icon='fire'
-						onPress={() =>
-							navigation.navigate("Recipe", {
-								dish: meal,
-							})
-						}
-					/>
-				) : null
-			)}
-		</View>
-	);
-
-	const SecondRoute = () => (
-		<View style={{ flex: 1 }}>
-			{meals?.map((meal: any, index: string) => (
-				<View
-					key={index}
-					style={{ backgroundColor: colors.surface, borderRadius: roundness }}>
-					{!meal.products[0].description
-						? meal.products.map((dish: any, dishIndex: number) => (
-								<View key={dishIndex}>
-									<ListItemBasic
-										style={{ padding: 10, marginRight: 10 }}
-										title={dish.name}
-										descriptionLeft={`${dish.gram}g`} // dot: \u00B7
-										descriptionRight={`${dish.kcal} kcal`}
-									/>
-									{meal?.products?.length !== dishIndex + 1 && (
-										<Divider style={{ width: "93%", alignSelf: "center" }} />
-									)}
-								</View>
-						  ))
-						: null}
-				</View>
-			))}
-			<View style={{ flexDirection: "row", justifyContent: "center", padding: 20 }}>
-				<Subheading>
-					{`${calculateTotalNutrientValue(ingredients, "carbs")}g Kolhydrater \u00B7 `}
-				</Subheading>
-				<Subheading>
-					{`${calculateTotalNutrientValue(ingredients, "fat")}g Fett \u00B7 `}
-				</Subheading>
-				<Subheading>
-					{`${calculateTotalNutrientValue(ingredients, "protein")}g Protein`}
-				</Subheading>
-			</View>
-		</View>
-	);
-
-	const renderScene = SceneMap({
-		first: FirstRoute,
-		second: SecondRoute,
-	});
-
-	const [routes] = useState([
-		{ key: "first", title: "Recept" },
-		{ key: "second", title: "Ingredienser" },
-	]);
+	console.log(JSON.stringify(meals[0], null, 2));
 
 	return (
 		<ScrollView
 			style={{ backgroundColor: colors.background }}
 			contentContainerStyle={{ flex: 1, padding: 20 }}>
-			<TabBarView renderScene={renderScene} routes={routes} />
+			<View
+				style={{
+					borderRadius: roundness,
+					backgroundColor: colors.surface,
+				}}>
+				{meals.map((meal: Meal, index: number) => (
+					<View key={index}>
+						<List.Item
+							key={index}
+							borderless
+							style={{
+								backgroundColor: colors.surface,
+								borderTopRightRadius: index === 0 ? roundness : undefined,
+								borderTopLeftRadius: index === 0 ? roundness : undefined,
+								borderBottomRightRadius:
+									meals.length === index + 1 ? roundness : undefined,
+								borderBottomLeftRadius:
+									meals.length === index + 1 ? roundness : undefined,
+								paddingHorizontal: 5,
+								height: 76,
+								justifyContent: "center",
+								padding: 0,
+							}}
+							title={meal?.name}
+							titleStyle={{
+								fontSize: 16,
+								color: colors.highlightText,
+								fontFamily: "ubuntu-medium",
+							}}
+							descriptionStyle={{
+								color: colors.text,
+								fontSize: 16,
+								fontFamily: "ubuntu-light",
+							}}
+							onPress={() => navigation.navigate("Meal", { meal: meal, name: meal.name })}
+							description={() => (
+								<View style={{ flexDirection: "row", marginLeft: -3 }}>
+									<Ionicons
+										size={13}
+										name='barbell-outline'
+										color={colors.primary}
+										style={{ transform: [{ rotate: "135deg" }], marginRight: 9 }}
+									/>
+									<Text style={{ fontFamily: "ubuntu-light", marginTop: 5 }}>
+										{calculateTotalNutrientValue(meal.products, "kcal")} kcal
+									</Text>
+								</View>
+							)}
+							right={() => {
+								return (
+									<View style={{ justifyContent: "center" }}>
+										<View
+											style={{
+												backgroundColor: colors.onSurface,
+												width: 40,
+												height: 40,
+												justifyContent: "center",
+												alignItems: "center",
+												borderRadius: roundness,
+												marginRight: 10,
+											}}>
+											<IconButton icon='arrow-right' size={18} color={colors.primary} />
+										</View>
+									</View>
+								);
+							}}
+						/>
+						{meals?.length !== index + 1 && <Divider />}
+					</View>
+				))}
+			</View>
 		</ScrollView>
 	);
 };

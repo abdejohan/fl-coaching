@@ -24,28 +24,46 @@ const DietPlanScreen: React.FC<DietProps> = ({ navigation, route }) => {
 	const { useAxios } = useAxiosAuthenticated();
 	const [dietPlanDays, setDietPlanDays] = useState<any>();
 	const { colors } = useTheme();
-	const { dietPlanId } = route.params;
 	const { user } = useContext(AuthContext);
-	const [{ data: dietPlanData, loading: dietLoading, error: dietError }, fetchDietPlan] =
+	// Fetches all diet plans
+	const [{ data: dietPlansData, loading: dietPlansLoading, error: dietPlansError }] =
 		useAxios({
-			method: "POST",
-			url: "/diet/get",
-			data: { id: dietPlanId },
+			method: "GET",
+			url: "/diet/list/get",
 		});
 
+	// Fetches diet plan with the help of id in data object
+	const [
+		{ data: dietPlanData, loading: dietPlanLoading, error: dietPlanError },
+		fetchDietPlan,
+	] = useAxios(
+		{
+			method: "POST",
+			url: "/diet/get",
+		},
+		{ manual: true }
+	);
+
+	// This handles the first api response we get (url: "diet/list/get")
 	useEffect(() => {
-		if (dietPlanData) {
+		if (dietPlansData) {
+			fetchDietPlan({ data: { id: dietPlansData[0].id } });
+		}
+	}, [dietPlansData]);
+
+	useEffect(() => {
+		if (dietPlanData && dietPlanData.diet) {
 			const parseDietDays = JSON.parse(dietPlanData.diet.days);
 			setDietPlanDays(parseDietDays);
 		}
-	}, [dietPlanData, dietError]);
+	}, [dietPlanData, dietPlanError]);
 
 	const onRefresh = useCallback(() => {
 		setRefreshing(true);
-		fetchDietPlan()
+		fetchDietPlan({ data: { id: dietPlansData[0].id } })
 			.then(() => setRefreshing(false))
 			.catch(() => {});
-	}, []);
+	}, [dietPlansData]);
 
 	return (
 		<ScrollView
@@ -61,8 +79,8 @@ const DietPlanScreen: React.FC<DietProps> = ({ navigation, route }) => {
 				/>
 			}>
 			{dietPlanData &&
-				!dietLoading &&
-				dietPlanDays?.map((day: any, index: string) => (
+				!dietPlanLoading &&
+				dietPlanDays?.map((day: DietPlan, index: string) => (
 					<ListItem
 						key={index}
 						title={day?.name}
@@ -72,7 +90,7 @@ const DietPlanScreen: React.FC<DietProps> = ({ navigation, route }) => {
 						}
 					/>
 				))}
-			{!dietPlanData && !dietLoading && (
+			{!dietPlanData && !dietPlanLoading && (
 				<View>
 					<Paragraph style={{ textAlign: "center" }}>
 						Ojdå! Verkar som att du inte har något kostschema för tillfället. Kontakta din

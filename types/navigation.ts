@@ -26,6 +26,7 @@ type LoggedInStackParmList = {
 	Recipe: undefined;
 	Deals: undefined;
 	Meals: undefined;
+	Meal: undefined;
 	Ingredients: undefined;
 	Modal: undefined;
 	NotFound: undefined;
@@ -60,7 +61,6 @@ type WorkoutTabParmList = {
 };
 
 type DietTabParmList = {
-	DietPlans: undefined;
 	DietPlan: undefined;
 	Ingredients: undefined;
 	Modal: undefined;
