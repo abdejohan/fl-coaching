@@ -1,18 +1,19 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useCallback, useState } from "react";
 import { StyleSheet, ScrollView, View, RefreshControl } from "react-native";
-import { IconButton, useTheme, List } from "react-native-paper";
+import { IconButton, useTheme, List, Text, Divider } from "react-native-paper";
 import { useAxiosAuthenticated } from "../hooks/useAxiosAuthenticated";
+import { useCallback, useState } from "react";
 import { Paragraph, Subheading } from "../typography";
 
-interface WorkoutProps {
+interface WorkoutSchemaProps {
 	navigation: any;
+	route: any;
 }
 
-const WorkoutScreen: React.FC<WorkoutProps> = ({ navigation }) => {
-	const [refreshing, setRefreshing] = useState(false);
+const WorkoutScreen: React.FC<WorkoutSchemaProps> = ({ navigation, route }) => {
 	const { colors, roundness } = useTheme();
 	const { useAxios } = useAxiosAuthenticated();
+	const [refreshing, setRefreshing] = useState(false);
 	const [
 		{ data: workoutData, loading: workoutLoading, error: workoutError },
 		fetchWorkoutSchemas,
@@ -40,50 +41,84 @@ const WorkoutScreen: React.FC<WorkoutProps> = ({ navigation }) => {
 					onRefresh={onRefresh}
 				/>
 			}>
-			{workoutData &&
-				!workoutLoading &&
-				workoutData.map((workoutSchema: any, index: number) => (
-					<List.Item
-						key={index}
-						borderless
-						style={[
-							styles.listItem,
-							{ borderRadius: roundness, backgroundColor: colors.surface },
-						]}
-						title={workoutSchema.name}
-						titleStyle={{
-							fontSize: 16,
-							color: colors.highlightText,
-							fontFamily: "ubuntu-medium",
-						}}
-						descriptionStyle={{
-							color: colors.text,
-							fontSize: 16,
-							fontFamily: "ubuntu-light",
-						}}
-						onPress={() =>
-							navigation.navigate("WorkoutSchemaScreen", {
-								workoutSchema: workoutSchema.workout_days,
-							})
-						}
-						right={() => (
-							<View style={{ justifyContent: "center" }}>
-								<View
-									style={{
-										backgroundColor: colors.onSurface,
-										width: 40,
-										height: 40,
-										justifyContent: "center",
-										alignItems: "center",
+			<View style={{ borderRadius: roundness, backgroundColor: colors.surface }}>
+				{workoutData &&
+					!workoutLoading &&
+					workoutData[0]?.workout_days?.map((day: any, index: number) => (
+						<>
+							<List.Item
+								key={index}
+								borderless
+								style={[
+									styles.listItem,
+									{
+										backgroundColor: colors.surface,
 										borderRadius: roundness,
-										marginRight: 10,
-									}}>
-									<IconButton icon='arrow-right' size={18} color={colors.highlightText} />
-								</View>
-							</View>
-						)}
-					/>
-				))}
+										paddingHorizontal: 5,
+									},
+								]}
+								title={day.name}
+								titleStyle={{
+									fontSize: 16,
+									color: colors.highlightText,
+									fontFamily: "ubuntu-medium",
+								}}
+								descriptionStyle={{
+									color: colors.text,
+									fontSize: 16,
+									fontFamily: "ubuntu-light",
+								}}
+								onPress={() =>
+									day?.workouts?.length > 0
+										? navigation.navigate("WorkoutOverview", { workoutDay: day })
+										: null
+								}
+								description={() => {
+									if (day?.workouts?.length > 0) {
+										return (
+											<View style={{ flexDirection: "row", marginLeft: -3 }}>
+												<Ionicons
+													size={13}
+													name='barbell-outline'
+													color={colors.primary}
+													style={{ transform: [{ rotate: "135deg" }], marginRight: 9 }}
+												/>
+												<Text style={{ fontFamily: "ubuntu-light", marginTop: 5 }}>
+													{day?.workouts?.length} övningar
+												</Text>
+											</View>
+										);
+									}
+								}}
+								right={() => {
+									if (day?.workouts?.length > 0) {
+										return (
+											<View style={{ justifyContent: "center" }}>
+												<View
+													style={{
+														backgroundColor: colors.onSurface,
+														width: 40,
+														height: 40,
+														justifyContent: "center",
+														alignItems: "center",
+														borderRadius: roundness,
+														marginRight: 10,
+													}}>
+													<IconButton
+														icon='arrow-right'
+														size={18}
+														color={colors.primary}
+													/>
+												</View>
+											</View>
+										);
+									}
+								}}
+							/>
+							{workoutData[0]?.workout_days?.length !== index + 1 && <Divider />}
+						</>
+					))}
+			</View>
 			{workoutData?.length === 0 && !workoutLoading && (
 				<View style={{ paddingTop: 50 }}>
 					<Subheading style={{ textAlign: "center", fontSize: 16, marginBottom: 5 }}>
@@ -126,8 +161,5 @@ const styles = StyleSheet.create({
 		height: 76,
 		justifyContent: "center",
 		padding: 0,
-		paddingVertical: 10,
-		paddingHorizontal: 10,
-		marginBottom: 10,
 	},
 });

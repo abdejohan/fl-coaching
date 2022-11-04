@@ -29,7 +29,6 @@ import Constants from "expo-constants";
 import DietPlanScreen from "../screens/DietPlanScreen";
 import MealsScreen from "../screens/MealsScreen";
 import DealsScreen from "../screens/DealsScreen";
-import WorkoutSchemaScreen from "../screens/WorkoutSchemaScreen";
 import AlternateWorkoutSession from "../screens/AlternateWorkoutSession";
 import RecipeScreen from "../screens/RecipeScreen";
 
@@ -103,14 +102,6 @@ export default function LoggedInNavigator() {
 				options={{
 					headerBackVisible: false,
 					headerShown: false,
-				}}
-			/>
-			<LoggedInStack.Screen
-				name='WorkoutSchemaScreen'
-				component={WorkoutSchemaScreen}
-				options={{
-					title: "Träningsschema",
-					headerLeft: () => backIcon(),
 				}}
 			/>
 			<LoggedInStack.Screen
@@ -347,7 +338,7 @@ function WorkoutTabNavigator() {
 			}}>
 			<WorkoutTabStack.Screen
 				name='Workout'
-				options={{ title: "Träningsscheman" }}
+				options={{ title: "Träningsupplägg" }}
 				component={WorkoutScreen}
 			/>
 		</WorkoutTabStack.Navigator>
