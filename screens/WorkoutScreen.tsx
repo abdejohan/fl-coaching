@@ -53,7 +53,16 @@ const WorkoutScreen: React.FC<WorkoutSchemaProps> = ({ navigation, route }) => {
 									styles.listItem,
 									{
 										backgroundColor: colors.surface,
-										borderRadius: roundness,
+										borderTopRightRadius: index === 0 ? roundness : undefined,
+										borderTopLeftRadius: index === 0 ? roundness : undefined,
+										borderBottomRightRadius:
+											workoutData[0]?.workout_days?.length === index + 1
+												? roundness
+												: undefined,
+										borderBottomLeftRadius:
+											workoutData[0]?.workout_days?.length === index + 1
+												? roundness
+												: undefined,
 										paddingHorizontal: 5,
 									},
 								]}
