@@ -1,4 +1,5 @@
 import { Image, StyleSheet, View } from "react-native";
+import { useEffect, useState } from "react";
 import placeholder_image from "../assets/images/placeholder_image.jpg";
 import { Divider, useTheme, List, IconButton } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
@@ -8,15 +9,36 @@ import ParallaxScrollView from "../animations/ParallaxScrollView";
 import { StatusBar } from "expo-status-bar";
 // import { useAxiosAuthenticated } from "../hooks/useAxiosAuthenticated";
 // import { useEffect } from "react";
+import { getYoutubeMeta } from "react-native-youtube-iframe";
 
 interface WorkoutOverviewProps {
 	navigation: any;
 	route: any;
 }
+// This will use the video url in each workout to fetch thumbnail image
+const fetchThumbnailUrl = async (videoUrl: string) => {
+	const { thumbnail_url } = await getYoutubeMeta(
+		videoUrl.substring(videoUrl.length - 11)
+	);
+	return thumbnail_url;
+};
 
 const WorkoutOverviewScreen: React.FC<WorkoutOverviewProps> = ({ navigation, route }) => {
 	const { colors, roundness } = useTheme();
 	const { workoutDay } = route.params;
+	const [workoutThumbnails, setWorkoutThumbnails] = useState<Array<string> | undefined>();
+
+	useEffect(() => {
+		const fetchThumbnails = async () => {
+			const [urls] = await Promise.all([
+				Promise.all(
+					workoutDay.workouts.map((workouts: any) => fetchThumbnailUrl(workouts.video))
+				),
+			]);
+			setWorkoutThumbnails(urls);
+		};
+		fetchThumbnails();
+	}, []);
 
 	/** find all category ids
 	 const { useAxios } = useAxiosAuthenticated();
@@ -101,12 +123,26 @@ const WorkoutOverviewScreen: React.FC<WorkoutOverviewProps> = ({ navigation, rou
 									{workout.sets.length} set
 								</Text>
 							)}
-							left={() => (
-								<Image
-									source={placeholder_image}
-									style={{ height: 60, width: 60, borderRadius: roundness }}
-								/>
-							)}
+							left={() =>
+								workoutThumbnails && (
+									<View
+										style={{
+											height: 60,
+											width: 60,
+											overflow: "hidden",
+											borderRadius: roundness,
+										}}>
+										<Image
+											source={{ uri: workoutThumbnails[index] }}
+											style={{
+												height: 80,
+												bottom: 10,
+												width: 80,
+											}}
+										/>
+									</View>
+								)
+							}
 							right={() => (
 								<View style={{ justifyContent: "center" }}>
 									<View
