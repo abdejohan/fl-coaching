@@ -70,7 +70,12 @@ const ProgressBox: React.FC<ProgressBoxProps> = (props) => {
 						style={{
 							fontSize: 12,
 							lineHeight: 12,
-							color: colors.text,
+							color:
+								progress === 0
+									? colors.text
+									: progress > 0
+									? colors.positive
+									: colors.negative,
 							marginRight: 7,
 							fontFamily: "ubuntu-regular",
 							alignSelf: "center",
