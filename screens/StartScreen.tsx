@@ -57,6 +57,7 @@ const StartScreen: React.FC<StartProps> = ({ navigation, route }) => {
 	}, [status]);
 
 	// Save device token if access is granted
+	/*
 	useEffect(() => {
 		const handleNotifications = async () => {
 			const { status } = await Notifications.getPermissionsAsync();
@@ -69,6 +70,7 @@ const StartScreen: React.FC<StartProps> = ({ navigation, route }) => {
 		};
 		handleNotifications();
 	}, []);
+	*/
 
 	return (
 		<ScrollView

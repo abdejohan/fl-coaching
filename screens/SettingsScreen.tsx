@@ -135,6 +135,15 @@ const SettingsScreen: React.FC<SettingsProps> = ({ navigation }) => {
 			};
 			handleNotifications();
 		}
+		if (allowNotifications && permissionStatus === "granted") {
+			const handleNotifications = async () => {
+				const expoToken = (await Notifications.getExpoPushTokenAsync()).data;
+				if (typeof expoToken === "string" && Device.isDevice && user !== undefined) {
+					editClient({ data: { device_token: expoToken } });
+				}
+			};
+			handleNotifications();
+		}
 	}, [allowNotifications]);
 
 	// Sets event listener for app state
