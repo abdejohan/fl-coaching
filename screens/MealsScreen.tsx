@@ -55,11 +55,6 @@ const MealsScreen: React.FC<MealProps> = ({ navigation, route }) => {
 								color: colors.highlightText,
 								fontFamily: "ubuntu-medium",
 							}}
-							descriptionStyle={{
-								color: colors.text,
-								fontSize: 16,
-								fontFamily: "ubuntu-light",
-							}}
 							onPress={() => navigation.navigate("Meal", { meal: meal, name: meal.name })}
 							description={() => (
 								<View style={{ flexDirection: "row", marginLeft: -3 }}>

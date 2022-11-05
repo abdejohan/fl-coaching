@@ -102,14 +102,10 @@ const WorkoutOverviewScreen: React.FC<WorkoutOverviewProps> = ({ navigation, rou
 							}}
 							title={workout.name}
 							titleStyle={{
+								marginLeft: 5,
 								fontSize: 16,
 								color: colors.highlightText,
 								fontFamily: "ubuntu-medium",
-							}}
-							descriptionStyle={{
-								color: colors.text,
-								fontSize: 16,
-								fontFamily: "ubuntu-light",
 							}}
 							onPress={() => {
 								navigation.navigate("WorkoutSession", {
@@ -119,7 +115,7 @@ const WorkoutOverviewScreen: React.FC<WorkoutOverviewProps> = ({ navigation, rou
 								});
 							}}
 							description={() => (
-								<Text style={{ fontFamily: "ubuntu-light", marginTop: 5 }}>
+								<Text style={{ fontFamily: "ubuntu-light", marginTop: 5, marginLeft: 5 }}>
 									{workout.sets.length} set
 								</Text>
 							)}
