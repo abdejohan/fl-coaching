@@ -126,15 +126,14 @@ const DietPlanScreen: React.FC<DietProps> = ({ navigation, route }) => {
 										<View
 											style={{ flexDirection: "row", justifyContent: "space-between" }}>
 											<View>
-												<Title>{day?.name}</Title>
+												<Title style={{ marginBottom: 5 }}>{day?.name}</Title>
 												{allProducts.length > 0 && (
 													<Paragraph>
 														P:{" "}
-														{calculateTotalNutrientValue(allProducts[index], "protein")}g
-														| K:
+														{calculateTotalNutrientValue(allProducts[index], "protein")}g{" "}
+														| K:{" "}
 														{calculateTotalNutrientValue(allProducts[index], "carbs")}g |
-														F:
-														{calculateTotalNutrientValue(allProducts[index], "fat")}g |
+														F: {calculateTotalNutrientValue(allProducts[index], "fat")}g |
 														<Paragraph style={{ color: colors.primary }}>
 															{" "}
 															K: {calculateTotalNutrientValue(allProducts[index], "kcal")}
