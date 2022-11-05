@@ -36,7 +36,6 @@ const RecipeScreen: React.FC<RecipeProps> = ({ navigation, route }) => {
 			title={recipe?.name}
 			image={recipeImg}
 			straightLine
-			modal='information'
 			faded
 			button={<Button onPress={() => navigation.goBack()}>Tillbaka</Button>}>
 			<View style={styles.subheader}>

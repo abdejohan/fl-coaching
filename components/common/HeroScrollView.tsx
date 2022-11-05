@@ -20,7 +20,6 @@ interface HeroScrollProps {
 	description?: string | null;
 	image?: ImageSourcePropType;
 	video?: string;
-	modal?: string;
 	straightLine?: boolean;
 	faded?: boolean;
 	children?: any;
