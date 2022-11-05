@@ -1,4 +1,4 @@
-import { ScrollView, View } from "react-native";
+import { Image, ScrollView, View } from "react-native";
 import { Divider, useTheme, List, IconButton } from "react-native-paper";
 import ListItemBasic from "../components/common/ListItemBasic";
 import TabBarView from "../components/common/TabBarView";
@@ -6,6 +6,7 @@ import { SceneMap } from "react-native-tab-view";
 import { useEffect, useState } from "react";
 import { Subheading, Text } from "../typography";
 import { Ionicons } from "@expo/vector-icons";
+import recipe_placeholder_image from "../assets/images/recipe_placeholder_image.jpg";
 
 interface DietProps {
 	navigation: any;
@@ -95,21 +96,17 @@ const MealScreen: React.FC<DietProps> = ({ navigation, route }) => {
 									numberOfRecipes === index + 1 ? roundness : undefined,
 								borderBottomLeftRadius:
 									numberOfRecipes === index + 1 ? roundness : undefined,
-								paddingHorizontal: 5,
+								padding: 10,
 								height: 76,
 								justifyContent: "center",
-								padding: 0,
 							}}
 							title={dish.name}
 							titleStyle={{
+								marginLeft: 5,
+								paddingRight: 10,
 								fontSize: 16,
 								color: colors.highlightText,
 								fontFamily: "ubuntu-medium",
-							}}
-							descriptionStyle={{
-								color: colors.text,
-								fontSize: 16,
-								fontFamily: "ubuntu-light",
 							}}
 							onPress={() =>
 								navigation.navigate("Recipe", {
@@ -117,7 +114,7 @@ const MealScreen: React.FC<DietProps> = ({ navigation, route }) => {
 								})
 							}
 							description={() => (
-								<View style={{ flexDirection: "row", marginLeft: -3 }}>
+								<View style={{ flexDirection: "row", marginLeft: 2 }}>
 									<Ionicons
 										size={13}
 										name='barbell-outline'
@@ -129,24 +126,32 @@ const MealScreen: React.FC<DietProps> = ({ navigation, route }) => {
 									</Text>
 								</View>
 							)}
-							right={() => {
-								return (
-									<View style={{ justifyContent: "center" }}>
-										<View
-											style={{
-												backgroundColor: colors.onSurface,
-												width: 40,
-												height: 40,
-												justifyContent: "center",
-												alignItems: "center",
-												borderRadius: roundness,
-												marginRight: 10,
-											}}>
-											<IconButton icon='arrow-right' size={20} color={colors.primary} />
-										</View>
+							right={() => (
+								<View style={{ justifyContent: "center" }}>
+									<View
+										style={{
+											backgroundColor: colors.onSurface,
+											width: 40,
+											height: 40,
+											justifyContent: "center",
+											alignItems: "center",
+											borderRadius: roundness,
+											marginRight: 10,
+										}}>
+										<IconButton icon='arrow-right' size={20} color={colors.primary} />
 									</View>
-								);
-							}}
+								</View>
+							)}
+							left={() => (
+								<Image
+									source={!dish.image ? { uri: dish.image } : recipe_placeholder_image}
+									style={{
+										height: 60,
+										width: 60,
+										borderRadius: roundness,
+									}}
+								/>
+							)}
 						/>
 						{numberOfRecipes !== index + 1 && <Divider />}
 					</View>

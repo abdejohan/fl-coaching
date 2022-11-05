@@ -14,11 +14,15 @@ interface RecipeProps {
 }
 
 const calculateCookingTime = (preparation_time: string, make_time: string) => {
-	const prepTime = parseInt(preparation_time);
-	const makeTime = parseInt(make_time);
-	const totalCookingTime = prepTime + makeTime;
-	if (!isNaN(totalCookingTime)) return totalCookingTime;
-	return;
+	try {
+		const prepTime = parseInt(preparation_time);
+		const makeTime = parseInt(make_time);
+		const totalCookingTime = prepTime + makeTime;
+		if (!isNaN(totalCookingTime)) return totalCookingTime;
+		return;
+	} catch (error) {
+		return;
+	}
 };
 
 const RecipeScreen: React.FC<RecipeProps> = ({ navigation, route }) => {
