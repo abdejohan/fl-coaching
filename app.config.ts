@@ -4,7 +4,7 @@ export default {
 		owner: "coach-apps",
 		name: "FL Coaching",
 		slug: "fl-coaching",
-		version: "1.0.4",
+		version: "1.0.5",
 		orientation: "portrait",
 		icon: "./assets/images/icon.png",
 		scheme: "myapp",

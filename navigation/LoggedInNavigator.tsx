@@ -356,6 +356,7 @@ function DietTabNavigator() {
 				headerRight: () => (
 					<IconButton
 						icon='information-outline'
+						color={colors.primary}
 						size={20}
 						onPress={() => Linking.openURL("https://trainmarbella.se/info-kostplan/")}
 					/>
