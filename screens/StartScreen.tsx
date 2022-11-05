@@ -17,7 +17,7 @@ import { useTheme, IconButton } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import check_in_background from "../assets/images/check_in_background.jpg";
 import Constants from "expo-constants";
-import { Headline, Paragraph, Caption } from "../typography";
+import { Headline, Paragraph, Caption, Title } from "../typography";
 import FadedView from "../animations/FadedView";
 import { useAxiosAuthenticated } from "../hooks/useAxiosAuthenticated";
 import * as Notifications from "expo-notifications";
@@ -153,8 +153,12 @@ const StartScreen: React.FC<StartProps> = ({ navigation, route }) => {
 					</TouchableOpacity>
 				</View>
 			)}
+			<Title style={{ marginBottom: 10, alignSelf: "flex-start" }}>Vikt</Title>
 			<CircleChart sizes={sizesData} />
 			<LineChart sizes={sizesData} />
+			<Title style={{ marginBottom: 10, marginTop: 10, alignSelf: "flex-start" }}>
+				Mått
+			</Title>
 			<View style={styles.progressBoxes}>
 				<ProgressBox
 					customStyle={{ marginRight: 10, marginBottom: 10 }}
@@ -166,8 +170,10 @@ const StartScreen: React.FC<StartProps> = ({ navigation, route }) => {
 				<ProgressBox title='Lår' sizes={sizesData} />
 			</View>
 			<View style={{ marginTop: 30, alignItems: "center" }}>
-				<Caption>FL Coaching</Caption>
-				<Caption>{`Version ${Constants.manifest!.version}`}</Caption>
+				<Caption style={{ marginBottom: 5 }}>{`Version ${
+					Constants.manifest!.version
+				}`}</Caption>
+				<Caption>Fantastic Line AB</Caption>
 			</View>
 		</ScrollView>
 	);
