@@ -90,6 +90,7 @@ const WorkoutSession: React.FC<WorkoutSessionProps> = ({ navigation, route }) =>
 	return (
 		<KeyboardAwareScrollView
 			style={{ backgroundColor: colors.surface }}
+			contentContainerStyle={{ flex: 1 }}
 			bounces={false}
 			keyboardShouldPersistTaps={Platform.OS === "android" ? "never" : "handled"}>
 			{exerciseData?.exercise?.video ? (
@@ -104,6 +105,7 @@ const WorkoutSession: React.FC<WorkoutSessionProps> = ({ navigation, route }) =>
 			)}
 			<View
 				style={{
+					flex: 1,
 					padding: 20,
 					backgroundColor: colors.surface,
 					paddingTop: exerciseData?.exercise?.video
@@ -129,16 +131,20 @@ const WorkoutSession: React.FC<WorkoutSessionProps> = ({ navigation, route }) =>
 						Object.keys(workouts).length
 					}`}</Paragraph>
 				</View>
-				<Divider style={{ marginBottom: 15 }} />
 				<View style={styles.gridTitles}>
-					<Paragraph style={{ fontFamily: "ubuntu-medium", color: colors.highlightText }}>
+					<Title
+						style={{
+							marginBottom: 8,
+							color: colors.highlightText,
+						}}>
 						Upplägg
-					</Paragraph>
+					</Title>
 					<View style={styles.inputContainer}>
-						<Paragraph>Reps</Paragraph>
-						<Paragraph>Vikt</Paragraph>
+						<Title style={{ color: colors.highlightText }}>Reps</Title>
+						<Title style={{ color: colors.highlightText }}>Vikt</Title>
 					</View>
 				</View>
+				<Divider style={{ marginBottom: 5 }} />
 				<DialogBox>
 					<Paragraph>{exerciseComment}</Paragraph>
 				</DialogBox>
@@ -174,12 +180,14 @@ const WorkoutSession: React.FC<WorkoutSessionProps> = ({ navigation, route }) =>
 										<IconButton
 											icon='information-outline'
 											size={22}
+											color={colors.primary}
+											rippleColor={colors.onSurface}
 											onPress={() => handleDialog(set?.comment)}
 											style={[
 												styles.info,
 												{
 													borderRadius: roundness,
-													backgroundColor: colors.onSurface,
+													backgroundColor: colors.onSurface2,
 												},
 											]}
 										/>
@@ -189,6 +197,8 @@ const WorkoutSession: React.FC<WorkoutSessionProps> = ({ navigation, route }) =>
 											style={[
 												styles.input,
 												{
+													borderColor: colors.onSurface2,
+													borderWidth: 1,
 													borderRadius: roundness,
 													backgroundColor: colors.onSurface,
 													color: colors.text,
@@ -213,6 +223,8 @@ const WorkoutSession: React.FC<WorkoutSessionProps> = ({ navigation, route }) =>
 											style={[
 												styles.input,
 												{
+													borderColor: colors.onSurface2,
+													borderWidth: 1,
 													borderRadius: roundness,
 													backgroundColor: colors.onSurface,
 													color: colors.text,
@@ -241,65 +253,65 @@ const WorkoutSession: React.FC<WorkoutSessionProps> = ({ navigation, route }) =>
 				<Subheading
 					style={{
 						fontSize: 16,
-						marginTop: 20,
+						marginTop: 40,
+						marginLeft: 5,
 						color: colors.highlightText,
 						fontFamily: "ubuntu-medium",
 					}}>
-					Kommentar
+					Anteckning
 				</Subheading>
 				<InputValidation
 					value={userComment}
 					onValidation={(valid: boolean, text) => setUserComment(text)}
 					maxLength={255}
-					placeholder='Kommentar..'
-					placeholderTextColor={colors.text}
+					placeholder='Lämna en kommentar..'
+					placeholderTextColor={colors.accent}
 					returnKeyType='done'
 					style={{ backgroundColor: colors.onSurface }}
-					outlineColor={colors.onSurface}
+					outlineColor={colors.onSurface2}
 					multiline
-					numberOfLines={4}
+					numberOfLines={6}
 				/>
-				<View
-					style={{
-						marginVertical: 20,
-					}}>
-					<Button
-						disable={postWorkoutResultsLoading}
-						onPress={() => {
-							postWorkoutResults({
-								data: {
-									scheme_day_id: workoutDayID,
-									exercise_id: workouts[workoutIndex].id,
-									workout: workouts[workoutIndex].category,
-									saved_sets: workoutSets,
-									comment: userComment,
-								},
-							})
-								.then(() => navigation.goBack())
-								.catch(() => Alert.alert(`Något gick fel. Försök igen!`));
-						}}>
-						{!postWorkoutResultsLoading && "Spara"}
-						{postWorkoutResultsLoading && "Sparar.."}
-					</Button>
-					<Button backgroundColor='grey' onPress={() => navigation.goBack()}>
-						Tillbaka
-					</Button>
-				</View>
-				{Platform.OS === "android" && (
-					<View style={{ alignItems: "center" }}>
-						<TouchableOpacity
-							onPress={() =>
-								navigation.navigate("AlternateWorkoutSession", {
-									workouts,
-									workoutIndex,
-									workoutDayID,
-								})
-							}>
-							<Caption style={{ padding: 10 }}>Problem att spara? Testa det här.</Caption>
-						</TouchableOpacity>
-					</View>
-				)}
 			</View>
+			<View style={{ paddingHorizontal: 20 }}>
+				<Button
+					disable={postWorkoutResultsLoading}
+					onPress={() => {
+						postWorkoutResults({
+							data: {
+								scheme_day_id: workoutDayID,
+								exercise_id: workouts[workoutIndex].id,
+								workout: workouts[workoutIndex].category,
+								saved_sets: workoutSets,
+								comment: userComment,
+							},
+						})
+							.then(() => navigation.goBack())
+							.catch(() => Alert.alert(`Något gick fel. Försök igen!`));
+					}}>
+					{!postWorkoutResultsLoading && "Spara"}
+					{postWorkoutResultsLoading && "Sparar.."}
+				</Button>
+				<Button backgroundColor='grey' onPress={() => navigation.goBack()}>
+					Tillbaka
+				</Button>
+			</View>
+			{Platform.OS === "android" && (
+				<View style={{ alignItems: "center" }}>
+					<TouchableOpacity
+						onPress={() =>
+							navigation.navigate("AlternateWorkoutSession", {
+								workouts,
+								workoutIndex,
+								workoutDayID,
+							})
+						}>
+						<Caption style={{ padding: 10, paddingTop: 0 }}>
+							Problem att spara? Testa det här.
+						</Caption>
+					</TouchableOpacity>
+				</View>
+			)}
 		</KeyboardAwareScrollView>
 	);
 };
@@ -321,8 +333,9 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		alignItems: "center",
 		justifyContent: "space-between",
-		width: 89,
-		marginRight: 19,
+		marginBottom: 10,
+		width: 95,
+		marginRight: 15,
 	},
 	// NEW STUFF
 	container: {
@@ -340,7 +353,6 @@ const styles = StyleSheet.create({
 		padding: 0,
 		paddingVertical: 10,
 		paddingHorizontal: 10,
-		marginBottom: 10,
 	},
 	leftIcon: {
 		alignItems: "center",
