@@ -154,7 +154,7 @@ const DietPlanScreen: React.FC<DietProps> = ({ navigation, route }) => {
 													}}>
 													<IconButton
 														icon='arrow-right'
-														size={18}
+														size={20}
 														color={colors.primary}
 													/>
 												</View>

@@ -142,7 +142,7 @@ const MealScreen: React.FC<DietProps> = ({ navigation, route }) => {
 												borderRadius: roundness,
 												marginRight: 10,
 											}}>
-											<IconButton icon='arrow-right' size={18} color={colors.primary} />
+											<IconButton icon='arrow-right' size={20} color={colors.primary} />
 										</View>
 									</View>
 								);

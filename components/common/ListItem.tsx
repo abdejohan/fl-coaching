@@ -52,7 +52,7 @@ const ListItem: React.FC<ListItemProps> = (props) => {
 							alignItems: "center",
 							borderRadius: roundness,
 						}}>
-						<IconButton icon='arrow-right' size={18} color={colors.highlightText} />
+						<IconButton icon='arrow-right' size={20} color={colors.highlightText} />
 					</View>
 				)}
 				{...props}

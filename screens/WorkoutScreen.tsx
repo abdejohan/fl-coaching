@@ -115,7 +115,7 @@ const WorkoutScreen: React.FC<WorkoutSchemaProps> = ({ navigation, route }) => {
 													}}>
 													<IconButton
 														icon='arrow-right'
-														size={18}
+														size={20}
 														color={colors.primary}
 													/>
 												</View>
