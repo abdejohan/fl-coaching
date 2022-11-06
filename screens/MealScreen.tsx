@@ -144,7 +144,7 @@ const MealScreen: React.FC<DietProps> = ({ navigation, route }) => {
 							)}
 							left={() => (
 								<Image
-									source={!dish.image ? { uri: dish.image } : recipe_placeholder_image}
+									source={dish.image ? { uri: dish.image } : recipe_placeholder_image}
 									style={{
 										height: 60,
 										width: 60,
