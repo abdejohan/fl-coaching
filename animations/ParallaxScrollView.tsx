@@ -79,8 +79,9 @@ const ParallaxScrollView: React.FC<ParallaxScrollViewProps> = (props) => {
 				)}
 				style={style}
 				contentContainerStyle={{
+					paddingBottom: imageHeight - 20,
 					marginTop: imageHeight,
-					minHeight: (windowHeight / 4) * 3,
+					minHeight: windowHeight,
 					...contentContainerStyle,
 				}}
 				scrollEventThrottle={8} // target 120fps

@@ -90,7 +90,7 @@ const WorkoutSession: React.FC<WorkoutSessionProps> = ({ navigation, route }) =>
 	return (
 		<KeyboardAwareScrollView
 			style={{ backgroundColor: colors.surface }}
-			contentContainerStyle={{ flex: 1 }}
+			contentContainerStyle={{ flexGrow: 1 }}
 			bounces={false}
 			keyboardShouldPersistTaps={Platform.OS === "android" ? "never" : "handled"}>
 			{exerciseData?.exercise?.video ? (
@@ -247,7 +247,7 @@ const WorkoutSession: React.FC<WorkoutSessionProps> = ({ navigation, route }) =>
 								)}
 							/>
 						</View>
-						<Divider />
+						<Divider style={{ marginBottom: 5 }} />
 					</View>
 				))}
 				<Subheading

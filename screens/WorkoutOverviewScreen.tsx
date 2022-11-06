@@ -74,10 +74,10 @@ const WorkoutOverviewScreen: React.FC<WorkoutOverviewProps> = ({ navigation, rou
 
 	return (
 		<ParallaxScrollView
-			contentContainerStyle={{ padding: 20, flex: 1, backgroundColor: colors.surface }}
+			contentContainerStyle={{ padding: 20, backgroundColor: colors.surface }}
 			imageSource={placeholder_image}>
-			<StatusBar style='light' />
-			<View style={{ flex: 1 }}>
+			<StatusBar style='light' hidden />
+			<View style={{ marginBottom: 30, flexGrow: 1 }}>
 				<Headline style={{ color: colors.highlightText }}>Dagens träningspass</Headline>
 				<Subheading>{workoutDay.name}</Subheading>
 				<View style={styles.count}>
@@ -160,7 +160,7 @@ const WorkoutOverviewScreen: React.FC<WorkoutOverviewProps> = ({ navigation, rou
 					</View>
 				))}
 			</View>
-			<View>
+			<View style={{ marginBottom: 20 }}>
 				<Button
 					onPress={() =>
 						navigation.navigate("WorkoutSession", {
