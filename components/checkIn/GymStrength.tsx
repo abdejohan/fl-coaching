@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { Divider, useTheme } from "react-native-paper";
+import { useTheme } from "react-native-paper";
 import WeeklyReport from "../../context/WeeklyReport";
 import InputValidation from "../InputValidation";
 import RadioButton from "../common/RadioButton";
-import { Headline, Subheading } from "../../typography";
+import { Subheading } from "../../typography";
 
 const GymStrength: React.FC = () => {
 	const { colors } = useTheme();
@@ -18,7 +18,7 @@ const GymStrength: React.FC = () => {
 
 	return (
 		<KeyboardAwareScrollView
-			enableOnAndroid
+			extraScrollHeight={Platform.OS === "ios" ? 100 : 0}
 			keyboardShouldPersistTaps='handled'
 			style={{ marginBottom: 30 }}
 			contentContainerStyle={{ paddingHorizontal: 25 }}>

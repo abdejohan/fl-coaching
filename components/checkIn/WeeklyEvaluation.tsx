@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import { View } from "react-native";
+import { Platform, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { Divider, useTheme } from "react-native-paper";
+import { useTheme } from "react-native-paper";
 import RadioButton from "../common/RadioButton";
 import WeeklyReport from "../../context/WeeklyReport";
 import InputValidation from "../InputValidation";
-import { Headline, Subheading } from "../../typography";
+import { Subheading } from "../../typography";
 
 const WeeklyEvaluation: React.FC = () => {
 	const {
@@ -17,7 +17,7 @@ const WeeklyEvaluation: React.FC = () => {
 	const { colors } = useTheme();
 	return (
 		<KeyboardAwareScrollView
-			enableOnAndroid
+			extraScrollHeight={Platform.OS === "ios" ? 100 : 0}
 			keyboardShouldPersistTaps='handled'
 			style={{ marginBottom: 30 }}
 			contentContainerStyle={{ paddingHorizontal: 25 }}>

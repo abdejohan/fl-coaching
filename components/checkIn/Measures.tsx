@@ -37,7 +37,7 @@ const Measures: React.FC = () => {
 	return (
 		<KeyboardAwareScrollView
 			style={{ marginBottom: 30 }}
-			enableOnAndroid
+			extraScrollHeight={Platform.OS === "ios" ? -30 : 0}
 			keyboardShouldPersistTaps='handled'
 			contentContainerStyle={{ paddingHorizontal: 25 }}>
 			<Subheading style={{ marginBottom: 20 }}>Fyll i fälten nedan</Subheading>

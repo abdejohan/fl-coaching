@@ -1,10 +1,10 @@
 import { useContext } from "react";
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useTheme } from "react-native-paper";
 import WeeklyReport from "../../context/WeeklyReport";
 import InputValidation from "../InputValidation";
-import { Headline, Subheading } from "../../typography";
+import { Subheading } from "../../typography";
 
 const Feedback: React.FC = () => {
 	const { colors } = useTheme();
@@ -12,9 +12,9 @@ const Feedback: React.FC = () => {
 
 	return (
 		<KeyboardAwareScrollView
-			enableOnAndroid
-			keyboardShouldPersistTaps='handled'
 			style={{ marginBottom: 30 }}
+			extraScrollHeight={Platform.OS === "ios" ? 100 : 0}
+			keyboardShouldPersistTaps='handled'
 			contentContainerStyle={{ paddingHorizontal: 25 }}>
 			<Subheading style={{ color: colors.highlightText, marginTop: 20 }}>
 				Frivillig kommentar
