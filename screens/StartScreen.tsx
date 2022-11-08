@@ -34,13 +34,6 @@ const StartScreen: React.FC<StartProps> = ({ navigation, route }) => {
 		useAxios({
 			url: `/measures/get`,
 		});
-	const [{}, editClient] = useAxios(
-		{
-			url: "/client/edit",
-			method: "POST",
-		},
-		{ manual: true }
-	);
 
 	useEffect(() => {
 		initialRoute === "Intro" && navigation.navigate("IntroSlider");
@@ -52,22 +45,6 @@ const StartScreen: React.FC<StartProps> = ({ navigation, route }) => {
 			fetchSizes().catch((error) => Alert.alert("Sizes " + error.response.data.error));
 		}
 	}, [status]);
-
-	// Save device token if access is granted
-	/*
-	useEffect(() => {
-		const handleNotifications = async () => {
-			const { status } = await Notifications.getPermissionsAsync();
-			if (status === "granted") {
-				const expoToken = (await Notifications.getExpoPushTokenAsync()).data;
-				if (typeof expoToken === "string" && Device.isDevice && user !== undefined) {
-					editClient({ data: { device_token: expoToken } }).catch(() => null);
-				}
-			}
-		};
-		handleNotifications();
-	}, []);
-	*/
 
 	return (
 		<ScrollView

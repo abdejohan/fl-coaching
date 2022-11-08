@@ -4,7 +4,7 @@ export default {
 		owner: "coach-apps",
 		name: "FL Coaching",
 		slug: "fl-coaching",
-		version: "1.0.5",
+		version: "1.0.6",
 		orientation: "portrait",
 		icon: "./assets/images/icon.png",
 		scheme: "myapp",
@@ -36,7 +36,7 @@ export default {
 		android: {
 			package: "bebrightr.coach_app.fl_coaching",
 			googleServicesFile: "./google-services.json",
-			versionCode: 2,
+			versionCode: 3,
 			permissions: ["NOTIFICATIONS"],
 			useNextNotificationsApi: true,
 			// softwareKeyboardLayoutMode: "pan",
