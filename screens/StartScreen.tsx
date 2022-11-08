@@ -5,23 +5,20 @@ import {
 	View,
 	Alert,
 	ImageBackground,
-	TouchableOpacity,
 } from "react-native";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import AuthContext from "../context/Auth";
 import CircleChart from "../components/CircleChart";
 import LineChart from "../components/LineChart";
 import ProgressBox from "../components/ProgressBox";
 import avatar_placeholder from "../assets/images/avatar_placeholder.png";
-import { useTheme, IconButton } from "react-native-paper";
+import { useTheme, IconButton, TouchableRipple } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import check_in_background from "../assets/images/check_in_background.jpg";
 import Constants from "expo-constants";
 import { Headline, Paragraph, Caption, Title } from "../typography";
 import FadedView from "../animations/FadedView";
 import { useAxiosAuthenticated } from "../hooks/useAxiosAuthenticated";
-import * as Notifications from "expo-notifications";
-import * as Device from "expo-device";
 
 interface StartProps {
 	navigation: any;
@@ -109,7 +106,7 @@ const StartScreen: React.FC<StartProps> = ({ navigation, route }) => {
 			</View>
 			{user?.weekly_update_sent === 0 && (
 				<View style={{ marginBottom: 10, width: "100%" }}>
-					<TouchableOpacity onPress={() => navigation.navigate("CheckIn")}>
+					<TouchableRipple onPress={() => navigation.navigate("CheckIn")}>
 						<ImageBackground
 							source={check_in_background}
 							resizeMode='cover'
@@ -152,7 +149,7 @@ const StartScreen: React.FC<StartProps> = ({ navigation, route }) => {
 								</FadedView>
 							</View>
 						</ImageBackground>
-					</TouchableOpacity>
+					</TouchableRipple>
 				</View>
 			)}
 			<Title style={{ marginBottom: 10, alignSelf: "flex-start" }}>Vikt</Title>
