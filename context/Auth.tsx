@@ -6,14 +6,12 @@ import React, {
 	useCallback,
 } from "react";
 import * as SecureStore from "expo-secure-store";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LoginResponse, LoginWithTokenResponse } from "../types/index";
 import useAxios from "axios-hooks";
 import { User } from "../types/types";
 import { Alert } from "react-native";
-//import { getDownloadURL, ref } from "firebase/storage";
-//import { storage } from "../firebase";
 import Constants from "expo-constants";
+import { AppState, AppStateStatus } from "react-native";
 
 const AsyncKeys = {
 	authToken: "AUTH_TOKEN",
@@ -82,10 +80,8 @@ export const AuthContextProvider: FunctionComponent = (props: any) => {
 	}, []);
 
 	const login = useCallback(
-		(loginResponse: LoginResponse): void => {
-			saveTokenToStore(loginResponse.token);
-			//const savedExpoToken = await SecureStore.getItemAsync(AsyncKeys.userDeviceToken);
-		},
+		(loginResponse: LoginResponse): Promise<void> =>
+			saveTokenToStore(loginResponse.token),
 		[saveTokenToStore]
 	);
 
@@ -95,9 +91,7 @@ export const AuthContextProvider: FunctionComponent = (props: any) => {
 				url: `${Constants!.manifest!.extra!.apiUrl}/client/get`,
 				headers: { Authorization: "Bearer " + token },
 			})
-				.then((res) => {
-					setUser(res.data.client);
-				})
+				.then((res) => setUser(res.data.client))
 				.catch(() => undefined);
 		}
 	};
@@ -112,8 +106,8 @@ export const AuthContextProvider: FunctionComponent = (props: any) => {
 		setIsLoggingOut(false);
 	}, [saveTokenToStore]);
 
+	// FIRST initialization of the values
 	useEffect(() => {
-		// FIRST initialization of the values
 		const getItemsFromStore = async () => {
 			const savedToken = await SecureStore.getItemAsync(AsyncKeys.authToken);
 			if (typeof savedToken === "string") {
@@ -123,6 +117,21 @@ export const AuthContextProvider: FunctionComponent = (props: any) => {
 
 		getItemsFromStore();
 	}, [saveTokenToStore]);
+
+	/** This will listen to app state changes (example: inactive, active, backgrund) */
+	useEffect(() => {
+		const subscription = AppState.addEventListener("change", _handleAppStateChange);
+		return () => {
+			subscription.remove();
+		};
+	}, []);
+
+	/** This will refresh client data if the app has been in background / inactive */
+	const _handleAppStateChange = (nextAppState: AppStateStatus) => {
+		if (nextAppState === "active" && user && token) {
+			updateUser();
+		}
+	};
 
 	const state = useMemo(
 		() => ({
