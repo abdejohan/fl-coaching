@@ -4,7 +4,7 @@ export default {
 		owner: "coach-apps",
 		name: "FL Coaching",
 		slug: "fl-coaching",
-		version: "1.0.6",
+		version: "1.0.7",
 		orientation: "portrait",
 		icon: "./assets/images/icon.png",
 		scheme: "myapp",
@@ -27,6 +27,8 @@ export default {
 			googleServicesFile: "./GoogleService-Info.plist",
 			bundleIdentifier: "bebrightr.coach-app.fl-coaching",
 			infoPlist: {
+				NSMicrophoneUsageDescription:
+					"This permission is needed in the chat in order for you to send voice messages.",
 				NSCameraUsageDescription:
 					"The app needs camera permission in order for you to take images of your fitness progress",
 				NSPhotoLibraryUsageDescription:
