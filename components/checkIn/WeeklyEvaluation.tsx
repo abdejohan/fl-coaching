@@ -52,6 +52,7 @@ const WeeklyEvaluation: React.FC = () => {
 					Frivillig kommentar
 				</Subheading>
 				<InputValidation
+					placeholder='Fritext'
 					value={howHasYourWeekBeenComment?.text}
 					onValidation={(valid: boolean, text) =>
 						setHowHasYourWeekBeenComment({ valid, text })

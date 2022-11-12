@@ -49,6 +49,7 @@ const UpcomingWeek: React.FC = () => {
 				Frivillig kommentar
 			</Subheading>
 			<InputValidation
+				placeholder='Fritext'
 				value={howHasYourHungerBeenComment?.text}
 				onValidation={(valid: boolean, text) =>
 					setHowHasYourHungerBeenComment({ valid, text })
