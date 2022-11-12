@@ -5,11 +5,6 @@ import { useTheme, ProgressBar } from "react-native-paper";
 import { useContext, useEffect, useRef, useState } from "react";
 import WeeklyReport from "../context/WeeklyReport";
 import { Headline, Paragraph } from "../typography";
-
-interface SliderProps {
-	navigation?: any;
-}
-
 import Measures from "../components/checkIn/Measures";
 import UpcomingWeek from "../components/checkIn/UpcomingWeek";
 import WeeklyEvaluation from "../components/checkIn/WeeklyEvaluation";
@@ -17,6 +12,10 @@ import GymStrength from "../components/checkIn/GymStrength";
 import SleepStatus from "../components/checkIn/SleepStatus";
 import WeekSchedule from "../components/checkIn/WeekSchedule";
 import Feedback from "../components/checkIn/Feedback";
+
+interface SliderProps {
+	navigation?: any;
+}
 
 const checkInSlider = [
 	{ key: 1, title: "Veckans mått och bilder *", component: <Measures /> },
@@ -51,7 +50,21 @@ const CheckInScreen: React.FC<SliderProps> = ({ navigation }) => {
 	}, [slideIndex]);
 
 	const renderItem = ({ item, index }: any) => {
-		return <View style={styles.container}>{item.component}</View>;
+		return (
+			<View style={styles.container}>
+				<Headline
+					style={{
+						alignSelf: "center",
+						color: colors.highlightText,
+						marginBottom: 20,
+						textAlign: "center",
+						width: "70%",
+					}}>
+					{checkInSlider[index].title}
+				</Headline>
+				{item.component}
+			</View>
+		);
 	};
 
 	const introDone = async () => {
@@ -71,16 +84,6 @@ const CheckInScreen: React.FC<SliderProps> = ({ navigation }) => {
 
 	return (
 		<View style={{ flex: 1, backgroundColor: colors.background }}>
-			<Headline
-				style={{
-					alignSelf: "center",
-					color: colors.highlightText,
-					marginBottom: 20,
-					textAlign: "center",
-					width: "70%",
-				}}>
-				{checkInSlider[slideIndex].title}
-			</Headline>
 			<View style={styles.progress}>
 				<ProgressBar
 					progress={progress}
