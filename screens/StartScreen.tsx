@@ -83,7 +83,9 @@ const StartScreen: React.FC<StartProps> = ({ navigation, route }) => {
 			</View>
 			{user?.weekly_update_sent === 0 && (
 				<View style={{ marginBottom: 10, width: "100%" }}>
-					<TouchableRipple onPress={() => navigation.navigate("CheckIn")}>
+					<TouchableRipple
+						onPress={() => navigation.navigate("CheckIn")}
+						rippleColor={colors.background}>
 						<ImageBackground
 							source={check_in_background}
 							resizeMode='cover'
