@@ -1,11 +1,10 @@
 import { StyleSheet, ScrollView, View, RefreshControl } from "react-native";
 import { useTheme, Card, IconButton, TouchableRipple } from "react-native-paper";
-import ListItem from "../components/common/ListItem";
 import { useAxiosAuthenticated } from "../hooks/useAxiosAuthenticated";
 import { useCallback, useEffect, useState } from "react";
 import { Meal } from "../types/types";
 import { Paragraph, Title } from "../typography";
-import { Ionicons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import diet_workout_day from "../assets/images/diet_workout_day.jpg";
 interface DietProps {
 	navigation: any;
@@ -56,7 +55,7 @@ const DietPlanScreen: React.FC<DietProps> = ({ navigation, route }) => {
 	// This handles the first api response we get (url: "diet/list/get")
 	useEffect(() => {
 		if (dietPlansData) {
-			fetchDietPlan({ data: { id: dietPlansData[0].id } });
+			dietPlansData[0] && fetchDietPlan({ data: { id: dietPlansData[0].id } });
 		}
 	}, [dietPlansData]);
 
@@ -69,9 +68,13 @@ const DietPlanScreen: React.FC<DietProps> = ({ navigation, route }) => {
 
 	const onRefresh = useCallback(() => {
 		setRefreshing(true);
-		fetchDietPlan({ data: { id: dietPlansData[0].id } })
-			.then(() => setRefreshing(false))
-			.catch(() => {});
+		if (dietPlansData[0]) {
+			fetchDietPlan({ data: { id: dietPlansData[0].id } })
+				.then(() => setRefreshing(false))
+				.catch(() => {});
+		} else {
+			setRefreshing(false);
+		}
 	}, [dietPlansData]);
 
 	useEffect(() => {
@@ -166,19 +169,19 @@ const DietPlanScreen: React.FC<DietProps> = ({ navigation, route }) => {
 					</Card>
 				))}
 			{!dietPlanData && !dietPlanLoading && (
-				<View>
+				<View style={{ paddingHorizontal: 50 }}>
 					<Paragraph style={{ textAlign: "center" }}>
 						Ojdå! Verkar som att du inte har något kostschema för tillfället. Kontakta din
 						coach för mer information!{" "}
 					</Paragraph>
-					<Ionicons
-						name='barbell-outline'
+					<MaterialCommunityIcons
+						name='food-fork-drink'
+						size={40}
+						color={colors.text}
 						style={{
 							alignSelf: "center",
-							margin: 5,
+							margin: 10,
 						}}
-						color={colors.text}
-						size={40}
 					/>
 				</View>
 			)}
