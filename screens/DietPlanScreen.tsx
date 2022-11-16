@@ -55,7 +55,7 @@ const DietPlanScreen: React.FC<DietProps> = ({ navigation, route }) => {
 	// This handles the first api response we get (url: "diet/list/get")
 	useEffect(() => {
 		if (dietPlansData) {
-			dietPlansData[0] && fetchDietPlan({ data: { id: dietPlansData[0].id } });
+			dietPlansData[1] && fetchDietPlan({ data: { id: dietPlansData[1].id } });
 		}
 	}, [dietPlansData]);
 
