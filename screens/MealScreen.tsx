@@ -82,6 +82,29 @@ const MealScreen: React.FC<DietProps> = ({ navigation, route }) => {
 	}, []);
 
 	const FirstRoute = () => (
+		<View style={{ flex: 1 }}>
+			<View style={{ backgroundColor: colors.surface, borderRadius: roundness }}>
+				{meal?.products?.map(
+					(product: any, index: string) =>
+						!product?.description && (
+							<View key={index}>
+								<ListItemBasic
+									style={{ padding: 10, marginRight: 10 }}
+									title={product.name}
+									descriptionLeft={`${product.gram}g`} // dot: \u00B7
+									descriptionRight={`${(product.kcal / 100) * product.gram} kcal`}
+								/>
+								{meal?.products?.length !== index + 1 && (
+									<Divider style={{ width: "93%", alignSelf: "center" }} />
+								)}
+							</View>
+						)
+				)}
+			</View>
+		</View>
+	);
+
+	const SecondRoute = () => (
 		<View style={{ backgroundColor: colors.surface, borderRadius: roundness }}>
 			{meal?.products?.map((dish: any, index: number) =>
 				dish?.description ? (
@@ -160,37 +183,14 @@ const MealScreen: React.FC<DietProps> = ({ navigation, route }) => {
 		</View>
 	);
 
-	const SecondRoute = () => (
-		<View style={{ flex: 1 }}>
-			<View style={{ backgroundColor: colors.surface, borderRadius: roundness }}>
-				{meal?.products?.map(
-					(product: any, index: string) =>
-						!product?.description && (
-							<View key={index}>
-								<ListItemBasic
-									style={{ padding: 10, marginRight: 10 }}
-									title={product.name}
-									descriptionLeft={`${product.gram}g`} // dot: \u00B7
-									descriptionRight={`${product.kcal} kcal`}
-								/>
-								{meal?.products?.length !== index + 1 && (
-									<Divider style={{ width: "93%", alignSelf: "center" }} />
-								)}
-							</View>
-						)
-				)}
-			</View>
-		</View>
-	);
-
 	const renderScene = SceneMap({
 		first: FirstRoute,
 		second: SecondRoute,
 	});
 
 	const [routes] = useState([
-		{ key: "first", title: "Recept" },
-		{ key: "second", title: "Ingredienser" },
+		{ key: "first", title: "Ingredienser" },
+		{ key: "second", title: "Recept" },
 	]);
 
 	return (
